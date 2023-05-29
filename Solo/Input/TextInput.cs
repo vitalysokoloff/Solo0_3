@@ -38,7 +38,7 @@ namespace Solo.Input
 
     public static class Chars
     {
-        public static Heap GetDefaulChars()
+        public static Heap GetDefaultChars()
         {
             Heap resault = new Heap();
             resault.Add("D1", "1");

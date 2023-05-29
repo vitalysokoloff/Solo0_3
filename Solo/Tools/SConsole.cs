@@ -15,7 +15,7 @@ namespace Solo
         public static Vector2 Position = new Vector2(5, 400);
 
         private static StringBuilder _text = new StringBuilder();
-        private static TextInput _textInput = new TextInput(Input.Chars.GetDefaulChars());
+        private static TextInput _textInput = new TextInput(Input.Chars.GetDefaultChars());
         private static bool _state = false;
 
         public static void Update(GameTime gameTime)
