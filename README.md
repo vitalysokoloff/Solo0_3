@@ -159,6 +159,7 @@ heap {
 [Chars]
         public static Heap GetDefaulChars() // Стандартная таблица символов
 ```
+
 #### Таблица символов из GetDefaulChars():
 ```
 "D1", "1"
