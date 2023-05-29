@@ -25,7 +25,7 @@ namespace Solo
             {
                 if (input == "\t")
                 {
-                    _text.Remove(_text.Length - 2, 1);
+                    _text.Remove(_text.Length - 1, 1);
                 }
                 else
                 {
