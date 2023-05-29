@@ -1,2 +1,178 @@
-# SoloEngine0.3
-Игровой движок
+```[Library's Tree]
+Solo    
+    [] Collection
+        - Heap (class)
+    [] Entities
+        /*[] Cameras
+        /*- Collider (class)*/
+        - IEntity (Interface) // Интерфейс сущности которая имеет два метода: Update() и Draw().
+        [] Shapes
+            - IShape (Interface)
+            - Shape (Abstract class) : IShape
+            - SRectangle (class) : Shape // Прямоугольник.
+            - SRegularPolygon (class) : Shape // Правильный многоугольник (Отрзок, треугольник, ромб и т д.).
+    [] Physics        
+        - CollisionInformation (static class) // Класс для получения информации о столкновении объектов.
+        - GJK (static class) // Класс для обнаружения столкновений объектов.
+    - SConsole (static class) // Консоль для воода / вывода текста.
+    - Tools (static class) // Класс содержащий различные вспомогательные методы.
+
+
+[Collection]
+    [Heap]
+        public Heap()
+        public void Add(string key, int value) // Добавляет в кучу новыую переменную с типом int, если такой ключ уже имеется, то переписывает значение на новое.
+        public void Add(string key, float value) // Добавляет в кучу новыую переменную с типом float, если такой ключ уже имеется, то переписывает значение на новое.
+        public void Add(string key, string value) // Добавляет в кучу новыую переменную с типом string, если такой ключ уже имеется, то переписывает значение на новое.
+        public void Add(string key, bool value) // Добавляет в кучу новыую переменную с типом bool, если такой ключ уже имеется, то переписывает значение на новое.
+        public void Add(string key, Point value) // Добавляет в кучу новыую переменную с типом Point, если такой ключ уже имеется, то переписывает значение на новое.
+        public void Add(string key, Vector2 value) // Добавляет в кучу новыую переменную с типом Vector2, если такой ключ уже имеется, то переписывает значение на новое.
+        public void Add(string key, Heap value) // Добавляет в кучу новыую переменную с типом Heap, если такой ключ уже имеется, то переписывает значение на новое.
+       
+        public int GetInt(string key) // Ищет int с данным ключём, если такого ключа нет то вернёт 0.
+        public float GetFloat(string key) // Ищет float с данным ключём, если такого ключа нет то вернёт 0f.
+        public string GetString(string key) // Ищет string с данным ключём, если такого ключа нет то вернёт строку "DON'T EXIST".
+        public bool GetBool(string key) // Ищет bool с данным ключём, если такого ключа нет то вернёт false.
+        public Point GetPoint(string key) // Ищет Point с данным ключём, если такого ключа нет то вернёт Point.Zero.
+        public Vector2 GetVector2(string key) // Ищет Vector2 с данным ключём, если такого ключа нет то вернёт Vector2.Zero.
+        public Heap GetHeap(string key) // Ищет Heap с данным ключём, если такого ключа нет то вернёт новую пустую кучу.
+        
+        public static Heap Open(string path) // Читает данные из файла и возвращает новую кучу с этими данными.
+        public void Save(string path) // Пишет в файл содержимое кучи
+
+        Примеры создания кучи:
+            Heap heap = new Heap() // Новая пустая куча.
+            Heap heap = Heap.Open("test.heap") // Новая куча с данными из файла.
+        
+        Синтаксис файла:
+            Пример:
+                h: 480
+                w: 600
+                testFloat: 12,12f
+                testFloatZero: 1f
+                title: "Test window"
+                object {
+                    age: 17
+                    name: "Vasya Pupkin"
+                    admin: True
+                    smerd: False
+                    pocket {
+                        range: 20
+                        pointTest: 0.0
+                        vectorTest: 12,12f.12f
+                        e1 {
+                            w: 1
+                        }
+                    }
+                    e2 {
+                        e2_asd: 20
+                        e2_asd2: 20
+                    }
+                }
+                
+            Параметры:
+                <name>: <number> // ( test: 1) - int.
+                <name>: <number>f // ( test: 1f / test: 1,1f) - float.
+                <name>: "<string>" // ( test: "1") - string.
+                <name>: <+/true/True/on/On/-/false/False/off/Off> // ( test: +) - bool.
+                <name>: <number>.<number> // ( test: 1.1) - Point.
+                <name>: <number>f.<number>f // ( test: 1f.1f / test: 1,1f.1,1f) - Vector2.
+                <name> <{> // object {                 
+                           //} - куча. NB!!! Кучу нужно закрыть при помещи <}> на следующей строке.
+            Примечания:
+                Повторное задание переменной с уже содержащимся ключём (именем) того же типа, что и уже заданная переменная
+                приведёт к переписыванию этой переменной.
+                    a: 1
+                    a: 2
+                В куче при загрузке из файла будет только одно значение "2" с ключом "a", которое можно будет получить используя .GetInt("a").
+
+                Повторное задание переменной другого типа с уже содержащимся ключём (именем) не приведёт к переписыванию этой переменной.
+                    a: 1
+                    a: 1,1f
+                В куче при загрузке из файла будет два значения с ключом "a". Первое "1", которое можно будет получить используя .GetInt("a"),
+                второе "1,1", которое можно будет получить используя .GetFloat("a").
+
+                Повторное задание переменной с уже содержащимся ключём (именем) того же типа, что и уже заданная переменная, но внутри вложенной
+                кучи не приведёт к переписыванию этой переменной.
+                    a: 1
+                    heap {
+                        a: 2
+                        heap {
+                            a: 3
+                        } 
+                    }
+                Значение "1" можно будет получить вызвав .GetInt("a").
+                Значение "2" можно будет получить вызвав GetHeap("heap").GetInt("a").
+                Значение "3" можно будет получить вызвав GetHeap("heap").GetHeap("heap").GetInt("a").
+
+
+[[Entities]]
+    [IEntity]
+        public void Update(GameTime gameTime);
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+
+    [IShape : IEntity]
+        public Vector2 GetGlobalVertex(int number);
+        public int GetVertiesQty();
+
+    [Shape : IShape]
+        public Vector2 Position // Координаты центра фигуры.
+        public float X // Координата X центра фигуры.
+        public float Y // Координата Y центра фигуры.      
+        public float Angle
+
+        public Shape(int x, int y, int w, int z)
+
+        public virtual void Update(GameTime gameTime)
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public Vector2 GetGlobalVertex(int number) // возвращает глобальные координаты вершины с соответствующим номером.
+        public int GetVertiesQty() // Возвращает количество вершин фигуры.
+        public void SetColor(Color color) // Установит цвет фигуры.
+        public void SetTexture(GraphicsDeviceManager graphics) // сгенирирует текстуру для фигуры, пока текстура не сгенирированна фигура не отрисовывается,
+                                                            // но вызывать метод Draw() можно даже если текстура не сгенирированна - ошибки не будет.
+
+    [SRectangle : Shape]
+        public SRectangle(int x, int y, int w, int z) // x - Координата X, y - Координата Y, w - Ширина, z - Высота.
+
+    [SRegularPolygon : Shape]
+        public SRegularPolygon(int x, int y, int w, int z) // x - Координата X, y - Координата Y, w - Радиус, z - количество вершин.
+
+
+[[Physics]]
+    [CollisionInformation]
+        public static Vector2 GetNormal(Shape s1, Shape s2) /// Возвращает нормаль ближайшей грани s2 к центру s1, если у двух и более граней растояние до центра равно, то суммирует нормали и 
+                                                            /// возвращает суму векторов (нормалей) и приводит её (сумму) к единичному виду.
+
+    [GJK]
+        public static bool CheckCollision(IShape s1, IShape s2) /// Проверяет столкнулись ли два выпуклых объекта или нет. Используя алгоритм GJK
+
+
+[SConsole] // Нужно для дебага, пока реализован только ввывод текста, но хотелось бы и ввод иметь.
+    public static SpriteFont Font;
+    public static Vector2 Position = new Vector2(5, 400); // Позиция последней строки.
+
+    public static void Update(GameTime gameTime)
+    public static void Draw(GameTime gameTime, SpriteBatch spriteBatch) // NB!!! Чтобы работали методы на вывод, нужно чтобы этот метод был вызван в основном Draw().
+    public static void WriteLine(string str) // Вывод строки, то есть в конце переданной строки добавит '\n' (перенос строки).
+    public static void WriteLine(int str) // Вывод строки, то есть в конце переданной строки добавит '\n' (перенос строки).
+    public static void WriteLine(float str) // Вывод строки, то есть в конце переданной строки добавит '\n' (перенос строки).
+    public static void WriteLine(bool str) // Вывод строки, то есть в конце переданной строки добавит '\n' (перенос строки).
+    public static void WriteLine(Object str) // Вывод строки, то есть в конце переданной строки добавит '\n' (перенос строки).
+
+    public static void Clear() // Очистить Консоль
+
+
+[Tools]
+    public static Vector2 VectorToNormal(Vector2 a) // Вернёт нормаль из вектора, подразумевается, что вектор исходит из начала координат.
+    public static Vector2 EdgeToNormal(Vector2 a, Vector2 b) // Вернёт нормаль из вектора, который зада отрезком. Смещает вектор в начало координат (Vector2 a стоновится равен (0, 0))
+                                                             // Дальше вызывает VectorToNormal и возвращает полученный результат.```
+    public static Vector2 Basis(Vector2 a) // Вернёт единичный вектор (орт), длина которого равна 1. Служит для задания направления.
+    public static float DegreesToRadians(int angle) // Принимает градусы, возвращает радианы.
+    public static int RadiansToDegrees(float angle) // Принимает радианы, возвращает градусы.
+    public static float CalculateAngle(float sum) // Вернёт угол в радианах промежутке между 0 и 6.283. Нужен чтоб при вразении объекта (Angle++) не произошло переполнения.
+    public static float DistanceBetweenVertices(Vector2 a, Vector2 b) // Вернёт длину отрезка.
+
+    public static void DrawLine(Texture2D texture, Color color, Vector2 va, Vector2 vb)  // Рисует линию на текстуре между двумя точками.
+    public static Texture2D DrawTextureWithNormal(GraphicsDeviceManager graphics, Vector2 vb) // Создаёт текстуру 50 на 50 пикселей на которой рисует единичный вектор. 
+                                                                                              // Начало координат находится по центру текстуры (25, 25).  
+    public static Texture2D MakeSolidColorTexture(GraphicsDeviceManager graphics, Point size, Color color) // Создаёт одноцветную текстуру.
