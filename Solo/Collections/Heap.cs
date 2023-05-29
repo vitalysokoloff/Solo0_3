@@ -145,7 +145,7 @@ namespace Solo.Collections
             }
             else
             {
-                return "DON'T EXIST";
+                return "";
             }
         }
 
