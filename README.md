@@ -14,6 +14,9 @@ Solo
             - Shape (Abstract class) : IShape
             - SRectangle (class) : Shape // Прямоугольник.
             - SRegularPolygon (class) : Shape // Правильный многоугольник (Отрзок, треугольник, ромб и т д.).
+    [] Input
+        - TextInput (class)
+        - Chars (static class)
     [] Physics        
         - CollisionInformation (static class) // Класс для получения информации о столкновении объектов.
         - GJK (static class) // Класс для обнаружения столкновений объектов.
@@ -146,6 +149,68 @@ heap {
 [SRegularPolygon : Shape]
     public SRegularPolygon(int x, int y, int w, int z) // x - Координата X, y - Координата Y, w - Радиус, z - количество вершин.
 ```
+### [Input]
+```
+[TextInput]
+	public Heap CharTable // Таблица символов
+	public TextInput(Heap charTable)
+	public string Listen() // Слушает нажатые кнопки и возвращает соответствующий символ согласно таблице. 
+			       // Если кнопка не нажата, то возвращает null.
+[Chars]
+        public static Heap GetDefaulChars() // Стандартная таблица символов
+```
+
+#### Таблица символов из GetDefaulChars():
+```
+"D1", "1"
+"D2", "2"
+"D3", "3"
+"D4", "4"
+"D5", "5"
+"D6", "6"
+"D7", "7"
+"D8", "8"
+"D9", "9"
+"D0", "0"
+"OemMinus", "-"
+"OemPlus", "+"
+"Q", "q"
+"W", "w"
+"E", "e"
+"R", "r"
+"T", "t"
+"Y", "y"
+"U", "u"
+"I", "i"
+"O", "o"
+"P", "p"
+"A", "a"
+"S", "s"
+"D", "d"
+"F", "f"
+"G", "g"
+"H", "h"
+"J", "j"
+"K", "k"
+"L", "l"
+"OemSemicolon", ":"
+"OemQuotes", "\""
+"Z", "z"
+"X", "x"
+"C", "c"
+"V", "v"
+"B", "b"
+"N", "n"
+"M", "m"
+"OemComma", ","
+"OemPeriod", "."
+"OemQuestion", "?"
+"Tab", "  "
+"OemTilde", "~"
+"Space", " "
+"Enter", "\n"
+"Back", "\t"  // Для удаление символа бекспейсом, а не табуляции (Внезапно :D )  
+```
 
 ### [Physics]
 ```
@@ -160,15 +225,29 @@ heap {
 ### [SConsole] // Нужно для дебага
 ```
 public static SpriteFont Font;
+public static Color FontColor
 public static Vector2 Position = new Vector2(5, 400); // Позиция последней строки.
 
-public static void Update(GameTime gameTime)
+public static void Update(GameTime gameTime) // NB!!! По умолчанию там TextInput.Listen() для ввода символов в консоль.
 public static void Draw(GameTime gameTime, SpriteBatch spriteBatch) // NB!!! Чтобы работали методы на вывод, нужно чтобы этот метод был вызван в основном Draw().
+
+public static void On() // Включить консоль
+public static void Off() // Выключить консоль
+public static void GetState() // Узнать состояние консоли
+
 public static void WriteLine(string str) // Вывод строки, то есть в конце переданной строки добавит '\n' (перенос строки).
 public static void WriteLine(int str) // Вывод строки, то есть в конце переданной строки добавит '\n' (перенос строки).
 public static void WriteLine(float str) // Вывод строки, то есть в конце переданной строки добавит '\n' (перенос строки).
 public static void WriteLine(bool str) // Вывод строки, то есть в конце переданной строки добавит '\n' (перенос строки).
 public static void WriteLine(Object str) // Вывод строки, то есть в конце переданной строки добавит '\n' (перенос строки).
+
+public static void Write(string s) // Вывод без переноса строки
+public static void Write(int i)
+public static void Write(float f)
+public static void Write(bool b)
+public static void Write(object o)
+
+public static string ReadLine() // Читает предпоследнюю строку (Length - 2). Последняя строка используется для ввода текста.
 
 public static void Clear() // Очистить Консоль
 ```
