@@ -1,5 +1,7 @@
 # Solo 0.3
-Игровой движок на базе MonoGame 3.8.1 | net6.0
+Игровой движок на базе MonoGame 3.8.1 | net6.0  
+  
+![Лого](https://github.com/vitalysokoloff/Solo0_3/blob/main/solo_engine_0_3.png)
 ## [Library's Tree]
 ```
 Solo    
@@ -160,7 +162,7 @@ heap {
         public static Heap GetDefaulChars() // Стандартная таблица символов
 ```
 
-#### Таблица символов из GetDefaulChars():
+#### Таблица символов из GetDefaultChars():
 ```
 "D1", "1"
 "D2", "2"
@@ -206,7 +208,7 @@ heap {
 "OemPeriod", "."
 "OemQuestion", "?"
 "Tab", "  "
-"OemTilde", "~"
+// "OemTilde", "~"
 "Space", " "
 "Enter", "\n"
 "Back", "\t"  // Для удаление символа бекспейсом, а не табуляции (Внезапно :D )  
@@ -260,7 +262,7 @@ public static Vector2 EdgeToNormal(Vector2 a, Vector2 b) // Вернёт нор�
 public static Vector2 Basis(Vector2 a) // Вернёт единичный вектор (орт), длина которого равна 1. Служит для задания направления.
 public static float DegreesToRadians(int angle) // Принимает градусы, возвращает радианы.
 public static int RadiansToDegrees(float angle) // Принимает радианы, возвращает градусы.
-public static float CalculateAngle(float sum) // Вернёт угол в радианах промежутке между 0 и 6.283. Нужен чтоб при вразении объекта (Angle++) не произошло переполнения.
+public static float CalculateAngle(float sum) // Вернёт угол в радианах промежутке между 0 и 6.283. Нужен чтоб при вращении объекта (Angle++) не произошло переполнения.
 public static float DistanceBetweenVertices(Vector2 a, Vector2 b) // Вернёт длину отрезка.
 
 public static void DrawLine(Texture2D texture, Color color, Vector2 va, Vector2 vb)  // Рисует линию на текстуре между двумя точками.
