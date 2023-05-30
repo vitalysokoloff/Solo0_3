@@ -85,7 +85,7 @@ namespace Solo.Input
             resault.Add("OemPeriod", ".");
             resault.Add("OemQuestion", "?");
             resault.Add("Tab", "  ");
-            resault.Add("OemTilde", "~");
+            // resault.Add("OemTilde", "~");
             resault.Add("Space", " ");
             resault.Add("Enter", "\n");
             resault.Add("Back", "\t");
