@@ -11,14 +11,18 @@ Solo
         /*[] Cameras
         /*- Collider (class)*/
         - IEntity (Interface) // Интерфейс сущности которая имеет два метода: Update() и Draw().
+        - SConsoleManager (class)
         [] Shapes
             - IShape (Interface)
             - Shape (Abstract class) : IShape
             - SRectangle (class) : Shape // Прямоугольник.
             - SRegularPolygon (class) : Shape // Правильный многоугольник (Отрзок, треугольник, ромб и т д.).
     [] Input
-        - TextInput (class)
         - Chars (static class)
+        - Key (class)
+        - KeyInput (class)
+        - SKeyState (enum)
+        - TextInput (class)        
     [] Physics        
         - CollisionInformation (static class) // Класс для получения информации о столкновении объектов.
         - GJK (static class) // Класс для обнаружения столкновений объектов.
@@ -130,6 +134,32 @@ heap {
     public Vector2 GetGlobalVertex(int number);
     public int GetVertiesQty();
 
+[SConsoleManager]
+    Heap Configs{ get; set;}
+    public SConsoleManager(GraphicsDeviceManager graphics, SpriteFont font)
+    public void Update(GameTime gameTime)
+    public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+```
+#### Примечание
+```
+SConsole  можно использовать напрямую, его экземпляр создавать не нужно, так как он static.
+Но стоит отметить что для отображения консоли следует вызывать SConsole.Draw(GameTime gameTime, SpriteBatch spriteBatch),
+а для работы ввода текста в кносоль - SConsole.Update(GameTime gameTime).
+
+Также можно использовать прослойку ввиде SConsoleManager, чей экземпляр нужно создавать.
+Создав экземпляр SConsoleManager, следует вызывать методы Draw и Update у этого экземпляра,
+а не у SConsole, так как вызовы соответствующих методов класса SConsole содержаться внутри
+экземпляра SConsoleManager.
+
+(Планируется автоматически создавать экземпляр SConsoleManager и вызывать необходимые методы
+либо в классе  Scene либо SoloGame)
+
+Также SConsoleManager позволяет включать и выключать отображение консоли по нажатии на клавишу "`"(консоль / тильда),
+Включать и отключать ввод с клавиатуры на клавишу "F1",
+Добавлять и менять в Config строковые параметры читая последнюю строку консоли  на клавишу "Enter",
+```
+
+```
 [Shape : IShape]
     public Vector2 Position // Координаты центра фигуры.
     public float X // Координата X центра фигуры.
@@ -153,15 +183,9 @@ heap {
 ```
 ### [Input]
 ```
-[TextInput]
-	public Heap CharTable // Таблица символов
-	public TextInput(Heap charTable)
-	public string Listen() // Слушает нажатые кнопки и возвращает соответствующий символ согласно таблице. 
-			       // Если кнопка не нажата, то возвращает null.
 [Chars]
-        public static Heap GetDefaulChars() // Стандартная таблица символов
+    public static Heap GetDefaulChars() // Стандартная таблица символов
 ```
-
 #### Таблица символов из GetDefaultChars():
 ```
 "D1", "1"
@@ -213,6 +237,61 @@ heap {
 "Enter", "\n"
 "Back", "\t"  // Для удаление символа бекспейсом, а не табуляции (Внезапно :D )  
 ```
+```
+[Key]
+    public Key(Keys key) //Keys = Microsoft.Xna.Framework.Input.Keys
+    public SKeyState Listen() // Вернёт SKeyState.Up если кнопка не нажата, SKeyState.Pressed единичное нажатие, SKeyState.Down кнопка зажата
+
+[KeysInput]
+    public KeysInput()
+    public KeysInput(Dictionary<string, List<Key>> keys)
+    public SKeyState IsPressed(string keyName)
+    public SKeyState IsDown(string keyName)
+    public void Add(string keyName, Key key)
+```
+#### Примечание:
+```
+KeysInput нужен для того чтобы отлавливать состояние кнопок, в отличии от Microsoft.Xna.Framework.Input
+можно получить единичное нажатие кнопки IsPressed. Также KeysInput нужен для того чтобы привязать
+кнопки к какому либо ключу, к одному ключу может быть привзяно больше одной кнопки.
+
+Пример:
+...
+private KeysInput _input = new KeysInput();
+_input.Add("console", new Key(Keys.OemTilde));
+_input.Add("console", new Key(Keys.F1));
+...
+
+...
+public void Update(GameTime gameTime)
+{
+    if (_input.IsPressed("console") == SKeyState.Pressed)
+    {
+        if (!SConsole.GetState())
+        {
+            SConsole.On();
+        }
+        else
+        {
+            SConsole.Off();
+        }
+    }
+}
+...
+```
+```
+[SKeyState]
+    Up = 0,
+    Down = 1,
+    Pressed = 2
+
+[TextInput]
+	public Heap CharTable // Таблица символов
+	public TextInput(Heap charTable)
+	public string Listen() // Слушает нажатые кнопки и возвращает соответствующий символ согласно таблице. 
+			       // Если кнопка не нажата, то возвращает null.
+```
+
 
 ### [Physics]
 ```
@@ -226,9 +305,10 @@ heap {
 
 ### [SConsole] // Нужно для дебага
 ```
-public static SpriteFont Font;
+public static SpriteFont Font
 public static Color FontColor
-public static Vector2 Position = new Vector2(5, 400); // Позиция последней строки.
+public static bool isTextInput // разрешён ли текст инпут
+public static Vector2 Position // Позиция последней строки.
 
 public static void Update(GameTime gameTime) // NB!!! По умолчанию там TextInput.Listen() для ввода символов в консоль.
 public static void Draw(GameTime gameTime, SpriteBatch spriteBatch) // NB!!! Чтобы работали методы на вывод, нужно чтобы этот метод был вызван в основном Draw().

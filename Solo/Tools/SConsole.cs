@@ -9,6 +9,7 @@ namespace Solo
     {
         public static SpriteFont Font;
         public static Color FontColor = Color.White;
+        public static bool isTextInput = false;
         /// <summary>
         /// Позиция последней строки
         /// </summary>
@@ -20,16 +21,19 @@ namespace Solo
 
         public static void Update(GameTime gameTime)
         {
-            string input = _textInput.Listen();
-            if (input != null)
+            if (isTextInput)
             {
-                if (input == "\t")
+                string input = _textInput.Listen();
+                if (input != null)
                 {
-                    _text.Remove(_text.Length - 1, 1);
-                }
-                else
-                {
-                    Write(input);   
+                    if (input == "\t")
+                    {
+                        _text.Remove(_text.Length - 1, 1);
+                    }
+                    else
+                    {
+                        Write(input);   
+                    }
                 }
             }
         }
