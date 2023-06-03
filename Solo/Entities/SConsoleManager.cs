@@ -29,7 +29,9 @@ namespace Solo
             DrawRectangle = new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight / 2);
             _input = new KeysInput();
             _input.Add("console", new Key(Keys.OemTilde));
-            _input.Add("unlockConsole", new Key(Keys.F1));
+            _input.Add("help", new Key(Keys.F1));
+            _input.Add("configs", new Key(Keys.F2));
+            _input.Add("clear", new Key(Keys.F3));
             _input.Add("input", new Key(Keys.Enter));
             SConsole.Font = font;
             SConsole.FontColor = Color.White;
@@ -45,6 +47,7 @@ namespace Solo
                 if (!SConsole.GetState())
                 {
                     SConsole.On();
+                    SConsole.WriteLine("[F1] - to help");
                 }
                 else
                 {
@@ -54,16 +57,23 @@ namespace Solo
 
             if (SConsole.GetState())
             {
-                if (_input.IsPressed("unlockConsole") == SKeyState.Pressed)
+                if (_input.IsPressed("help") == SKeyState.Pressed)
                 {
-                    if (!SConsole.isTextInput)
-                    {
-                        SConsole.isTextInput = true;
-                    }
-                    else
-                    {
-                        SConsole.isTextInput = false;
-                    }
+                    SConsole.WriteLine("========== Help ==========");
+                    SConsole.WriteLine("[F1   ] - help");
+                    SConsole.WriteLine("[F2   ] - show configs");
+                    SConsole.WriteLine("[F3   ] - clear console");
+                    SConsole.WriteLine("[Enter] - input last line");
+                    SConsole.WriteLine("[Back ] - remove last char");
+                    SConsole.WriteLine("==========================");
+                }
+                if (_input.IsPressed("configs") == SKeyState.Pressed)
+                {
+                    SConsole.Write("\n" + Configs.ToString());
+                }
+                if (_input.IsPressed("clear") == SKeyState.Pressed)
+                {
+                    SConsole.Clear();
                 }
                 SConsole.Update(gameTime);
             }
@@ -72,7 +82,6 @@ namespace Solo
                 if (_input.IsPressed("input") == SKeyState.Pressed) 
                 {
                     ParseString(SConsole.ReadLine());
-                    SConsole.WriteLine(Configs.ToString());
                 }            
         }
 
@@ -91,8 +100,8 @@ namespace Solo
             string intPattern = @"^.+\s[0-9]+$";
             string floatPattern = @"^.+\s((\d+,\d+)|(\d+))f$";
             string stringPattern = "^.+\\s\".+\"$";
-            string truePattern = @"^.+\s\+|true|True|on|On$";
-            string falsePattern = @"^.+\s-|false|False|off|Off$";
+            string truePattern = @"^.+\s(\+|true|True|on|On)$";
+            string falsePattern = @"^.+\s(-|false|False|off|Off)$";
 
             if (Regex.IsMatch(str, intPattern))
             {
