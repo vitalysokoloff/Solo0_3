@@ -1,9 +1,8 @@
-using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
 namespace Solo.Input
 {
-    public class KeysInput
+    public class KeysInput : ISInput
     {
         private Dictionary<string, List<Key>> _keys;
 
