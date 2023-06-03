@@ -1,10 +1,11 @@
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Solo.Entities;
 using Solo.Collections;
 using Solo.Input;
+using System.Text.RegularExpressions;
+using System;
 
 namespace Solo
 {
@@ -70,9 +71,8 @@ namespace Solo
             if (SConsole.isTextInput)
                 if (_input.IsPressed("input") == SKeyState.Pressed) 
                 {
-                    string[] tmp = SConsole.ReadLine().Split(' ');
-                    if (tmp.Length > 1)
-                        Configs.Add(tmp[0], tmp[1]);
+                    ParseString(SConsole.ReadLine());
+                    SConsole.WriteLine(Configs.ToString());
                 }            
         }
 
@@ -84,6 +84,46 @@ namespace Solo
                 spriteBatch.DrawString(SConsole.Font, ">", SConsole.Position - new Vector2(10, SConsole.Font.MeasureString(">").Y), Color.White);
             }
             SConsole.Draw(gameTime, spriteBatch);
+        }
+
+        private void ParseString(string str)
+        {
+            string intPattern = @"^.+\s[0-9]+$";
+            string floatPattern = @"^.+\s((\d+,\d+)|(\d+))f$";
+            string stringPattern = "^.+\\s\".+\"$";
+            string truePattern = @"^.+\s\+|true|True|on|On$";
+            string falsePattern = @"^.+\s-|false|False|off|Off$";
+
+            if (Regex.IsMatch(str, intPattern))
+            {
+                string[] tmp = str.Split(' ');
+                Configs.Add(tmp[0], Convert.ToInt32(tmp[1]));
+                return;
+            }
+            if (Regex.IsMatch(str, floatPattern))
+            {
+                string[] tmp = str.Split(' ');
+                Configs.Add(tmp[0], (float)Convert.ToDouble(tmp[1].Trim('f')));
+                return;
+            }
+            if (Regex.IsMatch(str, stringPattern))
+            {
+                string[] tmp = str.Split(' ');
+                Configs.Add(tmp[0], tmp[1]);
+                return;
+            }
+            if (Regex.IsMatch(str, truePattern))
+            {
+                string[] tmp = str.Split(' ');
+                Configs.Add(tmp[0], true);
+                return;
+            }
+            if (Regex.IsMatch(str, falsePattern))
+            {
+                string[] tmp = str.Split(' ');
+                Configs.Add(tmp[0], false);
+                return;
+            }
         }
     }
 }
