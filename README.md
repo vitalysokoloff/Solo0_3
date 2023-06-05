@@ -284,7 +284,7 @@ _input.Add("console", new Key(Keys.F1));
 ...
 public void Update(GameTime gameTime)
 {
-    if (_input.IsPressed("console") == SKeyState.Pressed)
+    if (_input.IsPressed("console"))
     {
         if (!SConsole.GetState())
         {
