@@ -7,7 +7,6 @@ namespace Solo.Input
     {
         private Keys _key;
         private Buttons _button;
-        private PlayerIndex _index;
         private bool _gamePad;
         private bool _pressed;
         public Key(Keys key)
@@ -17,15 +16,14 @@ namespace Solo.Input
             _pressed = false;
         }
 
-        public Key(Buttons button, PlayerIndex index)
+        public Key(Buttons button)
         {
             _button = button;
-            _index = index;
             _gamePad = true;
             _pressed = false;
         }
 
-        public SKeyState Listen()
+        public SKeyState Listen(PlayerIndex index)
         {
             if (!_gamePad)
             {
@@ -46,7 +44,7 @@ namespace Solo.Input
             }
             else
             {
-                if (GamePad.GetState(_index).IsButtonUp(_button))
+                if (GamePad.GetState(index).IsButtonUp(_button))
                 {
                     _pressed = false;
                     return SKeyState.Up;

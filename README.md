@@ -23,6 +23,7 @@ Solo
         - Key (class)
         - KeyInput (class)
         - SKeyState (enum)
+        - StickDirections (enum) // Одно из восьми направлений верх, низ, право, лево, левоВерх, правоВерх, левоНиз, ПравоНиз + undefined, используется когда стик в "положении покоя"
         - TextInput (class)        
     [] Physics        
         - CollisionInformation (static class) // Класс для получения информации о столкновении объектов.
@@ -260,7 +261,9 @@ SConsole  можно использовать напрямую, его экзе�
 
 [KeysInput]
     public KeysInput()
+    public KeysInput(PlayerIndex index)
     public KeysInput(Dictionary<string, List<Key>> keys)
+    public KeysInput(Dictionary<string, List<Key>> keys, PlayerIndex index)
     public SKeyState IsPressed(string keyName)
     public SKeyState IsDown(string keyName)
     public void Add(string keyName, Key key)
@@ -300,6 +303,17 @@ public void Update(GameTime gameTime)
     Up = 0,
     Down = 1,
     Pressed = 2
+
+[StuckDirections]   
+    Undefined = 0,
+    Up = 1,
+    RightUp = 2,
+    Right = 3,
+    RightDown = 4,
+    Down = 5,
+    LeftDown = 6,
+    Left = 7,        
+    LeftUp = 8
 
 [TextInput]
 	public Heap CharTable // Таблица символов
