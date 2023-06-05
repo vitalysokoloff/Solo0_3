@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace Solo.Input
 {
@@ -61,8 +62,53 @@ namespace Solo.Input
             return false;
         }
 
-        public StickDirections GetStickDirections()
+        public StickDirections GetLeftStickDirections()
         {
+            float x = GamePad.GetState(_index).ThumbSticks.Left.X;
+            float y = GamePad.GetState(_index).ThumbSticks.Left.Y;
+
+            if (y > 0.8f)
+                return StickDirections.Up;
+            if (x > 0.2f && y > 0.2f)
+                return StickDirections.RightUp;
+            if (x > 0.8f)
+                return StickDirections.Right;
+            if (x > 0.2f && y < -0.3f)
+                return StickDirections.RightDown;
+            if (y < -0.8f)
+                return StickDirections.Down;
+            if (x < -0.2f && y < -0.2f)
+                return StickDirections.LeftDown;
+            if (x < -0.8f)
+                return StickDirections.Left;
+            if (x < -0.2f && y > 0.2f)
+                return StickDirections.LeftUp;
+
+            return StickDirections.Undefined;
+        }
+
+        public StickDirections GetRightStickDirections()
+        {
+            float x = GamePad.GetState(_index).ThumbSticks.Right.X;
+            float y = GamePad.GetState(_index).ThumbSticks.Right.Y;
+
+            if (y > 0.8f)
+                return StickDirections.Up;
+            if (x > 0.2f && y > 0.2f)
+                return StickDirections.RightUp;
+            if (x > 0.8f)
+                return StickDirections.Right;
+            if (x > 0.2f && y < -0.3f)
+                return StickDirections.RightDown;
+            if (y < -0.8f)
+                return StickDirections.Down;
+            if (x < -0.2f && y < -0.2f)
+                return StickDirections.LeftDown;
+            if (x < -0.8f)
+                return StickDirections.Left;
+            if (x < -0.2f && y > 0.2f)
+                return StickDirections.LeftUp;
+
             return StickDirections.Undefined;
         }
 

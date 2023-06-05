@@ -266,6 +266,8 @@ SConsole  можно использовать напрямую, его экзе�
     public KeysInput(Dictionary<string, List<Key>> keys, PlayerIndex index)
     public SKeyState IsPressed(string keyName)
     public SKeyState IsDown(string keyName)
+    public StickDirections GetLeftStickDirections() // 8 позиций левого стика
+    public StickDirections GetRightStickDirections() // 8 позиций правого стика    
     public void Add(string keyName, Key key)
 ```
 #### Примечание:
@@ -304,7 +306,7 @@ public void Update(GameTime gameTime)
     Down = 1,
     Pressed = 2
 
-[StuckDirections]   
+[StickDirections]   
     Undefined = 0,
     Up = 1,
     RightUp = 2,
