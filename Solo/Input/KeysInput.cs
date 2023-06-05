@@ -16,7 +16,7 @@ namespace Solo.Input
             _keys = keys;
         }
 
-        public SKeyState IsPressed(string keyName)
+        public bool IsPressed(string keyName)
         {
             SKeyState resault = SKeyState.Up;
             List<Key> list = _keys[keyName];
@@ -25,13 +25,13 @@ namespace Solo.Input
             {
                 resault = list[i].Listen();
                 if (resault == SKeyState.Pressed)
-                    return resault;
+                    return true;
             }
 
-            return resault;
+            return false;
         }
 
-        public SKeyState IsDown(string keyName)
+        public bool IsDown(string keyName)
         {
             SKeyState resault = SKeyState.Up;
             List<Key> list = _keys[keyName];
@@ -40,10 +40,10 @@ namespace Solo.Input
             {
                 resault = list[i].Listen();
                 if (resault == SKeyState.Down)
-                    return resault;
+                    return true;
             }
 
-            return resault;
+            return false;
         }
 
         public void Add(string keyName, Key key)

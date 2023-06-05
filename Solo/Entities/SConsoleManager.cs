@@ -42,7 +42,7 @@ namespace Solo
 
         public void Update(GameTime gameTime)
         {
-            if (_input.IsPressed("console") == SKeyState.Pressed)
+            if (_input.IsPressed("console"))
             {
                 if (!SConsole.GetState())
                 {
@@ -57,7 +57,7 @@ namespace Solo
 
             if (SConsole.GetState())
             {
-                if (_input.IsPressed("help") == SKeyState.Pressed)
+                if (_input.IsPressed("help"))
                 {
                     SConsole.WriteLine("========== Help ==========");
                     SConsole.WriteLine("[F1   ] - help");
@@ -67,11 +67,11 @@ namespace Solo
                     SConsole.WriteLine("[Back ] - remove last char");
                     SConsole.WriteLine("==========================");
                 }
-                if (_input.IsPressed("configs") == SKeyState.Pressed)
+                if (_input.IsPressed("configs"))
                 {
                     SConsole.Write("\n" + Configs.ToString());
                 }
-                if (_input.IsPressed("clear") == SKeyState.Pressed)
+                if (_input.IsPressed("clear"))
                 {
                     SConsole.Clear();
                 }
@@ -79,7 +79,7 @@ namespace Solo
             }
 
             if (SConsole.isTextInput)
-                if (_input.IsPressed("input") == SKeyState.Pressed) 
+                if (_input.IsPressed("input")) 
                 {
                     ParseString(SConsole.ReadLine());
                 }            

@@ -19,6 +19,7 @@ Solo
             - SRegularPolygon (class) : Shape // Правильный многоугольник (Отрзок, треугольник, ромб и т д.).
     [] Input
         - Chars (static class)
+        - ISInput (Interface)
         - Key (class)
         - KeyInput (class)
         - SKeyState (enum)
@@ -247,8 +248,14 @@ SConsole  можно использовать напрямую, его экзе�
 "Back", "\t"  // Для удаление символа бекспейсом, а не табуляции (Внезапно :D )  
 ```
 ```
+[ISInput]
+    public bool IsPressed(string keyName)
+    public bool IsDown(string keyName)
+    public void Add(string keyName, Key key)
+
 [Key]
-    public Key(Keys key) //Keys = Microsoft.Xna.Framework.Input.Keys
+    public Key(Keys key) // Для клавиатуры
+    public Key(Buttons button, PlayerIndex index) // Для геймпада
     public SKeyState Listen() // Вернёт SKeyState.Up если кнопка не нажата, SKeyState.Pressed единичное нажатие, SKeyState.Down кнопка зажата
 
 [KeysInput]
