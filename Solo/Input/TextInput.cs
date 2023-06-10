@@ -88,7 +88,8 @@ namespace Solo.Input
             // resault.Add("OemTilde", "~");
             resault.Add("Space", " ");
             resault.Add("Enter", "\n");
-            resault.Add("Back", "\t");
+            resault.Add("LeftControl", "^");
+            resault.Add("RightControl", "^");
             return resault;
         }
     }

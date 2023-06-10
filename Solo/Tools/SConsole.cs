@@ -26,14 +26,7 @@ namespace Solo
                 string input = _textInput.Listen();
                 if (input != null)
                 {
-                    if (input == "\t")
-                    {
-                        _text.Remove(_text.Length - 1, 1);
-                    }
-                    else
-                    {
-                        Write(input);   
-                    }
+                    Write(input);
                 }
             }
         }
@@ -114,6 +107,15 @@ namespace Solo
         {
             string[] tmp = _text.ToString().Split('\n');
             return tmp[tmp.Length - 2];
+        }
+
+        /// <summary>
+        /// Удаляет указанное количество символов начиная с конца
+        /// </summary>
+        public static void Remove(int n)
+        {
+            if (_text.Length > 0)
+                _text.Remove(_text.Length - 1, n);
         }
 
         public static void Clear()

@@ -33,6 +33,7 @@ namespace Solo
             _input.Add("configs", new Key(Keys.F2));
             _input.Add("clear", new Key(Keys.F3));
             _input.Add("input", new Key(Keys.Enter));
+            _input.Add("remove", new Key(Keys.Back));
             SConsole.Font = font;
             SConsole.FontColor = Color.White;
             SConsole.Position = new Vector2(15, _graphics.PreferredBackBufferHeight / 2);
@@ -75,14 +76,23 @@ namespace Solo
                 {
                     SConsole.Clear();
                 }
-                SConsole.Update(gameTime);
+                if (_input.IsPressed("remove"))
+                {
+                    SConsole.Remove(1);
+                }
+                
+                SConsole.Update(gameTime); 
+                
+                if (SConsole.isTextInput)
+                {
+                    if (_input.IsPressed("input")) 
+                    {
+                        ParseString(SConsole.ReadLine());
+                    }  
+                }               
             }
 
-            if (SConsole.isTextInput)
-                if (_input.IsPressed("input")) 
-                {
-                    ParseString(SConsole.ReadLine());
-                }            
+                      
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
