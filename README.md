@@ -6,9 +6,7 @@
 ```
 Solo    
     [] Collections
-        - Heap (class)
-    - MoveDelegate(Vector2 position) (delegate)
-    - RotateDelegate(float angle) (delegate)
+        - Heap (class)    
     [] Entities
         /*[] Cameras
         /*- Collider (class)
@@ -16,6 +14,8 @@ Solo
             - IGameObject (Interface)
         - IEntity (Interface) // Интерфейс сущности которая имеет два метода: Update() и Draw().
         - SConsoleManager (class)
+        - MoveDelegate(Vector2 position) (delegate)
+        - RotateDelegate(float angle) (delegate)
         [] Shapes
             - IShape (Interface)
             - Shape (Abstract class) : IShape
