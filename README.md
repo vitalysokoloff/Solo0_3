@@ -23,8 +23,7 @@ Solo
             - SRegularPolygon (class) : Shape // Правильный многоугольник (Отрзок, треугольник, ромб и т д.).
         [] Sprites
             - ISprite (Inerface)
-            /*- Sprite (class)
-            /*- SpriteAnimated (class)
+            - Sprite (class)
     [] Input
         - Chars (static class)
         - ISInput (Interface)
