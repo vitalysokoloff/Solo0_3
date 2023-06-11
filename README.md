@@ -7,9 +7,13 @@
 Solo    
     [] Collections
         - Heap (class)
+    - MoveDelegate(Vector2 position) (delegate)
+    - RotateDelegate(float angle) (delegate)
     [] Entities
         /*[] Cameras
-        /*- Collider (class)*/
+        /*- Collider (class)
+        [] GameObjects
+            - IGameObject (Interface)
         - IEntity (Interface) // Интерфейс сущности которая имеет два метода: Update() и Draw().
         - SConsoleManager (class)
         [] Shapes
@@ -17,6 +21,10 @@ Solo
             - Shape (Abstract class) : IShape
             - SRectangle (class) : Shape // Прямоугольник.
             - SRegularPolygon (class) : Shape // Правильный многоугольник (Отрзок, треугольник, ромб и т д.).
+        [] Sprites
+            - ISprite (Inerface)
+            /*- Sprite (class)
+            /*- SpriteAnimated (class)
     [] Input
         - Chars (static class)
         - ISInput (Interface)
