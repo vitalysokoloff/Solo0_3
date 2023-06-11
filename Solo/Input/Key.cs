@@ -5,10 +5,10 @@ namespace Solo.Input
 {
     public class Key
     {
-        private Keys _key;
-        private Buttons _button;
-        private bool _gamePad;
-        private bool _pressed;
+        protected Keys _key;
+        protected Buttons _button;
+        protected bool _gamePad;
+        protected bool _pressed;
         public Key(Keys key)
         {
             _key = key;
