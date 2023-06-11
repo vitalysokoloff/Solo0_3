@@ -29,6 +29,7 @@ Solo
         - CollisionInformation (static class) // Класс для получения информации о столкновении объектов.
         - GJK (static class) // Класс для обнаружения столкновений объектов.
     - SConsole (static class) // Консоль для воода / вывода текста.
+    - Timer (class)
     - Tools (static class) // Класс содержащий различные вспомогательные методы.
 ```
 
@@ -364,8 +365,20 @@ public static void Write(object o)
 
 public static string ReadLine() // Читает предпоследнюю строку (Length - 2). Последняя строка используется для ввода текста.
 
-public static void Remove(int n) // Удаляет указанное количество символов начиная с конца
-public static void Clear() // Очистить Консоль
+public static void Remove(int n) // Удаляет указанное количество символов начиная с конца.
+public static void Clear() // Очистить Консоль.
+```
+
+### [Timer] 
+```
+public int Period // Период одного такта в миллисекундах.
+public int Count // Счёт тактов. 
+public Timer(int period)
+public void Start() 
+public void Stop()
+public void Reset()
+public bool Update(GameTime gameTime) 
+static public Timer GetDefault() // Таймер с периодом в секунду.
 ```
 
 ### [Tools]
