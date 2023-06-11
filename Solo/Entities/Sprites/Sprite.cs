@@ -124,7 +124,7 @@ namespace Solo.Entities
 
         public virtual void Update(GameTime gameTime)
         {
-            if (AnimationTimer != null && AnimationTimer.Beap(gameTime))
+            if (AnimationTimer.Beap(gameTime))
                 FrameMoveRight();
         }
 
