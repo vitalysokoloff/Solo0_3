@@ -22,8 +22,10 @@ namespace Solo.Entities
                 _drawRectangle.Y = (int)(_position.X + _parent.Postion.Y);
             }
         }
+        public int FramesQty { get; set;}
+        public int FrameNumber { get; set;}
         
-        public Timer AnimationTimer;
+        public Timer AnimationTimer { get; set;}
         public Color SpriteColor;        
 
         protected IGameObject _parent;
@@ -34,9 +36,7 @@ namespace Solo.Entities
         protected Vector2 _position;        
         protected Point _size;
         protected Vector2 _pivot;
-        protected float _angle;
-        protected int _framesQty;
-        protected int _frameNumber;
+        protected float _angle;        
 
         public Sprite(Texture2D texture, Rectangle sourceRectangle, Vector2 position, Point size)
         {
@@ -48,8 +48,8 @@ namespace Solo.Entities
             _size = size;
             _pivot = new Vector2(_size.X / 2, _size.Y / 2);
             _drawRectangle = new Rectangle((int)_position.X, (int)_position.Y, _size.X, _size.Y);            
-            _framesQty = 1;
-            _frameNumber = 0;
+            FramesQty = 1;
+            FrameNumber = 0;
             Layer = 1f;
             On();
         }
@@ -103,7 +103,8 @@ namespace Solo.Entities
 
         public virtual void Update(GameTime gameTime)
         {
-            
+            if (AnimationTimer != null && AnimationTimer.Beap(gameTime))
+                FrameMoveRight();
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -114,22 +115,22 @@ namespace Solo.Entities
 
         protected void FrameMoveRight()
         {
-            if (_frameNumber < _framesQty)
-                _frameNumber++;
-            if (_frameNumber >= _framesQty)
-                _frameNumber = 0;
+            if (FrameNumber < FramesQty)
+                FrameNumber++;
+            if (FrameNumber >= FramesQty)
+                FrameNumber = 0;
 
-            _sourceRectangle.X = _frameNumber * _size.X;
+            _sourceRectangle.X = FrameNumber * _size.X;
         }
 
         protected void FrameMoveLeft()
         {
-            if (_frameNumber >= 0)
-                _frameNumber++;
-            if (_frameNumber < 0)
-                _frameNumber = _framesQty;
+            if (FrameNumber >= 0)
+                FrameNumber++;
+            if (FrameNumber < 0)
+                FrameNumber = FramesQty;
 
-            _sourceRectangle.X = _frameNumber * _size.X;
+            _sourceRectangle.X = FrameNumber * _size.X;
         }
     }
 }

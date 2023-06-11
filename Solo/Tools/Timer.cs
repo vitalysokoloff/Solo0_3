@@ -49,7 +49,7 @@ namespace Solo
         /// <summary>
         /// Тик-так
         /// </summary>
-        public bool Update(GameTime gameTime)
+        public bool Beap(GameTime gameTime)
         {
             if (_isStart)
             {
