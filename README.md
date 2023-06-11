@@ -5,7 +5,7 @@
 ## [Library's Tree]
 ```
 Solo    
-    [] Collection
+    [] Collections
         - Heap (class)
     [] Entities
         /*[] Cameras
@@ -33,7 +33,7 @@ Solo
 ```
 
 
-### [Collection]
+### [Collections]
 ```
 [Heap]
     public Heap()
