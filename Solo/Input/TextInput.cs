@@ -7,7 +7,7 @@ namespace Solo.Input
     {
         public Heap CharTable;
 
-        private bool _keyDown;        
+        protected bool _keyDown;        
 
         public TextInput(Heap charTable)
         {

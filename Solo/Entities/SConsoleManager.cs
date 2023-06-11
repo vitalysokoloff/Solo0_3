@@ -16,8 +16,8 @@ namespace Solo
         public Rectangle SourceRectangle;
         public Rectangle DrawRectangle;
 
-        private GraphicsDeviceManager _graphics;
-        private KeysInput _input;
+        protected GraphicsDeviceManager _graphics;
+        protected KeysInput _input;
 
         public SConsoleManager(GraphicsDeviceManager graphics, SpriteFont font)
         {
