@@ -385,7 +385,7 @@ public Timer(int period)
 public void Start() 
 public void Stop()
 public void Reset()
-public bool Update(GameTime gameTime) 
+public bool Beap(GameTime gameTime) // Один такт таймера
 static public Timer GetDefault() // Таймер с периодом в секунду.
 ```
 
