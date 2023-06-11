@@ -246,6 +246,8 @@ SConsole  можно использовать напрямую, его экзе�
 // "OemTilde", "~"
 "Space", " "
 "Enter", "\n"
+"LeftControl", "^"
+"RightControl", "^"
 ```
 ```
 [ISInput]
