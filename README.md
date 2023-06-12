@@ -162,7 +162,8 @@ heap {
     public void Off()
     public bool GetState()
     public void OnMove(Vector2 position)
-    public void OnRotate(float angle)   
+    public void OnRotate(float angle)  
+    public IShape GetShape() 
 
 [IEntity]
     public void Update(GameTime gameTime);
