@@ -9,13 +9,16 @@ Solo
         - Heap (class)    
     [] Entities
         /*[] Cameras
-        /*- Collider (class)
+        [] Colliders
+            - Collider (class)
+            - ICollider (Interface) 
         [] GameObjects
+            - GameObjectInfo (class)
             - IGameObject (Interface)
-        - IEntity (Interface) // Интерфейс сущности которая имеет два метода: Update() и Draw().
-        - SConsoleManager (class)
+        - IEntity (Interface) // Интерфейс сущности которая имеет два метода: Update() и Draw().        
         - MoveDelegate(Vector2 position) (delegate)
         - RotateDelegate(float angle) (delegate)
+        - SConsoleManager (class)
         [] Shapes
             - IShape (Interface)
             - Shape (Abstract class) : IShape
@@ -136,16 +139,60 @@ heap {
 
 ### [Entities]
 ```
+[Colliders : ICollider]
+
+[GameObject : IGameObject]    
+
+[GameObjectInfo] // Содержит информацию об игровом объекте, используется для получения инфы при столкновении игровых объектов
+    public string Name
+    public string Type
+    public Vector2 Direction
+    public Vector2 Position
+    public Vector2 CollisionNormal
+
+    public GameObjectInfo()
+    public GameObjectInfo(string name)
+    public GameObjectInfo(string name, string type)
+    public GameObjectInfo(string name, string type, Vector2 direction)
+    public GameObjectInfo(string name, string type, Vector2 direction, Vector2 position)
+    public GameObjectInfo(string name, string type, Vector2 direction, Vector2 position, Vector2 normal)
+
+[ICollider : IEntity]
+    public void On()
+    public void Off()
+    public bool GetState()
+    public void OnMove(Vector2 position)
+    public void OnRotate(float angle)   
+
 [IEntity]
     public void Update(GameTime gameTime);
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+
+[IGameObject : IEntity]  
+    public event MoveDelegate MoveEvent
+    public event RotateDelegate RotateEvent
+    public Vector2 Postion
+    public string Type 
+    public string Name
+    public Vector2 Direction
+    public GameObjectInfo CheckCollision(IGameObject go) 
 
 [IShape : IEntity]
     public Vector2 GetGlobalVertex(int number);
     public int GetVertiesQty();
 
-[SConsoleManager]
-    public Heap Configs
+[ISprite : IEntity]
+    public void AnimationStart()
+    public void AnimationStop()
+    public void AnimationReset()
+    public void On() // Включает отрисовку спрайта
+    public void Off() // Выключает отрисовку спрайта
+    public bool GetState() // Узнать включён спрайт или нет
+    public void OnMove(Vector2 position) // Для подписывание на событие игрового объекта
+    public void OnRotate(float angle) // Для подписывание на событие игрового объекта
+    public void Resize(float multiplier)
+
+[SConsoleManager]    
     public Texture2D Texture;
     public Rectangle SourceRectangle;
     public Rectangle DrawRectangle;
@@ -153,6 +200,19 @@ heap {
     public SConsoleManager(GraphicsDeviceManager graphics, SpriteFont font)
     public void Update(GameTime gameTime)
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+
+[Sprite : ISprite]
+    public float Layer // Слой на котором будет отрисовываться
+    public IGameObject Parent
+    public int FramesQty // Кол-во кадров 
+    public int FrameNumber // Номер стартового кадра
+        
+    public Timer AnimationTimer 
+    public Color SpriteColor
+
+    public Sprite(Texture2D texture, Rectangle sourceRectangle, Vector2 position, Point size)
+    public Sprite(Texture2D texture, Rectangle sourceRectangle, Vector2 position, Point size, int frameNumber, int framesQty, Timer animationTimer, bool startAnimationInitially)
+
 ```
 #### Примечание
 ```
@@ -346,6 +406,7 @@ public void Update(GameTime gameTime)
 
 ### [SConsole] // Нужно для дебага
 ```
+public Heap Configs
 public static SpriteFont Font
 public static Color FontColor
 public static bool isTextInput // разрешён ли текст инпут

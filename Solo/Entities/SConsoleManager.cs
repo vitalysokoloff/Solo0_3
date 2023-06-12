@@ -10,8 +10,7 @@ using System;
 namespace Solo
 {
     public class SConsoleManager : IEntity
-    {
-        public Heap Configs;
+    {        
         public Texture2D Texture;
         public Rectangle SourceRectangle;
         public Rectangle DrawRectangle;
@@ -20,8 +19,7 @@ namespace Solo
         protected KeysInput _input;
 
         public SConsoleManager(GraphicsDeviceManager graphics, SpriteFont font)
-        {
-            Configs = new Heap();            
+        {           
             _graphics = graphics;
 
             Texture = Tools.MakeSolidColorTexture(_graphics, new Point(1, 1), new Color(34, 34, 34));
@@ -70,7 +68,7 @@ namespace Solo
                 }
                 if (_input.IsPressed("configs"))
                 {
-                    SConsole.Write("\n" + Configs.ToString());
+                    SConsole.Write("\n" + SConsole.Configs.ToString());
                 }
                 if (_input.IsPressed("clear"))
                 {
@@ -116,31 +114,31 @@ namespace Solo
             if (Regex.IsMatch(str, intPattern))
             {
                 string[] tmp = str.Split(' ');
-                Configs.Add(tmp[0], Convert.ToInt32(tmp[1]));
+                SConsole.Configs.Add(tmp[0], Convert.ToInt32(tmp[1]));
                 return;
             }
             if (Regex.IsMatch(str, floatPattern))
             {
                 string[] tmp = str.Split(' ');
-                Configs.Add(tmp[0], (float)Convert.ToDouble(tmp[1].Trim('f')));
+                SConsole.Configs.Add(tmp[0], (float)Convert.ToDouble(tmp[1].Trim('f')));
                 return;
             }
             if (Regex.IsMatch(str, stringPattern))
             {
                 string[] tmp = str.Split(' ');
-                Configs.Add(tmp[0], tmp[1]);
+                SConsole.Configs.Add(tmp[0], tmp[1]);
                 return;
             }
             if (Regex.IsMatch(str, truePattern))
             {
                 string[] tmp = str.Split(' ');
-                Configs.Add(tmp[0], true);
+                SConsole.Configs.Add(tmp[0], true);
                 return;
             }
             if (Regex.IsMatch(str, falsePattern))
             {
                 string[] tmp = str.Split(' ');
-                Configs.Add(tmp[0], false);
+                SConsole.Configs.Add(tmp[0], false);
                 return;
             }
         }

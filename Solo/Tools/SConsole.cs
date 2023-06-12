@@ -2,11 +2,13 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Solo.Input;
+using Solo.Collections;
 
 namespace Solo
 {
     public static class SConsole
     {
+        public static Heap Configs = new Heap();
         public static SpriteFont Font;
         public static Color FontColor = Color.White;
         public static bool isTextInput = false;
