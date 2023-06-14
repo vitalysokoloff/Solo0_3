@@ -1,13 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-using Solo.Entities;
-using Solo.Collections;
-using Solo.Input;
 using System.Text.RegularExpressions;
 using System;
+using Solo.Input;
 
-namespace Solo
+namespace Solo.Entities
 {
     public class SConsoleManager : IEntity
     {        
