@@ -9,6 +9,7 @@ namespace Solo.Entities
         public void Off();
         public bool GetState();
         public void OnMove(Vector2 position);
-        public void OnRotate(float angle);        
+        public void OnRotate(float angle);
+        public Shape GetShape();        
     }
 }

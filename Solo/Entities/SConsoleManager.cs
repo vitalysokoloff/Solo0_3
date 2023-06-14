@@ -1,13 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-using Solo.Entities;
-using Solo.Collections;
-using Solo.Input;
 using System.Text.RegularExpressions;
 using System;
+using Solo.Input;
 
-namespace Solo
+namespace Solo.Entities
 {
     public class SConsoleManager : IEntity
     {        
@@ -17,6 +15,7 @@ namespace Solo
 
         protected GraphicsDeviceManager _graphics;
         protected KeysInput _input;
+        protected string _buffer;
 
         public SConsoleManager(GraphicsDeviceManager graphics, SpriteFont font)
         {           
@@ -32,11 +31,14 @@ namespace Solo
             _input.Add("clear", new Key(Keys.F3));
             _input.Add("input", new Key(Keys.Enter));
             _input.Add("remove", new Key(Keys.Back));
+            _input.Add("showLast", new Key(Keys.Tab));
+            _input.Add("showLast", new Key(Keys.Up));
             SConsole.Font = font;
             SConsole.FontColor = Color.White;
             SConsole.Position = new Vector2(15, _graphics.PreferredBackBufferHeight / 2);
             SConsole.Off();
             SConsole.isTextInput = true;
+            _buffer = "";
         }
 
         public void Update(GameTime gameTime)
@@ -64,6 +66,8 @@ namespace Solo
                     SConsole.WriteLine("[F3   ] - clear console");
                     SConsole.WriteLine("[Enter] - input last line");
                     SConsole.WriteLine("[Back ] - remove last char");
+                    SConsole.WriteLine("[Tab  ] - last input line");
+                    SConsole.WriteLine("[Up   ] - last input line");
                     SConsole.WriteLine("==========================");
                 }
                 if (_input.IsPressed("configs"))
@@ -78,6 +82,10 @@ namespace Solo
                 {
                     SConsole.Remove(1);
                 }
+                if (_input.IsPressed("showLast"))
+                {
+                    SConsole.Write(_buffer);
+                }
                 
                 SConsole.Update(gameTime); 
                 
@@ -85,7 +93,8 @@ namespace Solo
                 {
                     if (_input.IsPressed("input")) 
                     {
-                        ParseString(SConsole.ReadLine());
+                        _buffer = SConsole.ReadLine();
+                        ParseString(_buffer);                         
                     }  
                 }               
             }
