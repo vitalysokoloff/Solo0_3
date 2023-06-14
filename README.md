@@ -150,7 +150,7 @@ heap {
     public static Collider Box(Vector2 position, GraphicsDeviceManager graphics)
     public static Collider Box(int edgeSize, GraphicsDeviceManager graphics)
     public static Collider Box(int edgeSize, Vector2 position, GraphicsDeviceManager graphics)
-    public static Collider Box(int edgeSize, Color color, Vector2 position, GraphicsDeviceManager graphics)
+    public static Collider Box(int edgeSize, Color color, Vector2 position, GraphicsDeviceManager graphics)  
 
 [GameObject : IGameObject]    
 
