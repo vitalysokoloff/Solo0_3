@@ -104,9 +104,17 @@ namespace Solo.Entities
                     _shape.Draw(gameTime, spriteBatch);
         }
 
+        public static Collider Box(GraphicsDeviceManager graphics)
+        {
+            return new Collider(new SRectangle(0, 0, 50, 50), Vector2.Zero, graphics);
+        }
         public static Collider Box(Vector2 position, GraphicsDeviceManager graphics)
         {
             return new Collider(new SRectangle(0, 0, 50, 50), position, graphics);
+        }
+        public static Collider Box(int edgeSize, GraphicsDeviceManager graphics)
+        {
+            return new Collider(new SRectangle(0, 0, edgeSize, edgeSize), Vector2.Zero, graphics);
         }
         public static Collider Box(int edgeSize, Vector2 position, GraphicsDeviceManager graphics)
         {
