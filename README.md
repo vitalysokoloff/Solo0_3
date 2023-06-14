@@ -140,6 +140,17 @@ heap {
 ### [Entities]
 ```
 [Colliders : ICollider]
+    public IGameObject Parent 
+    public Vector2 Position
+
+    public Collider(Shape shape, Vector2 position, GraphicsDeviceManager graphics)
+    public Collider(Shape shape, Color color, Vector2 position, GraphicsDeviceManager graphics)
+
+    public static Collider Box(GraphicsDeviceManager graphics)
+    public static Collider Box(Vector2 position, GraphicsDeviceManager graphics)
+    public static Collider Box(int edgeSize, GraphicsDeviceManager graphics)
+    public static Collider Box(int edgeSize, Vector2 position, GraphicsDeviceManager graphics)
+    public static Collider Box(int edgeSize, Color color, Vector2 position, GraphicsDeviceManager graphics)
 
 [GameObject : IGameObject]    
 
