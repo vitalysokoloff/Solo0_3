@@ -163,7 +163,7 @@ heap {
     public bool GetState()
     public void OnMove(Vector2 position)
     public void OnRotate(float angle)  
-    public IShape GetShape() 
+    public Shape GetShape() 
 
 [IEntity]
     public void Update(GameTime gameTime);
@@ -176,7 +176,9 @@ heap {
     public string Type 
     public string Name
     public Vector2 Direction
-    public GameObjectInfo CheckCollision(IGameObject go) 
+    public ICollider CheckCollision(IGameObject go)
+    public void onCollision(GameObjectInfo GOInfo) 
+    public void OnGUI(MouseState mauseState)
 
 [IShape : IEntity]
     public Vector2 GetGlobalVertex(int number);
