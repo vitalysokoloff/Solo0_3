@@ -4,7 +4,7 @@ namespace Solo.Entities
 {
     public interface ICollider : IEntity
     {
-        // Колайдер перемещает и вернитит шейп, генерирует текстуру шейпа
+        // Колайдер перемещает и вертит шейп, генерирует текстуру шейпа
         public void On();
         public void Off();
         public bool GetState();
