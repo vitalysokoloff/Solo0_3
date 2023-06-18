@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 namespace Solo.Entities 
 {
@@ -7,7 +6,6 @@ namespace Solo.Entities
     {
         public event MoveDelegate MoveEvent;
         public event RotateDelegate RotateEvent;
-        public event GUIDelegate GUIEvent;
         public Vector2 Postion {get; set;}
         public string Type {get; protected set;}
         public string Name {get; protected set;}
