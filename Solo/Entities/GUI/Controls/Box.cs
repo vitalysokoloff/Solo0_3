@@ -7,7 +7,7 @@ namespace Solo.Entities
     {
         public Box(Rectangle drawRect, GUIStyle style) : base (drawRect, style)
         {          
-            
+               
         }        
     }
 }
