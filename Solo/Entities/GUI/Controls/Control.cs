@@ -9,21 +9,46 @@ namespace Solo.Entities
         /// По умолчанию левая кнопка мыши. Но можно переопределить ГУИ и передавать
         /// кнопки из объявленного кейсинпут. 
         /// </summary>
-        public event ControlAction AButtonAction;
+        public ControlAction AButtonAction;
         /// <summary>
         /// По умолчанию правая кнопка мыши. Но можно переопределить ГУИ и передавать
         /// кнопки из объявленного кейсинукт. 
         /// </summary>
-        public event ControlAction BButtonAction;
+        public ControlAction BButtonAction;
         /// <summary>
         /// По умолчанию центральная (колесо) кнопка мыши. Но можно переопределить ГУИ и передавать
         /// кнопки из объявленного кейсинпут. 
         /// </summary>
-        public event ControlAction CButtonAction;
+        public ControlAction CButtonAction;
         public GUIStyle Style {get; set;}
         public Texture2D Icon {get; set;}
         public Rectangle IconSourceRect {get; set;}
-        public bool IsActive 
+        public bool isHovered
+        {
+            get
+            {
+                return _isHovered;
+            }
+            set
+            {
+                if (value)
+                {
+                    _texture = Style.Hovered;
+                    _color = Style.HoveredColor;
+                    _sourceRect = Style.HoveredSourceRectangle;
+                    _textColor = Style.HoveredFontColor;                    
+                }
+                else
+                {
+                    _texture = Style.Active;
+                    _color = Style.ActiveColor;
+                    _sourceRect = Style.ActiveSourceRectangle;
+                    _textColor = Style.ActiveFontColor;  
+                }
+                _isHovered = value;
+            }
+        }
+        public bool IsActive
         {
             get
             {
@@ -31,12 +56,13 @@ namespace Solo.Entities
             }
             set
             {
+                _isActive = value;
                 if (value)
                 {
                     _texture = Style.Active;
                     _color = Style.ActiveColor;
                     _sourceRect = Style.ActiveSourceRectangle;
-                    _textColor = Style.ActiveFontColor;                    
+                    _textColor = Style.ActiveFontColor;  
                 }
                 else
                 {
@@ -45,7 +71,6 @@ namespace Solo.Entities
                     _sourceRect = Style.NonActiveSourceRectangle;
                     _textColor = Style.NonActiveFontColor;
                 }
-                _isActive = value;
             }
         }
         public Rectangle DrawRect 
@@ -64,6 +89,7 @@ namespace Solo.Entities
         protected Color _color;
         protected Color _textColor;
         protected Rectangle _sourceRect;
+        protected bool _isHovered;
         protected bool _isActive;
         protected Vector2 _textPosition;
         protected string _text;
@@ -77,40 +103,7 @@ namespace Solo.Entities
             SetText("");            
         } 
         
-        public void OnGUI(Rectangle hoverRect, bool aButton, bool bButton, bool cButton)
-        {
-            if (IsActive)
-            {
-                if (hoverRect.Intersects(DrawRect))
-                {
-                    _texture = Style.Hovered;
-                    _color = Style.HoveredColor;
-                    _sourceRect = Style.HoveredSourceRectangle;
-                    _textColor = Style.HoveredFontColor;
-                }
-                else
-                {
-                    IsActive = true;
-                }
-
-                if (aButton)
-                {
-                    _texture = Style.Action;
-                    _color = Style.ActionColor;
-                    _sourceRect = Style.ActionSourceRectangle;
-                    _textColor = Style.ActionFontColor;
-                    AButtonAction?.Invoke();
-                }
-                if (bButton)
-                {
-                    BButtonAction?.Invoke();
-                }
-                if (cButton)
-                {
-                    CButtonAction?.Invoke();
-                }
-            }
-        }
+        public virtual void OnGUI(Rectangle hoverRect, bool aButton, bool bButton, bool cButton){}
 
         public virtual void SetText(string text)
         {
@@ -126,9 +119,9 @@ namespace Solo.Entities
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, DrawRect, _sourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 1f);            
+            spriteBatch.Draw(_texture, DrawRect, _sourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.99f);            
             if (Icon != null)
-                spriteBatch.Draw(Icon, DrawRect, IconSourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 1f);
+                spriteBatch.Draw(Icon, DrawRect, IconSourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.99f);
             spriteBatch.DrawString(Style.Font, _text, _textPosition, _textColor);
         }
     }
