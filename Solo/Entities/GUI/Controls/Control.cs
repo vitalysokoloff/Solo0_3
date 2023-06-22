@@ -110,7 +110,12 @@ namespace Solo.Entities
             _text = text;
             Vector2 size = Style.Font.MeasureString(_text);
             _textPosition = new Vector2(DrawRect.X + (DrawRect.Width - size.X) / 2, DrawRect.Y + (DrawRect.Height - size.Y )/ 2);
-        }        
+        } 
+
+        public virtual string GetText()
+        {
+            return _text;
+        }       
 
         public virtual void Update(GameTime gameTime)
         {

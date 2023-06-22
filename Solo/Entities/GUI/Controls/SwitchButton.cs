@@ -20,29 +20,33 @@ namespace Solo.Entities
             }
             else if (IsActive)
             {
-                IsActive = true;
+                isHovered = false;
             }
             else
             {
+                isHovered = false;
                 IsActive = false;
             }
 
-            if (aButton)
+            if(isHovered)
             {
-                IsActive = !IsActive;
-                _texture = Style.Action;
-                _color = Style.ActionColor;
-                _sourceRect = Style.ActionSourceRectangle;
-                _textColor = Style.ActionFontColor;                
-                AButtonAction?.Invoke();
-            }
-            if (bButton)
-            {
-                BButtonAction?.Invoke();
-            }
-            if (cButton)
-            {
-                CButtonAction?.Invoke();
+                if (aButton)
+                {
+                    IsActive = !IsActive;
+                    _texture = Style.Action;
+                    _color = Style.ActionColor;
+                    _sourceRect = Style.ActionSourceRectangle;
+                    _textColor = Style.ActionFontColor;                
+                    AButtonAction?.Invoke();
+                }
+                if (bButton)
+                {
+                    BButtonAction?.Invoke();
+                }
+                if (cButton)
+                {
+                    CButtonAction?.Invoke();
+                }
             }
         }
     }
