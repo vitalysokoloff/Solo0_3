@@ -110,7 +110,12 @@ namespace Solo.Entities
             _text = text;
             Vector2 size = Style.Font.MeasureString(_text);
             _textPosition = new Vector2(DrawRect.X + (DrawRect.Width - size.X) / 2, DrawRect.Y + (DrawRect.Height - size.Y )/ 2);
-        }        
+        } 
+
+        public virtual string GetText()
+        {
+            return _text;
+        }       
 
         public virtual void Update(GameTime gameTime)
         {
@@ -119,10 +124,10 @@ namespace Solo.Entities
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, DrawRect, _sourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.99f);            
+            spriteBatch.Draw(_texture, DrawRect, _sourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.96f);            
             if (Icon != null)
-                spriteBatch.Draw(Icon, DrawRect, IconSourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.99f);
-            spriteBatch.DrawString(Style.Font, _text, _textPosition, _textColor);
+                spriteBatch.Draw(Icon, DrawRect, IconSourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.96f);
+            spriteBatch.DrawString(Style.Font, _text, _textPosition, _textColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0.96f);
         }
     }
 }
