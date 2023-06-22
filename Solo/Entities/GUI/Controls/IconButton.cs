@@ -58,13 +58,13 @@ namespace Solo.Entities
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, DrawRect, _sourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.99f);            
+            spriteBatch.Draw(_texture, DrawRect, _sourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.96f);            
             if (Icon != null)
-                spriteBatch.Draw(Icon, DrawRect, IconSourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.99f);
+                spriteBatch.Draw(Icon, DrawRect, IconSourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.96f);
             if (isHovered && _text != "")
             {
-                spriteBatch.Draw(Style.Prompt, _promptRect, Style.PromptSourceRectangle, Style.PromptColor, 0, Vector2.Zero, SpriteEffects.None, 0.99f); 
-                spriteBatch.DrawString(Style.Font, _text, _textPosition, Style.PromptFontColor);
+                spriteBatch.Draw(Style.Prompt, _promptRect, Style.PromptSourceRectangle, Style.PromptColor, 0, Vector2.Zero, SpriteEffects.None, 0.97f); 
+                spriteBatch.DrawString(Style.Font, _text, _textPosition, _textColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0.97f);
             }
         }
     }
