@@ -64,6 +64,10 @@ namespace Solo.Entities
             else if (IsActive)
             {
                 isHovered = false;
+                if (aButton)
+                {
+                    IsActive = !IsActive;
+                }
             }
             else
             {
