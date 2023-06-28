@@ -5,6 +5,7 @@ namespace Solo.Input
         public bool IsPressed(string keyName);
         public bool IsDown(string keyName);
         public void Add(string keyName, Key key);
+        // добавить гет ки, добавить гедстик директион
     }
 
 }
