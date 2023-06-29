@@ -6,66 +6,58 @@ namespace Solo.Entities
 {
     public class Page : IPage
     {   
-        protected Dictionary<string,IControl> _controls;
-        protected IGUI _parent;
+        public List<IControl> Controls {get; set;}
+        public IGUI Parent {get; set;}
         protected bool _isActive;   
         
-        public Page(IGUI parent)
+        public Page()
         {
-            _parent = parent;
-            _controls = new Dictionary<string, IControl>();
+            Controls = new List<IControl>();
         }
 
-        public Page(IGUI parent, Dictionary<string,IControl> controls)
+        public Page(IGUI parent, List<IControl> controls)
         {
-            _parent = parent;
-            _controls = controls;
+            Controls = controls;
         }
         
-        public void Add(string name, IControl control)
+        public void Add(IControl control)
         {
-            _controls.Add(name, control);
+            Controls.Add(control);
         }
-        public void Delete(string name)
+        public void Delete(int n)
         {
             if (_isActive)
-                _parent.GUIevent -= _controls[name].OnGUI;
-            _controls.Remove(name);
+                Parent.GUIevent -= Controls[n].OnGUI;
+            Controls.RemoveAt(n);
         }
         public void Clear()
         {
             if (_isActive)
-                foreach(string k in _controls.Keys)
-                    _parent.GUIevent -= _controls[k].OnGUI;
-            _controls = new Dictionary<string, IControl>();                    
-        }
-        public string[] GetKeys()
-        {
-            string[] keys = new string[_controls.Keys.Count];
-            _controls.Keys.CopyTo(keys, 0); 
-            return keys;   
+                foreach(IControl c in Controls)
+                    Parent.GUIevent -= c.OnGUI;
+            Controls = new List<IControl>();                 
         }
         public void Activate()
         {
             if (!_isActive)
-                foreach(string k in _controls.Keys)
-                   _parent.GUIevent += _controls[k].OnGUI;
+                foreach(IControl c in Controls)
+                   Parent.GUIevent += c.OnGUI;
         }
         public void Deactivate()
         {
             if (_isActive)
-                foreach(string k in _controls.Keys)
-                   _parent.GUIevent -= _controls[k].OnGUI;
+                foreach(IControl c in Controls)
+                   Parent.GUIevent -= c.OnGUI;
         }
         public void Update(GameTime gameTime)
         {
-            foreach(string k in _controls.Keys)
-                   _controls[k].Update(gameTime);
+            foreach(IControl c in Controls)
+                   c.Update(gameTime);
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach(string k in _controls.Keys)
-                   _controls[k].Draw(gameTime, spriteBatch);
+            foreach(IControl c in Controls)
+                   c.Draw(gameTime, spriteBatch);
         }
     }
 }

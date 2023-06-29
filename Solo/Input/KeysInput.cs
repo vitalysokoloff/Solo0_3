@@ -118,5 +118,12 @@ namespace Solo.Input
                 _keys.Add(keyName, new List<Key>());
             _keys[keyName].Add(key);
         }
+
+         public string[] GetKeys()
+        {
+            string[] keys = new string[_keys.Keys.Count];
+            _keys.Keys.CopyTo(keys, 0); 
+            return keys;   
+        }
     }
 }

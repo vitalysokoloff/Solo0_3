@@ -1,7 +1,12 @@
+using Microsoft.Xna.Framework;
+using Solo.Input;
+
 namespace Solo.Entities 
 {
     public interface IGUI : IEntity
     {
+        public ISInput Input {get;}
+        public PlayerIndex Index {get;}
         public event GUIDelegate GUIevent;
         public void AddPage(string name, IPage page); // Добавляет страницу с контролами
         public void DeletePage(string name); // Удаляет страницу с контролами
