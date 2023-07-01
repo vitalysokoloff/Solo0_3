@@ -65,15 +65,17 @@ namespace Solo.Entities
             if (name == null)
             {
                 _currentPage = null;
-                SConsole.WriteLine("GUI is off"); 
+                if (SConsole.Configs.GetBool("debug"))    
+                    SConsole.WriteLine("GUI is off"); 
                 return;
             }
             if (_pages.ContainsKey(name))
             {
                 GUIevent = null;
                 if (_currentPage == null)
-                {      
-                    SConsole.WriteLine("Current GUI page is null"); 
+                {  
+                    if (SConsole.Configs.GetBool("debug"))    
+                        SConsole.WriteLine("Current GUI page is null"); 
                 }
                 else
                 {
@@ -84,7 +86,8 @@ namespace Solo.Entities
             }
             else
             {
-                SConsole.WriteLine("There is no this GUI page");
+                if (SConsole.Configs.GetBool("debug"))  
+                    SConsole.WriteLine("There is no this GUI page");
             }
             _pointer = 0;
         }
