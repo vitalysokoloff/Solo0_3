@@ -16,28 +16,31 @@ namespace Solo.Entities
             {
                 if (hoverRect.Intersects(DrawRect))
                 {
-                   isHovered = true;
+                    isHovered = true;
                 }
                 else
                 {
                     isHovered = false;
                 }
 
-                if (aButton)
+                if(isHovered)
                 {
-                    _texture = Style.Action;
-                    _color = Style.ActionColor;
-                    _sourceRect = Style.ActionSourceRectangle;
-                    _textColor = Style.ActionFontColor;
-                    AButtonAction?.Invoke();
-                }
-                if (bButton)
-                {
-                    BButtonAction?.Invoke();
-                }
-                if (cButton)
-                {
-                    CButtonAction?.Invoke();
+                    if (aButton)
+                    {
+                        _texture = Style.Action;
+                        _color = Style.ActionColor;
+                        _sourceRect = Style.ActionSourceRectangle;
+                        _textColor = Style.ActionFontColor;
+                        AButtonAction?.Invoke();
+                    }
+                    if (bButton)
+                    {
+                        BButtonAction?.Invoke();
+                    }
+                    if (cButton)
+                    {
+                        CButtonAction?.Invoke();
+                    }
                 }
             }
         }

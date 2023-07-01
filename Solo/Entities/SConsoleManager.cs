@@ -49,12 +49,12 @@ namespace Solo.Entities
                 {
                     SConsole.On();
                     SConsole.WriteLine("[F1] - to help");
-                    ParseString("lock-gui +");
+                    ParseString("gui-lock +");
                 }
                 else
                 {
                     SConsole.Off();
-                    ParseString("lock-gui -");
+                    ParseString("gui-lock -");
                 }
             }
 

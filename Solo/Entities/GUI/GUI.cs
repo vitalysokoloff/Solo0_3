@@ -24,7 +24,6 @@ namespace Solo.Entities
         {
             Index = PlayerIndex.One;
             _pages = new Dictionary<string, IPage>();
-            _currentPage = "";
             _mouseState = new MouseState();
             _keyboardState = new KeyboardState();
             _gamePadState = new GamePadState();
@@ -34,12 +33,26 @@ namespace Solo.Entities
         public void AddPage(string name, IPage page)
         {
             page.Parent = this;
-            _pages.Add(name, page);
+            if (_pages.ContainsKey(name))
+            {
+                _pages[name] = page;
+            }  
+            else
+            {
+                _pages.Add(name, page);
+            }
         }
         public void DeletePage(string name)
         {
-            _pages[name].Deactivate();
-            _pages.Remove(name);
+            if (_pages.ContainsKey(name))
+            {
+                if (name == _currentPage)
+                {
+                    GUIevent = null;
+                    _currentPage = null;
+                }
+                _pages.Remove(name);
+            }
         }
         public string[] GetKeys()
         {
@@ -49,69 +62,92 @@ namespace Solo.Entities
         }
         public void SetPage(string name)
         {
-            if (_currentPage != "")
-                _pages[_currentPage].Deactivate();
-            _currentPage = name;
-            _pages[_currentPage].Activate();
+            if (name == null)
+            {
+                _currentPage = null;
+                SConsole.WriteLine("GUI is off"); 
+                return;
+            }
+            if (_pages.ContainsKey(name))
+            {
+                GUIevent = null;
+                if (_currentPage == null)
+                {      
+                    SConsole.WriteLine("Current GUI page is null"); 
+                }
+                else
+                {
+                    _pages[_currentPage].Deactivate();                    
+                }
+                _currentPage = name;
+                _pages[_currentPage].Activate();
+            }
+            else
+            {
+                SConsole.WriteLine("There is no this GUI page");
+            }
+            _pointer = 0;
         }
         public IPage GetPage(string name)
         {
-            return _pages[name];
+            if (_pages.ContainsKey(name))
+                return _pages[name];
+            else
+                return new Page();
         }
         public void Update(GameTime gameTime)
         {
-            if (_currentPage != "" && !SConsole.Configs.GetBool("gui-lock"))
+            if (_currentPage != null && !SConsole.Configs.GetBool("gui-lock"))
             {
+                _pages[_currentPage].Update(gameTime);
                 MouseState currentMState = Mouse.GetState();
+                KeyboardState currentKState = Keyboard.GetState();
+                GamePadState currentGState = GamePad.GetState(Index);
+                IPage currentPage = _pages[_currentPage]; 
+                int length = currentPage.Controls.Count;
+                Rectangle rect = new Rectangle(currentPage.Controls[_pointer].DrawRect.X, currentPage.Controls[_pointer].DrawRect.Y, 2, 2);
                 if (_mouseState != currentMState)
                 {
                     _mouseState = Mouse.GetState();
-                    Rectangle rect = new Rectangle(currentMState.X, currentMState.Y, 2, 2);
+                    rect = new Rectangle(currentMState.X, currentMState.Y, 2, 2);
                     SConsole.Configs.Add("under-gui-lock", true);
                     GUIevent?.Invoke(rect, currentMState.LeftButton == ButtonState.Pressed,
                                     currentMState.RightButton == ButtonState.Pressed,
                                     currentMState.MiddleButton == ButtonState.Pressed);
                     SConsole.Configs.Add("under-gui-lock", false);
-                }
-                KeyboardState currentKState = Keyboard.GetState();
-                GamePadState currentGState = GamePad.GetState(Index);
-                if (_keyboardState != currentKState || _gamePadState != currentGState )
-                {
-                    IPage currentPage = _pages[_currentPage]; 
-                    int length = currentPage.Controls.Count;
-                    bool isA = false;
-                    bool isB = false;
+                }                
+                else if (_keyboardState != currentKState || _gamePadState != currentGState )
+                { 
                     
                     if (Input.IsPressed("Up"))
                     {
                         _pointer--;
                         if (_pointer < 0)
-                            _pointer = length - 1;
+                            _pointer = 0;
                     }
                     if (Input.IsPressed("Down"))
                     {
                         _pointer++;
                         if (_pointer >= length)
-                            _pointer = 0;
+                            _pointer = length - 1;
                     }
-                    if (Input.IsPressed("A"))
-                    {
-                        isA = true;
-                        _pointer = 0;
-                    }
-                    if (Input.IsPressed("B"))
-                        isB = true;
-                    Rectangle rect = new Rectangle(currentPage.Controls[_pointer].DrawRect.X, currentPage.Controls[_pointer].DrawRect.Y, 2, 2);
-                    GUIevent?.Invoke(rect, isA,
-                                    isB,
-                                    false);
+                    GUIevent?.Invoke(rect, false,
+                                    false,
+                                    false);            
+                }                
+                if (Input.IsPressed("A"))
+                {
+                    GUIevent?.Invoke(rect, true,false,false);
                 }
-                _pages[_currentPage].Update(gameTime);
+                if (Input.IsPressed("B"))
+                {
+                    GUIevent?.Invoke(rect, false,true,false);
+                }                 
             }
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (_currentPage != "" && !SConsole.Configs.GetBool("gui-lock"))
+            if (_currentPage != null && !SConsole.Configs.GetBool("gui-lock"))
             {
                 _pages[_currentPage].Draw(gameTime, spriteBatch);
             }
