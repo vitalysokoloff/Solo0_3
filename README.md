@@ -328,19 +328,6 @@ GUI.SetPage. Для отключения GUI в SetPage нужно переда�
     public SConsoleManager(GraphicsDeviceManager graphics, SpriteFont font)
     public void Update(GameTime gameTime)
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-
-[Sprite : ISprite]
-    public float Layer // Слой на котором будет отрисовываться
-    public IGameObject Parent
-    public int FramesQty // Кол-во кадров 
-    public int FrameNumber // Номер стартового кадра
-        
-    public Timer AnimationTimer 
-    public Color SpriteColor
-
-    public Sprite(Texture2D texture, Rectangle sourceRectangle, Vector2 position, Point size)
-    public Sprite(Texture2D texture, Rectangle sourceRectangle, Vector2 position, Point size, int frameNumber, int framesQty, Timer animationTimer, bool startAnimationInitially)
-
 ```
 #### Примечание
 ```
@@ -367,6 +354,18 @@ SConsole  можно использовать напрямую, его экзе�
 ```
 
 ```
+[Sprite : ISprite]
+    public float Layer // Слой на котором будет отрисовываться
+    public IGameObject Parent
+    public int FramesQty // Кол-во кадров 
+    public int FrameNumber // Номер стартового кадра
+        
+    public Timer AnimationTimer 
+    public Color SpriteColor
+
+    public Sprite(Texture2D texture, Rectangle sourceRectangle, Vector2 position, Point size)
+    public Sprite(Texture2D texture, Rectangle sourceRectangle, Vector2 position, Point size, int frameNumber, int framesQty, Timer animationTimer, bool startAnimationInitially)
+    
 [Shape : IShape]
     public Vector2 Position // Координаты центра фигуры.
     public float X // Координата X центра фигуры.
