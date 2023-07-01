@@ -15,6 +15,24 @@ Solo
         [] GameObjects
             - GameObjectInfo (class)
             - IGameObject (Interface)
+        [] GUI
+            [] Controls
+                - Box (class)
+                - Button (class)
+                - Control (class)
+                - IconButton (class)
+                - InputBox (class)
+                - Label (class)
+                - SwitchButton (class)
+                - TextBox (class)
+            - public delegate void GUIDelegate(delegate)
+            - public delegate void ControlAction(delegate)
+            - GUI (class)
+            - GUIStyle (class)
+            - IControl (interface)
+            - IGUI (interface)
+            - IPage (inteface)
+            - Page (interface)
         - IEntity (Interface) // Интерфейс сущности которая имеет два метода: Update() и Draw().        
         - MoveDelegate(Vector2 position) (delegate)
         - RotateDelegate(float angle) (delegate)
@@ -167,6 +185,102 @@ heap {
     public GameObjectInfo(string name, string type, Vector2 direction)
     public GameObjectInfo(string name, string type, Vector2 direction, Vector2 position)
     public GameObjectInfo(string name, string type, Vector2 direction, Vector2 position, Vector2 normal)
+
+[GUI]
+[Controls]
+    [Box : Control] // Просто бокс закрашенный цветом или текстурой
+    [Button : Control] // Кнопка
+        public Button(Rectangle drawRect, GUIStyle style, string text)
+    [Control : IControl]
+        public ControlAction AButtonAction
+        public ControlAction BButtonAction
+        public ControlAction CButtonAction
+        public bool isHovered
+        public Control(Rectangle drawRect, GUIStyle style)
+        public virtual void OnGUI(Rectangle hoverRect, bool aButton, bool bButton, bool cButton) // Page подписывает этот метод на событие GUI
+        public virtual void SetText(string text)
+        public virtual string GetText()
+    [IconButton : Control] // Кнопка с иконкой и всплывающей подсказкой
+        public IconButton(Rectangle drawRect, GUIStyle style, Texture2D icon, string prompt)
+    [InputBox : Control] // Поле для ввода текста
+        public InputBox(Rectangle drawRect, GUIStyle style, int maxLength)
+        public InputBox(Rectangle drawRect, GUIStyle style, int maxLength, string text)
+        public InputBox(Rectangle drawRect, GUIStyle style, int maxLength, string text, Heap chars)
+    [Label : Control] // Текст с фоном оцентрованный
+        public Label(Rectangle drawRect, GUIStyle style, string text)
+    [SwitchButton : Control] // Переключалка
+        public SwitchButton(Rectangle drawRect, GUIStyle style, string text, bool state)
+    [TextBox : Control] // Бокс автоматически подгоняющий свои размеры под размер текста
+        public TextBox(Rectangle drawRect, GUIStyle style, string text, Vector2 margin) 
+[GUI : IGUI]
+    public GUI()
+[GUIStyle : IGUIStyle]
+    public Texture2D Active 
+    public Texture2D NonAvtive 
+    public Texture2D Hovered 
+    public Texture2D Action
+    public Texture2D Prompt 
+    public Rectangle ActiveSourceRectangle 
+    public Rectangle NonActiveSourceRectangle 
+    public Rectangle HoveredSourceRectangle 
+    public Rectangle ActionSourceRectangle 
+    public Rectangle PromptSourceRectangle 
+    public Color ActiveFontColor 
+    public Color NonActiveFontColor 
+    public Color HoveredFontColor 
+    public Color ActionFontColor 
+    public Color PromptFontColor 
+    public Color ActiveColor 
+    public Color NonActiveColor 
+    public Color HoveredColor 
+    public Color ActionColor 
+    public Color PromptColor 
+    public SpriteFont Font
+    public GUIStyle(GraphicsDeviceManager graphics, SpriteFont font)    
+[IControl : IEntity]
+    public GUIStyle Style
+    public Texture2D Icon
+    public Rectangle IconSourceRect
+    public bool IsActive
+    public Rectangle DrawRect
+    public void SetText(string text)
+    public void OnGUI(Rectangle hoverRect, bool aButton, bool bButton, bool cButton)
+[IGUI : IEntity]
+    public ISInput Input
+    public PlayerIndex Index
+    public event GUIDelegate GUIevent
+    public void AddPage(string name, IPage page) // Добавляет страницу с контролами
+    public void DeletePage(string name) // Удаляет страницу с контролами
+    public string[] GetKeys()
+    public void SetPage(string name) // Устанавливает указанную страницу активной
+    public IPage GetPage(string name) // Возвращает указанную страницу
+[IPage : IEntity]
+    public List<IControl> Controls 
+    public IGUI Parent   
+    public void Add(IControl control) // Добавляет элемент гуи
+    public void Delete(int n) // Удаляет элемент гуи
+    public void Clear() // Очищает страницу от всех гуи
+    public void Activate() // Подписывает все контролы страницы на событие
+    public void Deactivate() // Отписывает все контролы страницы на событие
+[Page : IPage]
+    public Page()
+    public Page(IGUI parent, List<IControl> controls)
+```
+#### Примечание
+```
+По задумке GUI(менеджер гуи) должен создаваться в GameObject в Update которого
+должен быть запущен GUI.Update и в Draw GUI.Draw соответственно.
+Далее в GUI добавляются страницы GUI.AddPage, в которые в свою очередь
+добавляются различные контролы (Текст, кнопки). Страниц, естественно, может
+быть больше чем одна, переключаться между страницами нужно используя GUI.SetPage,
+указав имя страницы на которую нужно переключиться. SetPage делает нужную
+страницу активной, а остальные, соответственно, не активными. По умолчанию
+активная страница равна null, соответственно, ни одна страница не активна и
+не отображается, для чего для отображения нужной страницы следует вызвать
+GUI.SerPage. Для отключения GUI в SetPage нужно передать null/
+```
+```
+
 
 [ICollider : IEntity]
     public void On()
