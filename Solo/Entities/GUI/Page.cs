@@ -13,6 +13,7 @@ namespace Solo.Entities
         public Page()
         {
             Controls = new List<IControl>();
+            _isActive = false;
         }
 
         public Page(IGUI parent, List<IControl> controls)
@@ -26,15 +27,10 @@ namespace Solo.Entities
         }
         public void Delete(int n)
         {
-            if (_isActive)
-                Parent.GUIevent -= Controls[n].OnGUI;
             Controls.RemoveAt(n);
         }
         public void Clear()
         {
-            if (_isActive)
-                foreach(IControl c in Controls)
-                    Parent.GUIevent -= c.OnGUI;
             Controls = new List<IControl>();                 
         }
         public void Activate()
@@ -46,8 +42,7 @@ namespace Solo.Entities
         public void Deactivate()
         {
             if (_isActive)
-                foreach(IControl c in Controls)
-                   Parent.GUIevent -= c.OnGUI;
+                _isActive = false;
         }
         public void Update(GameTime gameTime)
         {

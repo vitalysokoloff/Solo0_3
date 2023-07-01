@@ -34,31 +34,35 @@ namespace Solo.Input
 
         public bool IsPressed(string keyName)
         {
-            SKeyState resault = SKeyState.Up;
-            List<Key> list = _keys[keyName];
-
-            for (int i = 0; i < list.Count; i++)
+            if (_keys.ContainsKey(keyName))
             {
-                resault = list[i].Listen(_index);
-                if (resault == SKeyState.Pressed)
-                    return true;
-            }
+                SKeyState resault = SKeyState.Up;
+                List<Key> list = _keys[keyName];
 
+                for (int i = 0; i < list.Count; i++)
+                {
+                    resault = list[i].Listen(_index);
+                    if (resault == SKeyState.Pressed)
+                        return true;
+                }
+            }
             return false;
         }
 
         public bool IsDown(string keyName)
         {
-            SKeyState resault = SKeyState.Up;
-            List<Key> list = _keys[keyName];
-
-            for (int i = 0; i < list.Count; i++)
+            if (_keys.ContainsKey(keyName))
             {
-                resault = list[i].Listen(_index);
-                if (resault == SKeyState.Down)
-                    return true;
-            }
+                SKeyState resault = SKeyState.Up;
+                List<Key> list = _keys[keyName];
 
+                for (int i = 0; i < list.Count; i++)
+                {
+                    resault = list[i].Listen(_index);
+                    if (resault == SKeyState.Down)
+                        return true;
+                }
+            }
             return false;
         }
 
