@@ -13,8 +13,10 @@ Solo
             - Collider (class)
             - ICollider (Interface) 
         [] GameObjects
+            - Brush (class)
             - GameObjectInfo (class)
             - IGameObject (Interface)
+            - Prop (class)
         [] GUI
             [] Controls
                 - Box (class)
@@ -170,7 +172,7 @@ heap {
     public static Collider Box(int edgeSize, Vector2 position, GraphicsDeviceManager graphics)
     public static Collider Box(int edgeSize, Color color, Vector2 position, GraphicsDeviceManager graphics)  
 
-[GameObject : IGameObject]    
+[Brush : IGameObject]    
 
 [GameObjectInfo] // Содержит информацию об игровом объекте, используется для получения инфы при столкновении игровых объектов
     public string Name
@@ -319,6 +321,8 @@ GUI.SetPage. Для отключения GUI в SetPage нужно переда�
     public void OnMove(Vector2 position) // Для подписывание на событие игрового объекта
     public void OnRotate(float angle) // Для подписывание на событие игрового объекта
     public void Resize(float multiplier)
+
+[Prop : IGameObject]   
 
 [SConsoleManager]    
     public Texture2D Texture;
