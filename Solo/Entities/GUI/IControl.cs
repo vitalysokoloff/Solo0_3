@@ -11,6 +11,7 @@ namespace Solo.Entities
         public bool IsActive {get; set;}
         public Rectangle DrawRect {get; set;} 
         public void SetText(string text);
+        public string GetText();
         public void OnGUI(Rectangle hoverRect, bool aButton, bool bButton, bool cButton);
     }
 }
