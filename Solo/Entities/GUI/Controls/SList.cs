@@ -69,7 +69,10 @@ namespace Solo.Entities
             {
                 for (int i = 0; i < switches.Length; i++)
                 {
-                    switches[i].IsActive = false;
+                    switches[i].IsOn = false;
+                    if (switches[i].GetText() == text)
+                        switches[i].IsOn = true;
+
                 }                
             }
             _text = text;
@@ -101,8 +104,8 @@ namespace Solo.Entities
                     
                     drawElements[i].AButtonAction += () =>
                     {
-                        SetText(text);    
-                        SConsole.Write(GetText());                    
+                        SetText(text);
+                        SConsole.Configs.Add("test",text);                    
                     };
                 }
                 else
