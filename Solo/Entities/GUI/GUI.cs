@@ -112,7 +112,7 @@ namespace Solo.Entities
                 if (_mouseState != currentMState)
                 {
                     _mouseState = Mouse.GetState();
-                    rect = new Rectangle(currentMState.X, currentMState.Y, 2, 2);
+                    rect = new Rectangle(currentMState.X, currentMState.Y, 1, 1);
                     SConsole.Configs.Add("under-gui-lock", true);
                     GUIevent?.Invoke(rect, currentMState.LeftButton == ButtonState.Pressed,
                                     currentMState.RightButton == ButtonState.Pressed,
