@@ -217,8 +217,8 @@ heap {
         public SList(Rectangle elemDrawRect, GUIStyle style, string[] list, int drawElemQty) // elemDrawRect Координаты и размеры                                                                                  первого элемента в списке
                                                                                             // drawElemQty Количесвто одновременно отображаемых элементов списка
         public void SetList(string[] list) // Установить список свитч-кнопок
-        public void ScrollUp(int delta)
-        public void ScrollDown(int delta)
+        public void ScrollUp(int delta) //
+        public void ScrollDown(int delta) //
         public virtual void SetText(string text) // Установит свитч активным
          public virtual string GetText() // Вернёт имя активного свитча
     [TextBox : Control] // Бокс автоматически подгоняющий свои размеры под размер текста
