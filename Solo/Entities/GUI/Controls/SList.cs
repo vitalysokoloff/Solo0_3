@@ -104,8 +104,7 @@ namespace Solo.Entities
                     
                     drawElements[i].AButtonAction += () =>
                     {
-                        SetText(text);
-                        SConsole.Configs.Add("test",text);                    
+                        SetText(text);                    
                     };
                 }
                 else
