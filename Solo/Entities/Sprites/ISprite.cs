@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Solo.Entities 
 {
@@ -13,5 +14,7 @@ namespace Solo.Entities
         public void OnMove(Vector2 position);
         public void OnRotate(float angle);
         public void Resize(float multiplier);
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point delta);
+        public Point GetSize();
     }
 }

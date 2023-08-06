@@ -9,6 +9,7 @@ namespace Solo
     public static class SConsole
     {
         public static Heap Configs = new Heap();
+        public static Junk Stuff = new Junk();
         public static SpriteFont Font;
         public static Color FontColor = Color.White;
         public static bool isTextInput = false;

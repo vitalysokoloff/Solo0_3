@@ -5,6 +5,7 @@ namespace Solo.Entities
     public interface ICollider : IEntity
     {
         // Колайдер перемещает и вертит шейп, генерирует текстуру шейпа
+        public IGameObject Parent {get; set;}
         public void On();
         public void Off();
         public bool GetState();
