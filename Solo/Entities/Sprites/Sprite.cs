@@ -116,6 +116,11 @@ namespace Solo.Entities
             return _state;
         }
 
+        public Point GetSize()
+        {
+            return _size;
+        }
+
         public void Resize(float multiplier)
         {
             _drawRectangle.Width = (int)(_size.X * multiplier);
@@ -132,6 +137,15 @@ namespace Solo.Entities
         {
             if (_state)
                 spriteBatch.Draw(_texture, _drawRectangle, _sourceRectangle, SpriteColor, _angle, _pivot, SpriteEffects.None, Layer);
+        }
+
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point delta)
+        {
+            if (_state)
+            {
+                Rectangle _new = new Rectangle(_drawRectangle.X + delta.X, _drawRectangle.Y + delta.Y, _drawRectangle.Width, _drawRectangle.Height);
+                spriteBatch.Draw(_texture, _new, _sourceRectangle, SpriteColor, _angle, _pivot, SpriteEffects.None, Layer);
+            }
         }
 
         protected void FrameMoveRight()
