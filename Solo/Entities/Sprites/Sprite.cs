@@ -55,11 +55,48 @@ namespace Solo.Entities
             On();
         }
 
+        public Sprite(SMaterial material, Vector2 position, Point size)
+        {
+            _texture = material.Texture;
+            SpriteColor = Color.White;
+            _sourceRectangle = material.SourceRectangle;
+            _position = position;
+            _angle = 0;
+            _size = size;
+            _pivot = new Vector2(_size.X / 2, _size.Y / 2);
+            _drawRectangle = new Rectangle((int)_position.X, (int)_position.Y, _size.X, _size.Y);            
+            FramesQty = 1;
+            FrameNumber = 0;
+            AnimationTimer = Timer.GetDefault();
+            Layer = 1f;            
+            On();
+        }
+
         public Sprite(Texture2D texture, Rectangle sourceRectangle, Vector2 position, Point size, int frameNumber, int framesQty, Timer animationTimer, bool startAnimationInitially)
         {
             _texture = texture;
             SpriteColor = Color.White;
             _sourceRectangle = sourceRectangle;
+            _position = position;
+            _angle = 0;
+            _size = size;
+            _pivot = new Vector2(_size.X / 2, _size.Y / 2);
+            _drawRectangle = new Rectangle((int)_position.X, (int)_position.Y, _size.X, _size.Y);            
+            FramesQty = framesQty;
+            FrameNumber = frameNumber;
+            AnimationTimer = animationTimer;
+            Layer = 1f;
+            On();
+
+            if (startAnimationInitially)
+                AnimationStart();
+        }
+
+        public Sprite(SMaterial material, Vector2 position, Point size, int frameNumber, int framesQty, Timer animationTimer, bool startAnimationInitially)
+        {
+            _texture = material.Texture;
+            SpriteColor = Color.White;
+            _sourceRectangle = material.SourceRectangle;
             _position = position;
             _angle = 0;
             _size = size;

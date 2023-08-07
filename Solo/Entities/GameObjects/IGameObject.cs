@@ -8,6 +8,7 @@ namespace Solo.Entities
         public event RotateDelegate RotateEvent;
         public Vector2 Postion {get; set;}
         public float Angle {get; set;}
+        public float Layer {get; set;}
         public string Type {get; set;}
         public string Name {get; set;}
         public Vector2 Direction {get; set;}

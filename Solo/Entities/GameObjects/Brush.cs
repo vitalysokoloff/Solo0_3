@@ -3,7 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Solo.Entities 
 {
-    // У браша заменить айспрайт на айматериал, материал содержит в себе тестуру и сорс ректангл 
+    // Сделать массив массивов чтобы не считать каждый раз положение конкретной текстуры
+    
     /// <summary>
     /// Реализует игровой обект браш, это к примеру стены, фоны декорации, спрайт у брашей "замащивает"(заливает) весь игровой обект.
     /// Браш имеет прямоугольный коллайдер размером с сам браш.
@@ -36,31 +37,34 @@ namespace Solo.Entities
                 RotateEvent?.Invoke(_angle);
             }
         }
+        public float Layer {get; set;}
         public string Type {get; set;}
         public string Name {get; set;}
         public Vector2 Direction {get; set;}
         public ICollider Collider {get; set;}
-        public ISprite Sprite {get; set;}
+        SMaterial Material {get; set;}
 
         protected Point _clonesQty;
         protected float _angle;
         protected Vector2 _position;
+        protected Rectangle _rect;
+        protected Vector2 _pivot;
 
-        public Brush(ISprite sprite)
+        public Brush(SMaterial material)
         {
-            Init(sprite, new Rectangle(0, 0, sprite.GetSize().X, sprite.GetSize().Y), 0f);
+            Init(material, new Rectangle(0, 0, material.Texture.Width, material.Texture.Height), 0f);
         }
-        public Brush(ISprite sprite, float angle)
+        public Brush(SMaterial material, float angle)
         {
-            Init(sprite, new Rectangle(0, 0, sprite.GetSize().X, sprite.GetSize().Y), angle);
+            Init(material, new Rectangle(0, 0, material.Texture.Width, material.Texture.Height), angle);
         }
-        public Brush(ISprite sprite, Rectangle rect)
+        public Brush(SMaterial material, Rectangle rect)
         {
-            Init(sprite, rect, 0f);
+            Init(material, rect, 0f);
         }
-        public Brush(ISprite sprite, Rectangle rect, float angle)
+        public Brush(SMaterial material, Rectangle rect, float angle)
         {
-            Init(sprite, rect, angle);
+            Init(material, rect, angle);
         }
         public ICollider CheckCollision(IGameObject go){return null;}
         public void OnCollision(GameObjectInfo GOInfo){}
@@ -78,20 +82,24 @@ namespace Solo.Entities
             {
                 for (int j = 0; j < _clonesQty.Y; j++)
                 {
-                    Sprite.Draw(gameTime, spriteBatch, new Point(i * Sprite.GetSize().X, j * Sprite.GetSize().Y));
+                    Point size = new Point(Material.SourceRectangle.Width, Material.SourceRectangle.Height);
+                    Rectangle drawRect = new Rectangle(_rect.X + i * size.X, _rect.Y + j * size.Y, size.X, size.Y);
+                    spriteBatch.Draw(Material.Texture, drawRect, Material.SourceRectangle, Color.White, _angle, _pivot, SpriteEffects.None, Layer);
                 }
             }
             Collider.Draw(gameTime, spriteBatch);
         }
 
-        protected void Init(ISprite sprite, Rectangle rect, float angle)
+        protected void Init(SMaterial material, Rectangle rect, float angle)
         {
-            Sprite = sprite;            
-            int x = rect.Width / sprite.GetSize().X;
-            int y = rect.Height / sprite.GetSize().Y;
-            Postion = new Vector2(rect.Center.X, rect.Center.Y);
+            _rect = rect;
+            _pivot = new Vector2(_rect.Width / 2, _rect.Height / 2);
+            Material = material;            
+            int x = _rect.Width / material.Texture.Width;
+            int y = _rect.Height / material.Texture.Height;
+            Postion = new Vector2(_rect.Center.X, _rect.Center.Y);
             _clonesQty = new Point(x, y);
-            Collider = new Collider(new SRectangle(rect.X, rect.Y, rect.Width, rect.Height), Vector2.Zero, (GraphicsDeviceManager)SConsole.Stuff.Get("graphics"))           
+            Collider = new Collider(new SRectangle(_rect.X, _rect.Y, _rect.Width, _rect.Height), Vector2.Zero, (GraphicsDeviceManager)SConsole.Stuff.Get("graphics"))           
             {
                 Parent = this
             };
