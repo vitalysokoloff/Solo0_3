@@ -111,8 +111,8 @@ namespace Solo.Entities
         {
             for (int i = 0; i < _verties.Length; i++)
                 _verties[i] = new Vector2(
-                (float)((_baseVerties[i].X ) * Math.Cos(_angle) - (_baseVerties[i].Y) * Math.Sin(_angle)),
-                (float)((_baseVerties[i].X ) * Math.Sin(_angle) + (_baseVerties[i].Y) * Math.Cos(_angle))
+                (float)(_baseVerties[i].X  * Math.Cos(_angle) - _baseVerties[i].Y * Math.Sin(_angle)),
+                (float)(_baseVerties[i].X  * Math.Sin(_angle) + _baseVerties[i].Y * Math.Cos(_angle))
                 );
         }        
         protected virtual void GenerateTexture(GraphicsDeviceManager graphics)
