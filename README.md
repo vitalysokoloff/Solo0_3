@@ -59,6 +59,7 @@ Solo
         - CollisionInformation (static class) // Класс для получения информации о столкновении объектов.
         - GJK (static class) // Класс для обнаружения столкновений объектов.
     - SConsole (static class) // Консоль для воода / вывода текста.
+    - SMaterial (class)
     - Timer (class)
     - Tools (static class) // Класс содержащий различные вспомогательные методы.
 ```
