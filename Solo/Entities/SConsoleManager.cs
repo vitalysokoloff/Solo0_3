@@ -96,7 +96,27 @@ namespace Solo.Entities
                     if (_input.IsPressed("input")) 
                     {
                         _buffer = SConsole.ReadLine();
-                        ParseString(_buffer);                         
+                        switch (_buffer)
+                        {
+                            case "reboot":
+                                Reboot();
+                                break;
+                            case "god-mode":
+                                SetGodMode();
+                                break;
+                            case "make-fullscreen":
+                                MakeFullScreen();
+                                break;
+                            case "unmake-fullscreen":
+                                UnmakeFullScreen();
+                                break;
+                            case "graphics-reset":
+                                ApplyChanges();
+                                break;
+                            default:
+                                ParseString(_buffer);  
+                                break;
+                        }                    
                     }  
                 }               
             }
@@ -114,7 +134,7 @@ namespace Solo.Entities
             SConsole.Draw(gameTime, spriteBatch);
         }
 
-        private void ParseString(string str)
+        protected void ParseString(string str)
         {
             string intPattern = @"^.+\s[0-9]+$";
             string floatPattern = @"^.+\s((\d+,\d+)|(\d+))f$";
@@ -152,6 +172,32 @@ namespace Solo.Entities
                 SConsole.Configs.Add(tmp[0], false);
                 return;
             }
+        }
+
+        public virtual void Reboot()
+        {
+            SConsole.WriteLine("You should override this method!");
+        }
+        public virtual void SetGodMode()
+        {
+            SConsole.WriteLine("You should override this method!");
+        }
+        public virtual void MakeFullScreen()
+        {
+            GraphicsDeviceManager graphics = (GraphicsDeviceManager)SConsole.Stuff.Get("graphics");
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
+        }
+        public virtual void UnmakeFullScreen()
+        {
+            GraphicsDeviceManager graphics = (GraphicsDeviceManager)SConsole.Stuff.Get("graphics");
+            graphics.IsFullScreen = false;
+            graphics.ApplyChanges();
+        }
+        public virtual void ApplyChanges()
+        {
+            GraphicsDeviceManager graphics = (GraphicsDeviceManager)SConsole.Stuff.Get("graphics");
+            graphics.ApplyChanges();
         }
     }
 }
