@@ -1,8 +1,8 @@
 namespace Solo.Entities
 {
-    public class SCamera
+    public class Camera
     {
-        public SCamera()
+        public Camera()
         {
             
         }
