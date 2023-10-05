@@ -35,7 +35,7 @@ namespace Solo
             Config = config; 
         }
 
-        public virtual void Init(GraphicsDeviceManager graphics, SCamera camera)
+        public virtual void Init(GraphicsDeviceManager graphics, Camera camera)
         {
             // Window settings
             Heap window = Config.GetHeap("window");
@@ -60,7 +60,7 @@ namespace Solo
             graphics.IsFullScreen = isFullScreen; 
         }
 
-        public virtual void Reset(GraphicsDeviceManager graphics, SCamera camera)
+        public virtual void Reset(GraphicsDeviceManager graphics, Camera camera)
         {
             graphics.ApplyChanges();
         }
