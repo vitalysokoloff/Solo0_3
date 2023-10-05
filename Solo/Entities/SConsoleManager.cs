@@ -15,11 +15,11 @@ namespace Solo.Entities
         public Settings GameSettings {get; }
 
         protected GraphicsDeviceManager _graphics;        
-        protected SCamera _camera;
+        protected Camera _camera;
         protected KeysInput _input;
         protected string _buffer;
 
-        public SConsoleManager(GraphicsDeviceManager graphics, SCamera camera, SpriteFont font, Settings settings)
+        public SConsoleManager(GraphicsDeviceManager graphics, Camera camera, SpriteFont font, Settings settings)
         {           
             _graphics = graphics;
             _camera = camera;
