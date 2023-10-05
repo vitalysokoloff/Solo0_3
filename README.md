@@ -8,7 +8,8 @@ Solo
     [] Collections
         - Heap (class)    
     [] Entities
-        /*[] Cameras
+        [] Cameras
+            - SCamera (class)
         [] Colliders
             - Collider (class)
             - ICollider (Interface) 
@@ -51,7 +52,7 @@ Solo
         - Chars (static class)
         - ISInput (Interface)
         - Key (class)
-        - KeyInput (class)
+        - KeyInput (class)        
         - SKeyState (enum)
         - StickDirections (enum) // Одно из восьми направлений верх, низ, право, лево, левоВерх, правоВерх, левоНиз, ПравоНиз + undefined, используется когда стик в "положении покоя"
         - TextInput (class)        
@@ -59,6 +60,7 @@ Solo
         - CollisionInformation (static class) // Класс для получения информации о столкновении объектов.
         - GJK (static class) // Класс для обнаружения столкновений объектов.
     - SConsole (static class) // Консоль для воода / вывода текста.
+    - Settings (class)
     - SMaterial (class)
     - Timer (class)
     - Tools (static class) // Класс содержащий различные вспомогательные методы.
