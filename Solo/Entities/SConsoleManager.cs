@@ -12,14 +12,19 @@ namespace Solo.Entities
         public Texture2D Texture;
         public Rectangle SourceRectangle;
         public Rectangle DrawRectangle;
+        public Settings GameSettings {get; }
 
-        protected GraphicsDeviceManager _graphics;
+        protected GraphicsDeviceManager _graphics;        
+        protected SCamera _camera;
         protected KeysInput _input;
         protected string _buffer;
 
-        public SConsoleManager(GraphicsDeviceManager graphics, SpriteFont font)
+        public SConsoleManager(GraphicsDeviceManager graphics, SCamera camera, SpriteFont font, Settings settings)
         {           
             _graphics = graphics;
+            _camera = camera;
+            GameSettings = settings;
+
 
             Texture = Tools.MakeSolidColorTexture(_graphics, new Point(1, 1), new Color(34, 34, 34));
             SourceRectangle = new Rectangle(0, 0, 1, 1);
@@ -27,7 +32,6 @@ namespace Solo.Entities
             _input = new KeysInput();
             _input.Add("console", new Key(Keys.OemTilde));
             _input.Add("help", new Key(Keys.F1));
-            _input.Add("configs", new Key(Keys.F2));
             _input.Add("clear", new Key(Keys.F3));
             _input.Add("input", new Key(Keys.Enter));
             _input.Add("remove", new Key(Keys.Back));
@@ -49,12 +53,12 @@ namespace Solo.Entities
                 {
                     SConsole.On();
                     SConsole.WriteLine("[F1] - to help");
-                    ParseString("gui-lock +");
+                    SConsole.Configs.Add("gui-lock", true);
                 }
                 else
                 {
                     SConsole.Off();
-                    ParseString("gui-lock -");
+                    SConsole.Configs.Add("gui-lock", false);
                 }
             }
 
@@ -64,17 +68,12 @@ namespace Solo.Entities
                 {
                     SConsole.WriteLine("========== Help ==========");
                     SConsole.WriteLine("[F1   ] - help");
-                    SConsole.WriteLine("[F2   ] - show configs");
                     SConsole.WriteLine("[F3   ] - clear console");
                     SConsole.WriteLine("[Enter] - input last line");
                     SConsole.WriteLine("[Back ] - remove last char");
                     SConsole.WriteLine("[Tab  ] - last input line");
                     SConsole.WriteLine("[Up   ] - last input line");
                     SConsole.WriteLine("==========================");
-                }
-                if (_input.IsPressed("configs"))
-                {
-                    SConsole.Write("\n" + SConsole.Configs.ToString());
                 }
                 if (_input.IsPressed("clear"))
                 {
@@ -98,20 +97,17 @@ namespace Solo.Entities
                         _buffer = SConsole.ReadLine();
                         switch (_buffer)
                         {
-                            case "reboot":
+                            case "-reboot":
                                 Reboot();
                                 break;
-                            case "god-mode":
+                            case "-god-mode":
                                 SetGodMode();
                                 break;
-                            case "make-fullscreen":
-                                MakeFullScreen();
+                            case "-reset-settings":
+                                GameSettings.Reset(_graphics, _camera);
                                 break;
-                            case "unmake-fullscreen":
-                                UnmakeFullScreen();
-                                break;
-                            case "graphics-reset":
-                                ApplyChanges();
+                            case "-save-settings":
+                                GameSettings.Save(_graphics);
                                 break;
                             default:
                                 ParseString(_buffer);  
@@ -136,40 +132,30 @@ namespace Solo.Entities
 
         protected void ParseString(string str)
         {
-            string intPattern = @"^.+\s[0-9]+$";
-            string floatPattern = @"^.+\s((\d+,\d+)|(\d+))f$";
-            string stringPattern = "^.+\\s\".+\"$";
-            string truePattern = @"^.+\s(\+|true|True|on|On)$";
-            string falsePattern = @"^.+\s(-|false|False|off|Off)$";
+            string setResolution = @"^-resolution\s[0-9]+\s[0-9]+$";
+            string showResolution = @"^-resolution$";
+            string fullScreenOn = @"^-fullscreen\son$";
+            string fullScreenOff = @"^-fullscreen\soff$";
 
-            if (Regex.IsMatch(str, intPattern))
+            if (Regex.IsMatch(str, setResolution))
             {
                 string[] tmp = str.Split(' ');
-                SConsole.Configs.Add(tmp[0], Convert.ToInt32(tmp[1]));
+                GameSettings.SetResolution(_graphics, Convert.ToInt32(tmp[1]), Convert.ToInt32(tmp[2]));
                 return;
             }
-            if (Regex.IsMatch(str, floatPattern))
+            if (Regex.IsMatch(str, showResolution))
             {
-                string[] tmp = str.Split(' ');
-                SConsole.Configs.Add(tmp[0], (float)Convert.ToDouble(tmp[1].Trim('f')));
+                SConsole.WriteLine(GameSettings.GetResolution(_graphics));
                 return;
             }
-            if (Regex.IsMatch(str, stringPattern))
+            if (Regex.IsMatch(str, fullScreenOn))
             {
-                string[] tmp = str.Split(' ');
-                SConsole.Configs.Add(tmp[0], tmp[1]);
+                GameSettings.SetFullScreen(_graphics, true);
                 return;
             }
-            if (Regex.IsMatch(str, truePattern))
+            if (Regex.IsMatch(str, fullScreenOff))
             {
-                string[] tmp = str.Split(' ');
-                SConsole.Configs.Add(tmp[0], true);
-                return;
-            }
-            if (Regex.IsMatch(str, falsePattern))
-            {
-                string[] tmp = str.Split(' ');
-                SConsole.Configs.Add(tmp[0], false);
+                GameSettings.SetFullScreen(_graphics, false);
                 return;
             }
         }
@@ -181,23 +167,6 @@ namespace Solo.Entities
         public virtual void SetGodMode()
         {
             SConsole.WriteLine("You should override this method!");
-        }
-        public virtual void MakeFullScreen()
-        {
-            GraphicsDeviceManager graphics = (GraphicsDeviceManager)SConsole.Stuff.Get("graphics");
-            graphics.IsFullScreen = true;
-            graphics.ApplyChanges();
-        }
-        public virtual void UnmakeFullScreen()
-        {
-            GraphicsDeviceManager graphics = (GraphicsDeviceManager)SConsole.Stuff.Get("graphics");
-            graphics.IsFullScreen = false;
-            graphics.ApplyChanges();
-        }
-        public virtual void ApplyChanges()
-        {
-            GraphicsDeviceManager graphics = (GraphicsDeviceManager)SConsole.Stuff.Get("graphics");
-            graphics.ApplyChanges();
-        }
+        }      
     }
 }
