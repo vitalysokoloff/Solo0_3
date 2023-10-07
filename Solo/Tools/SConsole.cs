@@ -37,7 +37,7 @@ namespace Solo
         {
             if (_state && Font != null)
             {               
-                spriteBatch.DrawString(Font, _text, Position - new Vector2(0, Font.MeasureString(_text).Y), FontColor);
+                spriteBatch.DrawString(Font, _text, Position - new Vector2(0, Font.MeasureString(_text).Y), FontColor, 0f, Vector2.Zero, 1, SpriteEffects.None, 1f);                
             }
         }
 

@@ -19,7 +19,7 @@ namespace Solo
         {
             Heap config = Heap.Open("config.heap");
             _graphics = new GraphicsDeviceManager(this);
-            _camera = new Camera();
+            _camera = new Camera(_graphics);
             Heap gameConfig = config.GetHeap("game");
             Content.RootDirectory = gameConfig.GetString("root-directory");
             IsMouseVisible =  gameConfig.GetBool("mouse-visibility");
@@ -39,7 +39,7 @@ namespace Solo
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _font = Content.Load<SpriteFont>("font");
+            _font = Content.Load<SpriteFont>(_settings.Config.GetHeap("game").GetString("original-font-name"));
             SConsole.Font = _font;              
         }
 
@@ -47,6 +47,7 @@ namespace Solo
         {  
             base.Update(gameTime);
             _console.Update(gameTime);
+            _camera.Update(gameTime);
         }
     }
 }

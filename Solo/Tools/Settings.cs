@@ -41,7 +41,8 @@ namespace Solo
             Heap window = Config.GetHeap("window");
             graphics.PreferredBackBufferWidth = window.GetInt("width");
             graphics.PreferredBackBufferHeight = window.GetInt("height");
-            graphics.IsFullScreen = window.GetBool("fullscreen");          
+            graphics.IsFullScreen = window.GetBool("fullscreen");
+            Reset(graphics, camera);  
         }
 
         public virtual void SetResolution(GraphicsDeviceManager graphics, int width, int height)
@@ -63,6 +64,10 @@ namespace Solo
         public virtual void Reset(GraphicsDeviceManager graphics, Camera camera)
         {
             graphics.ApplyChanges();
+            camera.Center = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
+            camera.Scale = new Vector3(graphics.PreferredBackBufferWidth / (float)Config.GetHeap("game").GetInt("original-width"), 
+                                        graphics.PreferredBackBufferHeight / (float)Config.GetHeap("game").GetInt("original-height"), 
+                                        1);
         }
 
         public void Save(GraphicsDeviceManager graphics)
