@@ -124,8 +124,8 @@ namespace Solo.Entities
         {
             if (SConsole.GetState())
             {
-                spriteBatch.Draw(Texture, DrawRectangle, SourceRectangle, Color.White * 0.9f, 0, Vector2.Zero, SpriteEffects.None, 0.98f);
-                spriteBatch.DrawString(SConsole.Font, ">", SConsole.Position - new Vector2(10, SConsole.Font.MeasureString(">").Y), Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0.99f);
+                spriteBatch.Draw(Texture, new Rectangle((int)_camera.X, (int)_camera.Y, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight / 2), SourceRectangle, Color.White * 0.9f, 0, Vector2.Zero, SpriteEffects.None, 0.98f);
+                spriteBatch.DrawString(SConsole.Font, ">", SConsole.Position - new Vector2(10, SConsole.Font.MeasureString(">").Y), Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1f);
             }
             SConsole.Draw(gameTime, spriteBatch);
         }
