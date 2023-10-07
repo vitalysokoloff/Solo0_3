@@ -9,7 +9,7 @@ Solo
         - Heap (class)    
     [] Entities
         [] Cameras
-            - SCamera (class)
+            - Camera (class)
         [] Colliders
             - Collider (class)
             - ICollider (Interface) 
