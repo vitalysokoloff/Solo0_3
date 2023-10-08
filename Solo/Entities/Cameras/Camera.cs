@@ -5,6 +5,7 @@ namespace Solo.Entities
 {
     public class Camera : IEntity    {
         
+        public IGameObject Focus {get; set;}
         public Vector2 Center { get; set;}
         public Matrix Transform { get; protected set; }
         public Vector3 Scale 
