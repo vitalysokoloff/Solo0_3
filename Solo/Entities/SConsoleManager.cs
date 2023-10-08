@@ -136,6 +136,10 @@ namespace Solo.Entities
             string showResolution = @"^-resolution$";
             string fullScreenOn = @"^-fullscreen\son$";
             string fullScreenOff = @"^-fullscreen\soff$";
+            string getMusic = @"^-music$";
+            string getSound = @"^-sound$";
+            string setMusic = @"^-music\s[01]\.[0-9]$";
+            string setSound = @"^-sound\s[01]\.[0-9]$";
 
             if (Regex.IsMatch(str, setResolution))
             {
@@ -156,6 +160,32 @@ namespace Solo.Entities
             if (Regex.IsMatch(str, fullScreenOff))
             {
                 GameSettings.SetFullScreen(_graphics, _camera, false);
+                return;
+            }
+            if (Regex.IsMatch(str, getMusic))
+            {
+                GameSettings.GetMusicVolume();
+                return;
+            }
+            if (Regex.IsMatch(str, getSound))
+            {
+                GameSettings.GetSoundVolume();
+                return;
+            }
+            if (Regex.IsMatch(str, setMusic))
+            {
+                string[] tmp = str.Replace('.', ',').Split(' ');
+                float volume = float.Parse(tmp[1]);
+                volume = volume > 1? 1 : volume;
+                GameSettings.SetMusicVolume(volume);
+                return;
+            }
+            if (Regex.IsMatch(str, setSound))
+            {
+                string[] tmp = str.Replace('.', ',').Split(' ');
+                float volume = float.Parse(tmp[1]);
+                volume = volume > 1? 1 : volume;
+                GameSettings.SetSoundVolume(volume);
                 return;
             }
         }
