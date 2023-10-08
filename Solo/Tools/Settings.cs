@@ -73,6 +73,26 @@ namespace Solo
                                         1);
         }
 
+        public virtual void SetMusicVolume(float f)
+        {
+            Config.GetHeap("audio").Add("music", f);
+        }
+        
+        public virtual void SetSoundVolume(float f)
+        {
+            Config.GetHeap("audio").Add("sound", f);
+        }
+
+        public virtual void GetMusicVolume()
+        {
+            SConsole.WriteLine(Config.GetHeap("audio").GetFloat("music"));
+        }
+
+        public virtual void GetSoundVolume()
+        {
+            SConsole.WriteLine(Config.GetHeap("audio").GetFloat("sound"));
+        }
+
         public void Save(GraphicsDeviceManager graphics)
         {
             Heap window = Config.GetHeap("window");
