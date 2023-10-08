@@ -27,7 +27,6 @@ namespace Solo.Entities
             set
             {
                 _position = value;
-                SConsole.Position = _position - _pivot;
             }
         }
         public float X
@@ -39,7 +38,6 @@ namespace Solo.Entities
             set
             {
                 _position.X = value;
-                SConsole.Position.X = value;
             }
         }
         public float Y
@@ -51,7 +49,6 @@ namespace Solo.Entities
             set
             {
                 _position.Y = value;
-                SConsole.Position.Y = value;
             }
         }
 

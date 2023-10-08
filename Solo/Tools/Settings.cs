@@ -45,10 +45,11 @@ namespace Solo
             Reset(graphics, camera);  
         }
 
-        public virtual void SetResolution(GraphicsDeviceManager graphics, int width, int height)
+        public virtual void SetResolution(GraphicsDeviceManager graphics, Camera camera, int width, int height)
         {
             graphics.PreferredBackBufferWidth = width;
             graphics.PreferredBackBufferHeight = height;
+            Reset(graphics, camera);
         }
 
         public virtual Point GetResolution(GraphicsDeviceManager graphics)
@@ -56,14 +57,16 @@ namespace Solo
             return new Point(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
 
-        public virtual void SetFullScreen(GraphicsDeviceManager graphics, bool isFullScreen)
+        public virtual void SetFullScreen(GraphicsDeviceManager graphics, Camera camera, bool isFullScreen)
         {
             graphics.IsFullScreen = isFullScreen; 
+            Reset(graphics, camera);
         }
 
         public virtual void Reset(GraphicsDeviceManager graphics, Camera camera)
         {
             graphics.ApplyChanges();
+            SConsole.Position = new Vector2(15, graphics.PreferredBackBufferHeight / 2);
             camera.Center = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
             camera.Scale = new Vector3(graphics.PreferredBackBufferWidth / (float)Config.GetHeap("game").GetInt("original-width"), 
                                         graphics.PreferredBackBufferHeight / (float)Config.GetHeap("game").GetInt("original-height"), 

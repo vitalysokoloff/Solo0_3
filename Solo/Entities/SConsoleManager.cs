@@ -71,8 +71,8 @@ namespace Solo.Entities
                     SConsole.WriteLine("[F3   ] - clear console");
                     SConsole.WriteLine("[Enter] - input last line");
                     SConsole.WriteLine("[Back ] - remove last char");
-                    SConsole.WriteLine("[Tab  ] - last input line");
-                    SConsole.WriteLine("[Up   ] - last input line");
+                    SConsole.WriteLine("[Tab  ] - insert last input line");
+                    SConsole.WriteLine("[Up   ] - insert last input line");
                     SConsole.WriteLine("==========================");
                 }
                 if (_input.IsPressed("clear"))
@@ -124,7 +124,7 @@ namespace Solo.Entities
         {
             if (SConsole.GetState())
             {
-                spriteBatch.Draw(Texture, new Rectangle((int)_camera.X, (int)_camera.Y, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight / 2), SourceRectangle, Color.White * 0.9f, 0, Vector2.Zero, SpriteEffects.None, 0.98f);
+                spriteBatch.Draw(Texture, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight / 2), SourceRectangle, Color.White * 0.9f, 0, Vector2.Zero, SpriteEffects.None, 0.98f);
                 spriteBatch.DrawString(SConsole.Font, ">", SConsole.Position - new Vector2(10, SConsole.Font.MeasureString(">").Y), Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1f);
             }
             SConsole.Draw(gameTime, spriteBatch);
@@ -140,7 +140,7 @@ namespace Solo.Entities
             if (Regex.IsMatch(str, setResolution))
             {
                 string[] tmp = str.Split(' ');
-                GameSettings.SetResolution(_graphics, Convert.ToInt32(tmp[1]), Convert.ToInt32(tmp[2]));
+                GameSettings.SetResolution(_graphics, _camera, Convert.ToInt32(tmp[1]), Convert.ToInt32(tmp[2]));
                 return;
             }
             if (Regex.IsMatch(str, showResolution))
@@ -150,12 +150,12 @@ namespace Solo.Entities
             }
             if (Regex.IsMatch(str, fullScreenOn))
             {
-                GameSettings.SetFullScreen(_graphics, true);
+                GameSettings.SetFullScreen(_graphics, _camera, true);
                 return;
             }
             if (Regex.IsMatch(str, fullScreenOff))
             {
-                GameSettings.SetFullScreen(_graphics, false);
+                GameSettings.SetFullScreen(_graphics, _camera, false);
                 return;
             }
         }
