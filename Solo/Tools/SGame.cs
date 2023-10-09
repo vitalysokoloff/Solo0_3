@@ -43,6 +43,13 @@ namespace Solo
             SConsole.Font = _font;              
         }
 
+        protected override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+            //спрайт бенч для сцен
+            //спрайт бенч для консоли
+        }
+
         protected override void Update(GameTime gameTime)
         {  
             base.Update(gameTime);
