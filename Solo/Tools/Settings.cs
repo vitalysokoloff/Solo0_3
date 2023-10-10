@@ -83,6 +83,10 @@ namespace Solo
             Config.GetHeap("audio").Add("sound", f);
         }
 
+        public virtual void SetOpening(bool b)
+        {
+            Config.GetHeap("game").Add("opening-logos", b);
+        }
         public virtual void GetMusicVolume()
         {
             SConsole.WriteLine(Config.GetHeap("audio").GetFloat("music"));
