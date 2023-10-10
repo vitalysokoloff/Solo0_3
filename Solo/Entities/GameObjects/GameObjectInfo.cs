@@ -63,5 +63,14 @@ namespace Solo.Entities
             Position = position;
             CollisionNormal = normal;
         }
+
+        public GameObjectInfo(IGameObject go, Vector2 normal)
+        {
+            Name = go.Name;
+            Type = go.Type;
+            Direction = go.Direction;
+            Position = go.Postion;
+            CollisionNormal = normal;
+        }
     }
 }

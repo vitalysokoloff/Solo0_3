@@ -5,6 +5,7 @@ namespace Solo.Entities
 {
     public class Camera : IEntity    {
         
+        // Камера ректангл коллайдер для того чтобы не рисовать все объекты вне его
         public IGameObject Focus {get; set;}
         public Vector2 Center { get; set;}
         public Matrix Transform { get; protected set; }

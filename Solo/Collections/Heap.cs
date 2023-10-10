@@ -196,6 +196,10 @@ namespace Solo.Collections
                 return new Heap();
             }
         }
+
+        // получить список ключей всех хипов
+        // получить список ключей всех строк
+
         public void Save(string path)
         {
             using (StreamWriter sw = new StreamWriter(path))

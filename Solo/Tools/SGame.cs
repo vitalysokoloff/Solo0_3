@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Solo.Collections;
@@ -46,8 +47,10 @@ namespace Solo
         protected override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            //спрайт бенч для сцен
-            //спрайт бенч для консоли
+            //дро сцены, там вызовится спрайт бенч
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+            _console.Draw(gameTime, _spriteBatch);   
+            _spriteBatch.End();
         }
 
         protected override void Update(GameTime gameTime)

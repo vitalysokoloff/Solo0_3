@@ -140,6 +140,8 @@ namespace Solo.Entities
             string getSound = @"^-sound$";
             string setMusic = @"^-music\s[01]\.[0-9]$";
             string setSound = @"^-sound\s[01]\.[0-9]$";
+            string openingOn = @"^-opening\son$";
+            string openingOff = @"^-opening\soff$";
 
             if (Regex.IsMatch(str, setResolution))
             {
@@ -186,6 +188,16 @@ namespace Solo.Entities
                 float volume = float.Parse(tmp[1]);
                 volume = volume > 1? 1 : volume;
                 GameSettings.SetSoundVolume(volume);
+                return;
+            }
+            if (Regex.IsMatch(str, openingOn))
+            {
+                GameSettings.SetOpening(true);
+                return;
+            }
+             if (Regex.IsMatch(str, openingOff))
+            {
+                GameSettings.SetOpening(false);
                 return;
             }
         }
