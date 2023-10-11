@@ -4,6 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
+using System.Collections.ObjectModel;
 
 namespace Solo.Collections
 {
@@ -197,8 +198,15 @@ namespace Solo.Collections
             }
         }
 
-        // получить список ключей всех хипов
-        // получить список ключей всех строк
+        public Dictionary<string, Heap>.KeyCollection GetHeapKeys()
+        {
+            return _heaps.Keys;
+        }
+
+        public Dictionary<string, string>.KeyCollection GetStringsKeys()
+        {
+            return _strings.Keys;
+        }
 
         public void Save(string path)
         {
