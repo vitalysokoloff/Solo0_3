@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Solo.Collections;
 using Solo.Entities;
 
 namespace Solo
@@ -16,6 +17,9 @@ namespace Solo
         // public GOList;
         // паблик журнал текстур
         // паблик журнал материалов
+        public string MapsDirectory;
+        public string TexturesDirectory;
+        public string RootDirectory;
 
         public Scene(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice)
         {
@@ -24,6 +28,10 @@ namespace Solo
             Content = content;
             _graphicsDevice = graphicsDevice;
             _isContentLoaded = false;
+            Heap GSettings = settings.Config.GetHeap("game");
+            RootDirectory = GSettings.GetString("root-directory");
+            TexturesDirectory = RootDirectory + "/" + GSettings.GetString("texture-directory");
+            MapsDirectory = RootDirectory + "/" + GSettings.GetString("maps-directory");
         }
 
         public virtual void Update(GameTime gameTime)
