@@ -53,9 +53,9 @@ namespace Solo
                 Heap materialInfo = materialInfos.GetHeap(k);
                 SMaterial material = new SMaterial()
                 {
-                    Texture = _scene.Textures[materialInfo.GetString("texture")],
+                    Texture = _scene.Textures[materialInfo.GetString("texture")], // проверка на нулл?
                     SourceRectangle = new Rectangle(materialInfo.GetPoint("location"), materialInfo.GetPoint("size")), 
-                    Sound = _scene.Sounds[materialInfo.GetString("sound")]
+                    Sound = _scene.Sounds[materialInfo.GetString("sound")] // проверка на нулл?
                 };
                 _scene.Materials.Add(k, material);
             }
