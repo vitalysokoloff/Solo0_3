@@ -91,6 +91,11 @@ namespace Solo.Entities
             Collider.Draw(gameTime, spriteBatch);
         }
 
+        public virtual void GUI(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+
+        }     
+
         public void Init(SMaterial material, Rectangle rect, float angle)
         {
             _rect = rect;
