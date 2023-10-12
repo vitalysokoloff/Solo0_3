@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Solo.Entities 
 {
@@ -16,6 +17,7 @@ namespace Solo.Entities
         public ICollider CheckCollision(IGameObject go);
         public void OnCollision(GameObjectInfo GOInfo);
         public void Move(Vector2 delta);
-        public void Rotate(float delta);        
+        public void Rotate(float delta);  
+        public void GUI(GameTime gameTime, SpriteBatch spriteBatch);      
     }
 }
