@@ -66,7 +66,7 @@ namespace Solo
                 List<IGameObject> drawingGOs = new List<IGameObject>();
                 foreach (string k in GOs.Keys)
                 {
-                    //if (GJK.CheckCollision(GOs[k].Collider.GetShape(), _camera.DrawRectangle))
+                    if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect))
                         drawingGOs.Add(GOs[k]);
                 }
                 _settings.SetLog("qty", drawingGOs.Count.ToString());

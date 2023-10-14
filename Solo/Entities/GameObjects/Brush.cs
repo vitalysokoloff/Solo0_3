@@ -38,6 +38,13 @@ namespace Solo.Entities
                 RotateEvent?.Invoke(_angle);
             }
         }
+        public Rectangle DrawRect
+        {
+            get
+            {
+                return _rect;
+            }
+        }
         public float Layer {get; set;}
         public string Type {get; set;}
         public string Name {get; set;}
@@ -130,6 +137,6 @@ namespace Solo.Entities
                                                     (int)(x * Math.Sin(_angle) + y * Math.Cos(_angle) + _pivot.Y));
                 }
             }
-        }    
+        }     
     }
 }
