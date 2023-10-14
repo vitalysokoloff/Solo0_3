@@ -241,7 +241,10 @@ namespace Solo.Entities
 
         public virtual void Help()
         {
-            SConsole.WriteLine("You should override this method!");
+            SConsole.WriteLine("You should override this method!!!");
+            SConsole.WriteLine("-resolution | -resolutiob on/off | -fullscreen on/off | -music | -music x.x");
+            SConsole.WriteLine("-sound | -sound x.x | -opening on/off | -debug on/off | -god on/off");
+            SConsole.WriteLine("-reboot | -help | -log | -reset-settings | -save-settings");
         }       
     }
 }

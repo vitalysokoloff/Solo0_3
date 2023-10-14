@@ -14,11 +14,12 @@ namespace Solo.Entities
         public string Name {get; set;}
         public Vector2 Direction {get; set;}
         public ICollider Collider {get; set;}
+        public Rectangle DrawRect { get; }    
         public ICollider CheckCollision(IGameObject go);
         public void OnCollision(GameObjectInfo GOInfo);
         public void Move(Vector2 delta);
         public void Rotate(float delta);  
         public void GUI(GameTime gameTime, SpriteBatch spriteBatch); 
-        public void Debug(GameTime gameTime, SpriteBatch spriteBatch);      
+        public void Debug(GameTime gameTime, SpriteBatch spriteBatch);         
     }
 }
