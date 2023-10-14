@@ -100,8 +100,11 @@ namespace Solo.Entities
                             case "-reboot":
                                 Reboot();
                                 break;
-                            case "-god-mode":
-                                SetGodMode();
+                            case "-help":
+                                Help();
+                                break;
+                            case "-log":
+                                ReadLog();
                                 break;
                             case "-reset-settings":
                                 GameSettings.Reset(_graphics, _camera);
@@ -142,6 +145,10 @@ namespace Solo.Entities
             string setSound = @"^-sound\s[01]\.[0-9]$";
             string openingOn = @"^-opening\son$";
             string openingOff = @"^-opening\soff$";
+            string debugOn = @"^-debug\son$";
+            string debugOff = @"^-debug\soff$";
+            string godOn = @"^-god\son$";
+            string godOff = @"^-god\soff$";
 
             if (Regex.IsMatch(str, setResolution))
             {
@@ -195,9 +202,29 @@ namespace Solo.Entities
                 GameSettings.SetOpening(true);
                 return;
             }
-             if (Regex.IsMatch(str, openingOff))
+            if (Regex.IsMatch(str, openingOff))
             {
                 GameSettings.SetOpening(false);
+                return;
+            }
+            if (Regex.IsMatch(str, debugOn))
+            {
+                GameSettings.DebugMode = true;
+                return;
+            }
+            if (Regex.IsMatch(str, debugOff))
+            {
+                GameSettings.DebugMode = false;
+                return;
+            }
+            if (Regex.IsMatch(str, godOn))
+            {
+                GameSettings.GodMode = true;
+                return;
+            }
+            if (Regex.IsMatch(str, godOff))
+            {
+                GameSettings.GodMode = false;
                 return;
             }
         }
@@ -206,9 +233,15 @@ namespace Solo.Entities
         {
             SConsole.WriteLine("You should override this method!");
         }
-        public virtual void SetGodMode()
+
+        public virtual void ReadLog()
+        {
+            GameSettings.GetLog();
+        }
+
+        public virtual void Help()
         {
             SConsole.WriteLine("You should override this method!");
-        }      
+        }       
     }
 }

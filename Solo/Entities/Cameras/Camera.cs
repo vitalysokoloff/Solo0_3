@@ -6,7 +6,8 @@ namespace Solo.Entities
     public class Camera : IEntity    {
         
         // Камера ректангл коллайдер для того чтобы не рисовать все объекты вне его
-        public IGameObject Focus {get; set;}
+        public IGameObject Focus { get; set;}
+        public SRectangle DrawRectangle { get; set; }
         public Vector2 Center { get; set;}
         public Matrix Transform { get; protected set; }
         public Vector3 Scale 
@@ -66,6 +67,7 @@ namespace Solo.Entities
 
             Center = new Vector2(viewportWidth / 2, viewportHeight / 2);
             _scale = new Vector3(1, 1, 1);
+            DrawRectangle = new SRectangle(0, 0, 1280, 720); // Поиграй с этим
         }
 
         public virtual void Update(GameTime gameTime)

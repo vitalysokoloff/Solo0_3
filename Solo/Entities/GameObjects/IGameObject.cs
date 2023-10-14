@@ -18,6 +18,7 @@ namespace Solo.Entities
         public void OnCollision(GameObjectInfo GOInfo);
         public void Move(Vector2 delta);
         public void Rotate(float delta);  
-        public void GUI(GameTime gameTime, SpriteBatch spriteBatch);      
+        public void GUI(GameTime gameTime, SpriteBatch spriteBatch); 
+        public void Debug(GameTime gameTime, SpriteBatch spriteBatch);      
     }
 }
