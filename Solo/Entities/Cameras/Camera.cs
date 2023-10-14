@@ -7,7 +7,7 @@ namespace Solo.Entities
         
         // Камера ректангл коллайдер для того чтобы не рисовать все объекты вне его
         public IGameObject Focus { get; set;}
-        public Rectangle DrawRectangle { get; set; }
+        public Rectangle DrawRectangle { get; set;}
         public Vector2 Center { get; set;}
         public Matrix Transform { get; protected set; }
         public Vector3 Scale 
@@ -30,6 +30,9 @@ namespace Solo.Entities
             set
             {
                 _position = value;
+                Point newPosition = new Point((int)(_position.X - _pivot.X - 300), (int)(_position.Y - _pivot.Y - 300));
+                Point size = new Point(_viewportWidth + 600, _viewportHeight + 600);
+                DrawRectangle = new Rectangle(newPosition, size);
             }
         }
         public float X
@@ -59,15 +62,17 @@ namespace Solo.Entities
         protected float _angle;
         protected Vector2 _pivot;
         protected Vector3 _scale;
+        protected int _viewportWidth;
+        protected int _viewportHeight;
 
         public Camera(GraphicsDeviceManager graphics)
         {
-            float viewportWidth = graphics.PreferredBackBufferWidth;
-            float viewportHeight = graphics.PreferredBackBufferHeight;
+            _viewportWidth = graphics.PreferredBackBufferWidth;
+            _viewportHeight = graphics.PreferredBackBufferHeight;
 
-            Center = new Vector2(viewportWidth / 2, viewportHeight / 2);
+            Center = new Vector2(_viewportWidth / 2, _viewportHeight / 2);
             _scale = new Vector3(1, 1, 1);
-            DrawRectangle = new Rectangle(0, 0, 1280, 720); // Поиграй с этим
+            DrawRectangle = new Rectangle(-300, -300, _viewportWidth + 300, _viewportHeight + 300);
         }
 
         public virtual void Update(GameTime gameTime)
