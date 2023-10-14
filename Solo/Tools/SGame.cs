@@ -14,7 +14,8 @@ namespace Solo
         protected Settings _settings;
         protected SpriteFont _font;
         protected SConsoleManager _console;
-        
+        protected Scene _currentScene;   
+        protected Color _bgColor;     
 
         public SGame()
         {
@@ -26,6 +27,8 @@ namespace Solo
             IsMouseVisible =  gameConfig.GetBool("mouse-visibility");
             _settings = new Settings(config); 
             _settings.Init(_graphics, _camera);
+            _bgColor = Color.Gray;
+            SConsole.Stuff.Add("graphics", _graphics);
         }
 
         protected override void Initialize()
@@ -45,9 +48,13 @@ namespace Solo
         }
 
         protected override void Draw(GameTime gameTime)
-        {
+        {            
             base.Draw(gameTime);
-            //дро сцены, там вызовится спрайт бенч
+            GraphicsDevice.Clear(_bgColor);
+            
+            if (_currentScene != null)
+                _currentScene.Draw(gameTime);
+            
             _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
             _console.Draw(gameTime, _spriteBatch);   
             _spriteBatch.End();

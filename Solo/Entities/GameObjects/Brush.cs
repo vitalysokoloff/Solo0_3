@@ -87,13 +87,17 @@ namespace Solo.Entities
                     Rectangle drawRect = new Rectangle(_positions[i, j].X, _positions[i, j].Y, _size.X, _size.Y);
                     spriteBatch.Draw(Material.Texture, drawRect, Material.SourceRectangle, Color.White, _angle, _pivot, SpriteEffects.None, Layer);
                 }
-            }
-            Collider.Draw(gameTime, spriteBatch);
+            }            
         }
 
         public virtual void GUI(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
+        }
+
+        public void Debug(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            Collider.Draw(gameTime, spriteBatch);
         }     
 
         public void Init(SMaterial material, Rectangle rect, float angle)
@@ -124,7 +128,6 @@ namespace Solo.Entities
                     int y = _rect.Y + j * _size.Y;
                     _positions[i, j] = new Point((int)(x * Math.Cos(_angle) - y * Math.Sin(_angle) + _pivot.X), 
                                                     (int)(x * Math.Sin(_angle) + y * Math.Cos(_angle) + _pivot.Y));
-                    SConsole.WriteLine(_positions[i, j]);
                 }
             }
         }    

@@ -30,9 +30,34 @@ namespace Solo
             }
         }
 
+        public bool DebugMode
+        {
+            get
+            {
+                return Config.GetHeap("game").GetBool("debug-mode");
+            }
+            set
+            {
+                Config.GetHeap("game").Add("debug-mode", value);
+            }
+        }
+
+        public bool GodMode
+        {
+            get
+            {
+                return Config.GetHeap("game").GetBool("god-mode");
+            }
+            set
+            {
+                Config.GetHeap("game").Add("god-mode", value);
+            }
+        }
+
         public Settings(Heap config)
         {
-            Config = config; 
+            Config = config;
+            SConsole.Configs.Add("log", new Heap());
         }
 
         public virtual void Init(GraphicsDeviceManager graphics, Camera camera)
@@ -87,6 +112,12 @@ namespace Solo
         {
             Config.GetHeap("game").Add("opening-logos", b);
         }
+
+        public virtual void SetLog(string name, string value)
+        {
+            SConsole.Configs.GetHeap("log").Add(name, value);
+        }
+
         public virtual void GetMusicVolume()
         {
             SConsole.WriteLine(Config.GetHeap("audio").GetFloat("music"));
@@ -95,6 +126,11 @@ namespace Solo
         public virtual void GetSoundVolume()
         {
             SConsole.WriteLine(Config.GetHeap("audio").GetFloat("sound"));
+        }
+
+        public virtual void GetLog()
+        {
+            SConsole.WriteLine(SConsole.Configs.GetHeap("log"));
         }
 
         public void Save(GraphicsDeviceManager graphics)

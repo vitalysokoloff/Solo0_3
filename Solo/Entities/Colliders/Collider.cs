@@ -100,8 +100,7 @@ namespace Solo.Entities
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (_state)
-                if (SConsole.Configs.GetBool("debug"))
-                    _shape.Draw(gameTime, spriteBatch);
+                _shape.Draw(gameTime, spriteBatch);
         }
 
         public static Collider Box(GraphicsDeviceManager graphics)
