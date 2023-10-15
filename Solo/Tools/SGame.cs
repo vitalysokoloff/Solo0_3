@@ -63,6 +63,8 @@ namespace Solo
         protected override void Update(GameTime gameTime)
         {  
             base.Update(gameTime);
+            if (_currentScene != null)
+                _currentScene.Update(gameTime);
             _console.Update(gameTime);
             _camera.Update(gameTime);
         }

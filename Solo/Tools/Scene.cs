@@ -50,7 +50,21 @@ namespace Solo
 
         public virtual void Update(GameTime gameTime)
         {
+            if (_isContentLoaded)
+            {
+                List<IGameObject> updatingGOs = new List<IGameObject>();
+                foreach (string k in GOs.Keys)
+                {
+                    if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect) && GOs[k].IsAlive)
+                        updatingGOs.Add(GOs[k]);
+                }
+                _settings.SetLog("U-qty", updatingGOs.Count.ToString());
 
+                foreach(IGameObject go in updatingGOs)
+                {
+                    go.Update(gameTime);
+                }
+            }
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -66,10 +80,10 @@ namespace Solo
                 List<IGameObject> drawingGOs = new List<IGameObject>();
                 foreach (string k in GOs.Keys)
                 {
-                    if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect))
+                    if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect) && GOs[k].IsAlive)
                         drawingGOs.Add(GOs[k]);
                 }
-                _settings.SetLog("qty", drawingGOs.Count.ToString());
+                _settings.SetLog("D-qty", drawingGOs.Count.ToString());
 
                 //1) draw.gos
                 _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, transformMatrix: _camera.Transform);

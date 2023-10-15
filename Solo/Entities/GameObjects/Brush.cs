@@ -45,6 +45,8 @@ namespace Solo.Entities
                 return _rect;
             }
         }
+        public bool IsAlive {get; set;}
+        public bool IsExist {get; set;}
         public float Layer {get; set;}
         public string Type {get; set;}
         public string Name {get; set;}
@@ -123,6 +125,8 @@ namespace Solo.Entities
             };
             Angle = angle; 
             SetPositions();
+            IsAlive = true;
+            IsExist = true;
         }
 
         protected void SetPositions()
