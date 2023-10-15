@@ -27,7 +27,9 @@ namespace Solo
         protected GraphicsDevice _graphicsDevice;
         protected bool _isContentLoaded;  
         protected SpriteBatch _spriteBatch;  
-        protected GraphicsDeviceManager _graphics;   
+        protected GraphicsDeviceManager _graphics;
+
+        // Колайдинг менеджер реализовать, который принимает список игровых объектов и список, акторов которые должны сталкиваться;
 
         public Scene(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics)
         {
@@ -54,17 +56,17 @@ namespace Solo
         {
             if (_isContentLoaded)
             {
-                List<IGameObject> updatingGOs = new List<IGameObject>();
+                Dictionary<string,IGameObject> updatingGOs = new Dictionary<string, IGameObject>();
                 foreach (string k in GOs.Keys)
                 {
                     if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect) && GOs[k].IsExist)
-                        updatingGOs.Add(GOs[k]);
+                        updatingGOs.Add(GOs[k].Name,GOs[k]);
                 }
                 _settings.SetLog("U-qty", updatingGOs.Count.ToString());
 
-                foreach(IGameObject go in updatingGOs)
+                foreach(string k in updatingGOs.Keys)
                 {
-                    go.Update(gameTime);
+                    updatingGOs[k].Update(gameTime);
                 }
             }
         }
