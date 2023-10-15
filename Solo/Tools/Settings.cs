@@ -11,7 +11,7 @@ namespace Solo
         {
             get
             {
-                return Config.GetHeap("audio").GetInt("sound");
+                return Config.GetHeap("audio").GetFloat("sound");
             }
             set
             {
@@ -22,7 +22,7 @@ namespace Solo
         {
             get
             {
-                return Config.GetHeap("audio").GetInt("music");
+                return Config.GetHeap("audio").GetFloat("music");
             }
             set
             {
@@ -100,11 +100,13 @@ namespace Solo
 
         public virtual void SetMusicVolume(float f)
         {
+            f = f > 1? 1 : f < 0? 0 : f;
             Config.GetHeap("audio").Add("music", f);
         }
         
         public virtual void SetSoundVolume(float f)
         {
+            f = f > 1? 1 : f < 0? 0 : f;
             Config.GetHeap("audio").Add("sound", f);
         }
 
