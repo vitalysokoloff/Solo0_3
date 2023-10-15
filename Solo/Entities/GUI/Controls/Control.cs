@@ -124,10 +124,10 @@ namespace Solo.Entities
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, DrawRect, _sourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.96f);            
+            spriteBatch.Draw(_texture, DrawRect, _sourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.60f);            
             if (Icon != null)
-                spriteBatch.Draw(Icon, DrawRect, IconSourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.96f);
-            spriteBatch.DrawString(Style.Font, _text, _textPosition, _textColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0.96f);
+                spriteBatch.Draw(Icon, DrawRect, IconSourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.70f);
+            spriteBatch.DrawString(Style.Font, _text, _textPosition, _textColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0.80f);
         }
     }
 }

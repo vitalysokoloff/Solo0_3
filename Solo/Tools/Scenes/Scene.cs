@@ -26,14 +26,16 @@ namespace Solo
         protected Camera _camera;         
         protected GraphicsDevice _graphicsDevice;
         protected bool _isContentLoaded;  
-        protected SpriteBatch _spriteBatch;     
+        protected SpriteBatch _spriteBatch;  
+        protected GraphicsDeviceManager _graphics;   
 
-        public Scene(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice)
+        public Scene(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics)
         {
             _settings = settings;
             _camera = camera;
             Content = content;
             _graphicsDevice = graphicsDevice;
+            _graphics = graphics;
             _isContentLoaded = false;
             GOs = new Dictionary<string, IGameObject>();
             Textures = new Dictionary<string, Texture2D>();
@@ -55,7 +57,7 @@ namespace Solo
                 List<IGameObject> updatingGOs = new List<IGameObject>();
                 foreach (string k in GOs.Keys)
                 {
-                    if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect) && GOs[k].IsAlive)
+                    if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect) && GOs[k].IsExist)
                         updatingGOs.Add(GOs[k]);
                 }
                 _settings.SetLog("U-qty", updatingGOs.Count.ToString());
@@ -80,7 +82,7 @@ namespace Solo
                 List<IGameObject> drawingGOs = new List<IGameObject>();
                 foreach (string k in GOs.Keys)
                 {
-                    if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect) && GOs[k].IsAlive)
+                    if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect) && GOs[k].IsExist)
                         drawingGOs.Add(GOs[k]);
                 }
                 _settings.SetLog("D-qty", drawingGOs.Count.ToString());
@@ -104,11 +106,6 @@ namespace Solo
         }
 
         public virtual void OnLoad(int stage)
-        {
-
-        }
-
-        public virtual void Colliding()
         {
 
         }
