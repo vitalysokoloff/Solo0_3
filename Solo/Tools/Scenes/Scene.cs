@@ -56,17 +56,17 @@ namespace Solo
         {
             if (_isContentLoaded)
             {
-                Dictionary<string,IGameObject> updatingGOs = new Dictionary<string, IGameObject>();
+                List<IGameObject> updatingGOs = new List<IGameObject>();
                 foreach (string k in GOs.Keys)
                 {
                     if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect) && GOs[k].IsExist)
-                        updatingGOs.Add(GOs[k].Name,GOs[k]);
+                        updatingGOs.Add(GOs[k]);
                 }
                 _settings.SetLog("U-qty", updatingGOs.Count.ToString());
 
-                foreach(string k in updatingGOs.Keys)
+                foreach(IGameObject go in updatingGOs)
                 {
-                    updatingGOs[k].Update(gameTime);
+                    go.Update(gameTime);
                 }
             }
         }
