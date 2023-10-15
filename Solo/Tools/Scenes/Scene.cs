@@ -12,6 +12,7 @@ namespace Solo
 {
     public class Scene : IEntity
     {
+        public ChangeScene ChangeScene;
         public ContentManager Content; 
         public Dictionary<string, IGameObject> GOs;
         public Dictionary<string, Texture2D> Textures;
@@ -112,10 +113,8 @@ namespace Solo
 
         }
 
-        public virtual void ChangeScene(int number)
-        {
+    } 
 
-        }
+    public delegate void ChangeScene(int number);
 
-    }
 }
