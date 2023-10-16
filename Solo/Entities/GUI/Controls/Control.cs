@@ -84,6 +84,18 @@ namespace Solo.Entities
                 _drawRect = value;
             }
         }
+        public Point Position
+        {
+            get
+            {
+                return new Point(_drawRect.X, _drawRect.Y);
+            }
+            set
+            {
+                _drawRect.X = value.X;
+                _drawRect.Y = value.Y;
+            }
+        }
 
         protected Texture2D _texture;
         protected Color _color;
@@ -122,7 +134,11 @@ namespace Solo.Entities
 
         }
 
-        // Сделать метод ресет позишн!!! и в странице для всех контролов и для гуи менеджера, а также метод шифт, который сдвинет все контролы
+        public virtual void Shift(Point offset)
+        {
+            _drawRect.X += offset.X;
+            _drawRect.Y += offset.Y;
+        }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {

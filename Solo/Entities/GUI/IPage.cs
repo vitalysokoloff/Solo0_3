@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 namespace Solo.Entities
@@ -11,5 +12,6 @@ namespace Solo.Entities
         public void Clear(); // Очищает страницу от всех гуи
         public void Activate(); // Подписывает все контролы страницы на событие
         public void Deactivate(); // Отписывает все контролы страницы на событие
+        public void Shift(Point offset);
     }
 }

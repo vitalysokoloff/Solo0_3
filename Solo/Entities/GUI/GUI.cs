@@ -148,6 +148,15 @@ namespace Solo.Entities
                 }                 
             }
         }
+
+        public void Shift(Point offset)
+        {
+            foreach (string k in _pages.Keys)
+            {
+                _pages[k].Shift(offset);
+            }
+        }
+
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (_currentPage != null && !SConsole.Configs.GetBool("gui-lock"))
