@@ -13,5 +13,6 @@ namespace Solo.Entities
         public string[] GetKeys();
         public void SetPage(string name); // Устанавливает указанную страницу активной
         public IPage GetPage(string name); // Возвращает указанную страницу
+        public void Shift(Point offset);
     }
 }
