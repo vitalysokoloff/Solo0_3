@@ -79,6 +79,7 @@ namespace Solo.Entities
         }
         public ICollider CheckCollision(IGameObject go){return null;}
         public void OnCollision(GameObjectInfo GOInfo){}
+        public void OnTrigger(GameObjectInfo GOInfo){}
         public void Move(Vector2 delta){}
         public void Rotate(float delta){}
 
