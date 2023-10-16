@@ -44,6 +44,13 @@ namespace Solo.Entities
             if (_isActive)
                 _isActive = false;
         }
+        public void Shift(Point offset)
+        {
+            for (int i = 0; i < Controls.Count; i++)
+            {
+                Controls[i].Shift(offset);
+            }
+        }
         public void Update(GameTime gameTime)
         {
             foreach(IControl c in Controls)

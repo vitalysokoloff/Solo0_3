@@ -7,6 +7,7 @@ namespace Solo
     public class Settings
     {
         public Heap Config { get; set; }
+        public Vector2 GUIOffset { get; set;}
         public float SoundVolume 
         {
             get
