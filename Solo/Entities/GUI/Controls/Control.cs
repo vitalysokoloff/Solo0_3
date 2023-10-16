@@ -122,6 +122,8 @@ namespace Solo.Entities
 
         }
 
+        // Сделать метод ресет позишн!!! и в странице для всех контролов и для гуи менеджера, а также метод шифт, который сдвинет все контролы
+
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, DrawRect, _sourceRect, _color, 0, Vector2.Zero, SpriteEffects.None, 0.60f);            

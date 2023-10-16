@@ -9,6 +9,8 @@ namespace Solo
     public class MenuScene : Scene
     {
         protected GUI _gui;
+        protected Point[] _resolutions;
+        protected int _resolutionPointer;
         public MenuScene(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics) : 
             base(settings, camera, content, graphicsDevice, graphics)
         {
@@ -19,6 +21,15 @@ namespace Solo
             SpriteFont font = SConsole.Font;
             Vector2 nameSize = font.MeasureString(name);
             Vector2 settingsTitleSize = font.MeasureString("  Настройки  ");
+
+            _resolutions = new Point[]
+            {
+                new Point(1280, 720),
+                new Point(1600, 900),
+                new Point(1920, 1080)
+            };
+            Point curResolution = _settings.GetResolution(_graphics);
+            _resolutionPointer = curResolution == _resolutions[0]? 0 : curResolution == _resolutions[1]? 1 : 2;
 
             GUIStyle _style = new GUIStyle(_graphics, font);
             
@@ -45,7 +56,7 @@ namespace Solo
             Page settingsMenu = new Page();
             Label title2 = new Label(new Rectangle((int)(width / 2 - settingsTitleSize.X / 2), (int)(height / 2 - nameSize.Y), (int)settingsTitleSize.X, (int)nameSize.Y), _style, "Настройки");
             settingsMenu.Add(title2);
-            Box volumeBox = new Box(new Rectangle(width / 2 - 75, height / 2 + 9, 150, (int)nameSize.Y + 2), _style); 
+            Box volumeBox = new Box(new Rectangle(width / 2 - 75, height / 2 + 9, 150, (int)nameSize.Y * 2 + 4), _style); 
             settingsMenu.Add(volumeBox);
             Label sound = new Label(new Rectangle(width / 2 - 75, height / 2 + 10, 100, (int)nameSize.Y), _style, "Звук: " + (int)(_settings.SoundVolume * 100)); 
             settingsMenu.Add(sound);
@@ -63,6 +74,44 @@ namespace Solo
                 sound.SetText("Звук: " + (int)(_settings.SoundVolume * 100));
             };          
             settingsMenu.Add(soundPlus);
+            Label music = new Label(new Rectangle(width / 2 - 75, height / 2 + 12 + (int)nameSize.Y, 100, (int)nameSize.Y), _style, "Музыка: " + (int)(_settings.MusicVolume * 100)); 
+            settingsMenu.Add(music);
+            Button musicMinus = new Button(new Rectangle(width / 2 + 25, height / 2 + 12 + (int)nameSize.Y, 25, (int)nameSize.Y), _style, "-");            
+            musicMinus.AButtonAction = () =>
+            {
+                _settings.SetMusicVolume(_settings.MusicVolume - 0.1f);
+                music.SetText("Музыка: " + (int)(_settings.MusicVolume * 100));
+            };
+            settingsMenu.Add(musicMinus);
+            Button musicPlus = new Button(new Rectangle(width / 2 + 50, height / 2 + 12 + (int)nameSize.Y, 25, (int)nameSize.Y), _style, "+");  
+            musicPlus.AButtonAction = () =>
+            {
+                _settings.SetMusicVolume(_settings.MusicVolume + 0.1f);
+                music.SetText("Музыка: " + (int)(_settings.MusicVolume * 100));
+            };          
+            settingsMenu.Add(musicPlus);
+            Box graphicsBox = new Box(new Rectangle(width / 2 - 75, height / 2 + 14  + (int)nameSize.Y * 2, 150, (int)nameSize.Y * 2 + 4), _style); 
+            settingsMenu.Add(graphicsBox);
+            Label res = new Label(new Rectangle(width / 2 - 50, height / 2 + 15  + (int)nameSize.Y * 2, 100, (int)nameSize.Y), _style, _resolutions[_resolutionPointer].ToString()); 
+            settingsMenu.Add(res);
+            Button lowRes = new Button(new Rectangle(width / 2 - 75, height / 2 + 15  + (int)nameSize.Y * 2, 25, (int)nameSize.Y), _style, "[<]");            
+            lowRes.AButtonAction = () =>
+            {
+                _resolutionPointer--;
+                _resolutionPointer = _resolutionPointer < 0? 0 : _resolutionPointer;
+                _settings.SetResolution(_graphics, _camera, _resolutions[_resolutionPointer]);
+                res.SetText(_resolutions[_resolutionPointer].ToString()); 
+            };
+            settingsMenu.Add(lowRes);            
+            Button upRes = new Button(new Rectangle(width / 2 + 50, height / 2 + 15  + (int)nameSize.Y * 2, 25, (int)nameSize.Y), _style, "[>]");            
+            upRes.AButtonAction = () =>
+            {
+                 _resolutionPointer++;
+                _resolutionPointer = _resolutionPointer > _resolutions.Length - 1? _resolutions.Length - 1 : _resolutionPointer;
+                _settings.SetResolution(_graphics, _camera, _resolutions[_resolutionPointer]);
+                res.SetText(_resolutions[_resolutionPointer].ToString()); 
+            };
+            settingsMenu.Add(upRes);
 
             _gui.AddPage("main", main); 
             _gui.AddPage("settings", settingsMenu);

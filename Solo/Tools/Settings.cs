@@ -77,6 +77,11 @@ namespace Solo
             Reset(graphics, camera);
         }
 
+        public virtual void SetResolution(GraphicsDeviceManager graphics, Camera camera, Point point)
+        {
+            SetResolution(graphics, camera, point.X, point.Y);
+        }
+
         public virtual Point GetResolution(GraphicsDeviceManager graphics)
         {
             return new Point(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
