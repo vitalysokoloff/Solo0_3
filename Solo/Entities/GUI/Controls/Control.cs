@@ -94,6 +94,7 @@ namespace Solo.Entities
             {
                 _drawRect.X = value.X;
                 _drawRect.Y = value.Y;
+                SetText(_text);
             }
         }
 
@@ -136,8 +137,7 @@ namespace Solo.Entities
 
         public virtual void Shift(Point offset)
         {
-            _drawRect.X += offset.X;
-            _drawRect.Y += offset.Y;
+            Position += offset;
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)

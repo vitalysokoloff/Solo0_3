@@ -1,3 +1,4 @@
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,10 +15,11 @@ namespace Solo
         public MenuScene(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics) : 
             base(settings, camera, content, graphicsDevice, graphics)
         {
-            Heap gameConfig = _settings.Config.GetHeap("game");
-            int width = gameConfig.GetInt("original-width");
-            int height = gameConfig.GetInt("original-height");
-            string name = gameConfig.GetString("name");
+            Heap game = _settings.Config.GetHeap("game");
+            Heap window = _settings.Config.GetHeap("game");
+            int width = game.GetInt("original-width");
+            int height = game.GetInt("original-height");
+            string name = game.GetString("name");
             SpriteFont font = SConsole.Font;
             Vector2 nameSize = font.MeasureString(name);
             Vector2 settingsTitleSize = font.MeasureString("  Настройки  ");
@@ -101,18 +103,25 @@ namespace Solo
                 _resolutionPointer = _resolutionPointer < 0? 0 : _resolutionPointer;
                 _settings.SetResolution(_graphics, _camera, _resolutions[_resolutionPointer]);
                 res.SetText(_resolutions[_resolutionPointer].ToString()); 
+                Thread.Sleep(1000); // Костыль потому что разрешение экрана не успевает обновиться  
+                _gui.Shift(_settings.GUIOffset);
             };
             settingsMenu.Add(lowRes);            
             Button upRes = new Button(new Rectangle(width / 2 + 50, height / 2 + 15  + (int)nameSize.Y * 2, 25, (int)nameSize.Y), _style, "[>]");            
             upRes.AButtonAction = () =>
             {
-                 _resolutionPointer++;
+                _resolutionPointer++;
                 _resolutionPointer = _resolutionPointer > _resolutions.Length - 1? _resolutions.Length - 1 : _resolutionPointer;
                 _settings.SetResolution(_graphics, _camera, _resolutions[_resolutionPointer]);
-                res.SetText(_resolutions[_resolutionPointer].ToString()); 
+                res.SetText(_resolutions[_resolutionPointer].ToString());
+                Thread.Sleep(1000); // Костыль потому что разрешение экрана не успевает обновиться             
+                _gui.Shift(_settings.GUIOffset);               
             };
             settingsMenu.Add(upRes);
-
+            SwitchButton full = new SwitchButton(new Rectangle(width / 2 - 75, height / 2 + 16  + (int)nameSize.Y * 3, 150, (int)nameSize.Y), _style, "На весь экран", window.GetBool("fullscreen"));  
+            settingsMenu.Add(full);
+            
+            _gui.Shift(_settings.GUIOffset);
             _gui.AddPage("main", main); 
             _gui.AddPage("settings", settingsMenu);
             _gui.SetPage("main");         
