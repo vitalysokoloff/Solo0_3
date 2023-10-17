@@ -119,6 +119,10 @@ namespace Solo
             };
             settingsMenu.Add(upRes);
             SwitchButton full = new SwitchButton(new Rectangle(width / 2 - 75, height / 2 + 16  + (int)nameSize.Y * 3, 150, (int)nameSize.Y), _style, "На весь экран", window.GetBool("fullscreen"));  
+            full.AButtonAction = () =>
+            {
+                _settings.SetFullScreen(graphics, camera, !_settings.IsFullScreen);
+            };
             settingsMenu.Add(full);
             
             _gui.Shift(_settings.GUIOffset);
