@@ -30,7 +30,6 @@ namespace Solo
                 Config.GetHeap("audio").Add("music", value);
             }
         }
-
         public bool DebugMode
         {
             get
@@ -42,7 +41,6 @@ namespace Solo
                 Config.GetHeap("game").Add("debug-mode", value);
             }
         }
-
         public bool GodMode
         {
             get
@@ -52,6 +50,13 @@ namespace Solo
             set
             {
                 Config.GetHeap("game").Add("god-mode", value);
+            }
+        }
+        public bool IsFullScreen
+        {
+            get
+            {
+                return Config.GetHeap("window").GetBool("fullscreen");
             }
         }
 
@@ -93,7 +98,8 @@ namespace Solo
             graphics.IsFullScreen = isFullScreen; 
             Heap window = Config.GetHeap("window");            
             Reset(graphics, camera);
-            window.Add("fullscreen", graphics.IsFullScreen); 
+            window.Add("fullscreen", graphics.IsFullScreen);
+            SConsole.WriteLine(IsFullScreen); 
         }
 
         public virtual void Reset(GraphicsDeviceManager graphics, Camera camera)
@@ -118,17 +124,20 @@ namespace Solo
         {
             f = f > 1? 1 : f < 0? 0 : f;
             Config.GetHeap("audio").Add("music", f);
+            SConsole.WriteLine("new value:" + MusicVolume);
         }
         
         public virtual void SetSoundVolume(float f)
         {
             f = f > 1? 1 : f < 0? 0 : f;
             Config.GetHeap("audio").Add("sound", f);
+            SConsole.WriteLine("new value:" + SoundVolume);
         }
 
         public virtual void SetOpening(bool b)
         {
             Config.GetHeap("game").Add("opening-logos", b);
+            SConsole.WriteLine("ok");
         }
 
         public virtual void SetLog(string name, string value)
@@ -154,6 +163,7 @@ namespace Solo
         public void Save(GraphicsDeviceManager graphics)
         {            
             Config.Save("config.heap");
+            SConsole.WriteLine("ok");
         }
     }
 }
