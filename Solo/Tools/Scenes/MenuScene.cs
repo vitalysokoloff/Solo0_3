@@ -125,7 +125,7 @@ namespace Solo
             };
             settingsMenu.Add(full);
             
-            _gui.Shift(_settings.GUIOffset);
+            _gui.Shift(_settings.OriginalGUIOffset);
             _gui.AddPage("main", main); 
             _gui.AddPage("settings", settingsMenu);
             _gui.SetPage("main");         
