@@ -19,6 +19,7 @@ namespace Solo.Entities
         protected KeyboardState _keyboardState;
         protected GamePadState _gamePadState;
         protected int _pointer;
+        protected bool _isMouseInMoving;
         
         public GUI()
         {
@@ -28,6 +29,7 @@ namespace Solo.Entities
             _keyboardState = new KeyboardState();
             _gamePadState = new GamePadState();
             _pointer = 0;
+            _isMouseInMoving = false;
             InputInit();
         }
         public void AddPage(string name, IPage page)
@@ -111,6 +113,15 @@ namespace Solo.Entities
                 Rectangle rect = new Rectangle(currentPage.Controls[_pointer].DrawRect.X, currentPage.Controls[_pointer].DrawRect.Y, 2, 2);
                 if (_mouseState != currentMState)
                 {
+                    _isMouseInMoving = true;
+                }                
+                if (_keyboardState != currentKState || _gamePadState != currentGState )
+                { 
+                    
+                    _isMouseInMoving = false;           
+                }               
+                if (_isMouseInMoving)
+                {
                     _mouseState = Mouse.GetState();
                     rect = new Rectangle(currentMState.X, currentMState.Y, 1, 1);
                     SConsole.Configs.Add("under-gui-lock", true);
@@ -119,7 +130,7 @@ namespace Solo.Entities
                                     currentMState.MiddleButton == ButtonState.Pressed);
                     SConsole.Configs.Add("under-gui-lock", false);
                 }                
-                else if (_keyboardState != currentKState || _gamePadState != currentGState )
+                else
                 { 
                     
                     if (Input.IsPressed("Up"))
