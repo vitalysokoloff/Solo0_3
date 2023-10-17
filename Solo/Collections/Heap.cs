@@ -300,6 +300,7 @@ namespace Solo.Collections
                         heap.Add(data[1], data[2] == "+" || data[2] == "true" || data[2] == "True" || data[2] == "on" || data[2] == "On" ? true : false);
                         break;
                     case "point":
+                        string[] tmp = data[2].Split('.');
                         heap.Add(data[1], new Point(Convert.ToInt32(data[2]), Convert.ToInt32(data[3])));
                         break;
                     case "vector2":
@@ -326,7 +327,7 @@ namespace Solo.Collections
             string heapPattern = @"^.+\s*{\s*$";
             string endPattern = @"^\s*}\s*$";
             string boolPattern = @"^.+\s*:\s*\+|true|True|on|On|-|false|False|off|Off\s*$";
-            string pointPattern = @"^.+\s*:\s*\d\.\d+\s*$";
+            string pointPattern = @"^.+\s*:\s*\d+\.\d+\s*$";
             string vectorPattern = @"^.+\s*:\s*((\d+,\d+)|(\d+))f\.((\d+,\d+)|(\d+))f\s*$";
 
             str = str.Trim(' ');            
