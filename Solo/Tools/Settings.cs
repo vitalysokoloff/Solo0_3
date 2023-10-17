@@ -7,7 +7,7 @@ namespace Solo
     public class Settings
     {
         public Heap Config { get; set; }
-        public Vector2 GUIOffset { get; set;}
+        public Point GUIOffset { get; set;}
         public float SoundVolume 
         {
             get
@@ -58,7 +58,7 @@ namespace Solo
         public Settings(Heap config)
         {
             Config = config;
-            SConsole.Configs.Add("log", new Heap());
+            SConsole.Configs.Add("log", new Heap());            
         }
 
         public virtual void Init(GraphicsDeviceManager graphics, Camera camera)
@@ -72,10 +72,10 @@ namespace Solo
         }
 
         public virtual void SetResolution(GraphicsDeviceManager graphics, Camera camera, int width, int height)
-        {
+        {            
             graphics.PreferredBackBufferWidth = width;
-            graphics.PreferredBackBufferHeight = height;
-            Reset(graphics, camera);
+            graphics.PreferredBackBufferHeight = height;            
+            Reset(graphics, camera);            
         }
 
         public virtual void SetResolution(GraphicsDeviceManager graphics, Camera camera, Point point)
@@ -91,7 +91,9 @@ namespace Solo
         public virtual void SetFullScreen(GraphicsDeviceManager graphics, Camera camera, bool isFullScreen)
         {
             graphics.IsFullScreen = isFullScreen; 
+            Heap window = Config.GetHeap("window");            
             Reset(graphics, camera);
+            window.Add("fullscreen", graphics.IsFullScreen); 
         }
 
         public virtual void Reset(GraphicsDeviceManager graphics, Camera camera)
@@ -102,6 +104,14 @@ namespace Solo
             camera.Scale = new Vector3(graphics.PreferredBackBufferWidth / (float)Config.GetHeap("game").GetInt("original-width"), 
                                         graphics.PreferredBackBufferHeight / (float)Config.GetHeap("game").GetInt("original-height"), 
                                         1);
+            
+            Heap window = Config.GetHeap("window"); 
+            Point curRes = new Point(window.GetInt("width") / 2, window.GetInt("height") / 2);                       
+            window.Add("width", graphics.PreferredBackBufferWidth);
+            window.Add("height", graphics.PreferredBackBufferHeight);
+            Point newRes = new Point(window.GetInt("width") / 2, window.GetInt("height") / 2);
+            GUIOffset = newRes - curRes;
+            SConsole.WriteLine("new resolution:" + GetResolution(graphics) + " GUIOffset: " + GUIOffset);
         }
 
         public virtual void SetMusicVolume(float f)
@@ -142,11 +152,7 @@ namespace Solo
         }
 
         public void Save(GraphicsDeviceManager graphics)
-        {
-            Heap window = Config.GetHeap("window");
-            window.Add("width", graphics.PreferredBackBufferWidth);
-            window.Add("height", graphics.PreferredBackBufferHeight);
-            window.Add("fullscreen", graphics.IsFullScreen); 
+        {            
             Config.Save("config.heap");
         }
     }
