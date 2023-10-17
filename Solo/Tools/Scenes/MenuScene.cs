@@ -16,7 +16,6 @@ namespace Solo
             base(settings, camera, content, graphicsDevice, graphics)
         {
             Heap game = _settings.Config.GetHeap("game");
-            Heap window = _settings.Config.GetHeap("game");
             int width = game.GetInt("original-width");
             int height = game.GetInt("original-height");
             string name = game.GetString("name");
@@ -57,9 +56,7 @@ namespace Solo
             
             Page settingsMenu = new Page();
             Label title2 = new Label(new Rectangle((int)(width / 2 - settingsTitleSize.X / 2), (int)(height / 2 - nameSize.Y), (int)settingsTitleSize.X, (int)nameSize.Y), _style, "Настройки");
-            settingsMenu.Add(title2);
-            Box volumeBox = new Box(new Rectangle(width / 2 - 75, height / 2 + 9, 150, (int)nameSize.Y * 2 + 4), _style); 
-            settingsMenu.Add(volumeBox);
+            settingsMenu.Add(title2);           
             Label sound = new Label(new Rectangle(width / 2 - 75, height / 2 + 10, 100, (int)nameSize.Y), _style, "Звук: " + (int)(_settings.SoundVolume * 100)); 
             settingsMenu.Add(sound);
             Button soundMinus = new Button(new Rectangle(width / 2 + 25, height / 2 + 10, 25, (int)nameSize.Y), _style, "-");            
@@ -92,11 +89,10 @@ namespace Solo
                 music.SetText("Музыка: " + (int)(_settings.MusicVolume * 100));
             };          
             settingsMenu.Add(musicPlus);
-            Box graphicsBox = new Box(new Rectangle(width / 2 - 75, height / 2 + 14  + (int)nameSize.Y * 2, 150, (int)nameSize.Y * 2 + 4), _style); 
-            settingsMenu.Add(graphicsBox);
-            Label res = new Label(new Rectangle(width / 2 - 50, height / 2 + 15  + (int)nameSize.Y * 2, 100, (int)nameSize.Y), _style, _resolutions[_resolutionPointer].ToString()); 
+
+            Label res = new Label(new Rectangle(width / 2 - 50, height / 2 + 17  + (int)nameSize.Y * 2, 100, (int)nameSize.Y), _style, _resolutions[_resolutionPointer].ToString()); 
             settingsMenu.Add(res);
-            Button lowRes = new Button(new Rectangle(width / 2 - 75, height / 2 + 15  + (int)nameSize.Y * 2, 25, (int)nameSize.Y), _style, "[<]");            
+            Button lowRes = new Button(new Rectangle(width / 2 - 75, height / 2 + 17  + (int)nameSize.Y * 2, 25, (int)nameSize.Y), _style, "[<]");            
             lowRes.AButtonAction = () =>
             {
                 _resolutionPointer--;
@@ -107,7 +103,7 @@ namespace Solo
                 _gui.Shift(_settings.GUIOffset);
             };
             settingsMenu.Add(lowRes);            
-            Button upRes = new Button(new Rectangle(width / 2 + 50, height / 2 + 15  + (int)nameSize.Y * 2, 25, (int)nameSize.Y), _style, "[>]");            
+            Button upRes = new Button(new Rectangle(width / 2 + 50, height / 2 + 17  + (int)nameSize.Y * 2, 25, (int)nameSize.Y), _style, "[>]");            
             upRes.AButtonAction = () =>
             {
                 _resolutionPointer++;
@@ -118,12 +114,25 @@ namespace Solo
                 _gui.Shift(_settings.GUIOffset);               
             };
             settingsMenu.Add(upRes);
-            SwitchButton full = new SwitchButton(new Rectangle(width / 2 - 75, height / 2 + 16  + (int)nameSize.Y * 3, 150, (int)nameSize.Y), _style, "На весь экран", window.GetBool("fullscreen"));  
+            SwitchButton full = new SwitchButton(new Rectangle(width / 2 - 75, height / 2 + 19  + (int)nameSize.Y * 3, 150, (int)nameSize.Y), _style, "На весь экран", _settings.IsFullScreen); 
             full.AButtonAction = () =>
             {
                 _settings.SetFullScreen(graphics, camera, !_settings.IsFullScreen);
             };
             settingsMenu.Add(full);
+            SwitchButton opening = new SwitchButton(new Rectangle(width / 2 - 75, height / 2 + 24  + (int)nameSize.Y * 4, 150, (int)nameSize.Y), _style, "Начальная заставка", _settings.IsOpenning); 
+            opening.AButtonAction = () =>
+            {
+                _settings.SetOpening(!_settings.IsOpenning);
+            };
+            settingsMenu.Add(opening );
+            Button save = new Button(new Rectangle(width / 2 - 75, height / 2 + 27  + (int)nameSize.Y * 5, 150, (int)nameSize.Y), _style, "Назад");            
+            save.AButtonAction = () =>
+            {
+               _settings.Save(graphics);
+               _gui.SetPage("main");           
+            };
+            settingsMenu.Add(save);
             
             _gui.AddPage("main", main); 
             _gui.AddPage("settings", settingsMenu);
