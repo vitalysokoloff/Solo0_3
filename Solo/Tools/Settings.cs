@@ -73,6 +73,13 @@ namespace Solo
                 return Config.GetHeap("window").GetBool("fullscreen");
             }
         }
+        public bool IsOpenning
+        {
+            get
+            {
+                return Config.GetHeap("game").GetBool("opening-logos");
+            }
+        }
 
         public Settings(Heap config)
         {
@@ -87,7 +94,7 @@ namespace Solo
             graphics.PreferredBackBufferWidth = window.GetInt("width");
             graphics.PreferredBackBufferHeight = window.GetInt("height");
             graphics.IsFullScreen = window.GetBool("fullscreen");
-            Reset(graphics, camera);   
+            Reset(graphics, camera);
         }
 
         public virtual void SetResolution(GraphicsDeviceManager graphics, Camera camera, int width, int height)
@@ -170,7 +177,7 @@ namespace Solo
 
         public virtual void GetLog()
         {
-            SConsole.WriteLine(SConsole.Configs.GetHeap("log"));            
+            SConsole.WriteLine(SConsole.Configs.GetHeap("log"));        
         }
 
         public void Save(GraphicsDeviceManager graphics)
