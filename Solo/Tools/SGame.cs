@@ -28,14 +28,14 @@ namespace Solo
             _settings = new Settings(config); 
             _settings.Init(_graphics, _camera);
             _bgColor = Color.Gray;
-            SConsole.Stuff.Add("graphics", _graphics);
+            SConsole.Stuff.Add("graphics", _graphics);            
         }
 
         protected override void Initialize()
         {
             SConsole.On();
             SConsole.Position = new Vector2(400, _graphics.PreferredBackBufferHeight - 10);
-            _console = new SConsoleManager(_graphics, _camera, _font, _settings);            
+            _console = new SConsoleManager(_graphics, _camera, _font, _settings);          
 
             base.Initialize();
         }
