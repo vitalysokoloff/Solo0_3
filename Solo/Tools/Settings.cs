@@ -12,11 +12,13 @@ namespace Solo
         { 
             get
             {
-                return Config.GetHeap("game").GetPoint("original-offset");                
+                Heap game = Config.GetHeap("game");
+                return new Point(game.GetInt("gui-offset-x"), game.GetInt("gui-offset-y"));                               
             } 
-            protected set
+            set
             {
-                Config.GetHeap("game").Add("original-offset", value);
+                Config.GetHeap("game").Add("gui-offset-x", value.X);
+                Config.GetHeap("game").Add("gui-offset-y", value.Y);
             }
 
         }
@@ -85,11 +87,7 @@ namespace Solo
             graphics.PreferredBackBufferWidth = window.GetInt("width");
             graphics.PreferredBackBufferHeight = window.GetInt("height");
             graphics.IsFullScreen = window.GetBool("fullscreen");
-            Reset(graphics, camera);
-            Heap game = Config.GetHeap("game"); 
-            Point origRes = new Point(game.GetInt("original-width") / 2, window.GetInt("original-height") / 2);
-            Point newRes = new Point(window.GetInt("width") / 2, window.GetInt("height") / 2);
-            GUIOffset = newRes - origRes;              
+            Reset(graphics, camera);   
         }
 
         public virtual void SetResolution(GraphicsDeviceManager graphics, Camera camera, int width, int height)
@@ -172,7 +170,7 @@ namespace Solo
 
         public virtual void GetLog()
         {
-            SConsole.WriteLine(SConsole.Configs.GetHeap("log"));
+            SConsole.WriteLine(SConsole.Configs.GetHeap("log"));            
         }
 
         public void Save(GraphicsDeviceManager graphics)
