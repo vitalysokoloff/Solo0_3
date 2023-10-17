@@ -52,7 +52,7 @@ namespace Solo
             exit.AButtonAction = () =>
             {
                 ChangeScene?.Invoke(-1);
-            };           
+            };          
             
             Page settingsMenu = new Page();
             Label title2 = new Label(new Rectangle((int)(width / 2 - settingsTitleSize.X / 2), (int)(height / 2 - nameSize.Y), (int)settingsTitleSize.X, (int)nameSize.Y), _style, "Настройки");
@@ -126,7 +126,7 @@ namespace Solo
                 _settings.SetOpening(!_settings.IsOpenning);
             };
             settingsMenu.Add(opening );
-            Button save = new Button(new Rectangle(width / 2 - 75, height / 2 + 27  + (int)nameSize.Y * 5, 150, (int)nameSize.Y), _style, "Назад");            
+            Button save = new Button(new Rectangle(width / 2 - 75, height / 2 + 29  + (int)nameSize.Y * 5, 150, (int)nameSize.Y), _style, "Назад");            
             save.AButtonAction = () =>
             {
                _settings.Save(graphics);
