@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Solo.Collections;
 using Solo.Entities;
 
@@ -15,7 +16,7 @@ namespace Solo
         protected SpriteFont _font;
         protected SConsoleManager _console;
         protected Scene _currentScene;   
-        protected Color _bgColor;     
+        protected Color _bgColor; 
 
         public SGame()
         {
@@ -28,7 +29,7 @@ namespace Solo
             _settings = new Settings(config); 
             _settings.Init(_graphics, _camera);
             _bgColor = Color.Gray;
-            SConsole.Stuff.Add("graphics", _graphics);            
+            SConsole.Stuff.Add("graphics", _graphics);      
         }
 
         protected override void Initialize()
@@ -44,7 +45,7 @@ namespace Solo
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _font = Content.Load<SpriteFont>(_settings.Config.GetHeap("game").GetString("original-font-name"));
-            SConsole.Font = _font;              
+            SConsole.Font = _font;  
         }
 
         protected override void Draw(GameTime gameTime)
@@ -56,7 +57,7 @@ namespace Solo
                 _currentScene.Draw(gameTime);
             
             _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
-            _console.Draw(gameTime, _spriteBatch);   
+            _console.Draw(gameTime, _spriteBatch);  
             _spriteBatch.End();
         }
 
@@ -66,7 +67,7 @@ namespace Solo
             if (_currentScene != null)
                 _currentScene.Update(gameTime);
             _console.Update(gameTime);
-            _camera.Update(gameTime);
+            _camera.Update(gameTime);         
         }
     }
 }
