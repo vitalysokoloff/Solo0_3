@@ -13,6 +13,14 @@ namespace Solo
 {
     public class Scene : IEntity
     {
+        public ColliderManager ColliderManager
+        {
+            get
+            {
+                return _colliderManager;
+            }
+        }
+        protected bool _isContentLoaded {get; set;}  
         public ChangeScene ChangeScene;
         public ContentManager Content; 
         public Dictionary<string, IGameObject> GOs;
@@ -26,12 +34,10 @@ namespace Solo
 
         protected Settings _settings;
         protected Camera _camera;         
-        protected GraphicsDevice _graphicsDevice;
-        protected bool _isContentLoaded;  
+        protected GraphicsDevice _graphicsDevice;        
         protected SpriteBatch _spriteBatch;  
         protected GraphicsDeviceManager _graphics;
-
-        // Колайдинг менеджер реализовать, который принимает список игровых объектов и список, акторов которые должны сталкиваться;
+        protected ColliderManager _colliderManager;
 
         public Scene(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics)
         {
@@ -41,6 +47,7 @@ namespace Solo
             _graphicsDevice = graphicsDevice;
             _graphics = graphics;
             _isContentLoaded = false;
+            _colliderManager = new ColliderManager();
             GOs = new Dictionary<string, IGameObject>();
             Textures = new Dictionary<string, Texture2D>();
             Materials = new Dictionary<string, SMaterial>();
@@ -54,13 +61,7 @@ namespace Solo
             Heap game = _settings.Config.GetHeap("game");
             int width = game.GetInt("original-width");
             int height = game.GetInt("original-height");
-            _spriteBatch = new SpriteBatch(graphicsDevice);
-
-            Page menu = new Page();
-            SpriteFont font = SConsole.Font;
-            Vector2 textSize = font.MeasureString("text");
-            Label title = new Label(new Rectangle(width / 2 - 25, height / 2 - 12, 50, (int)textSize.Y), new GUIStyle(_graphics, font), "Пауза");
-            menu.Add(title);          
+            _spriteBatch = new SpriteBatch(graphicsDevice);  
         }
 
         public virtual void Update(GameTime gameTime)
@@ -79,6 +80,8 @@ namespace Solo
                 {
                     go.Update(gameTime);
                 }
+
+                _colliderManager.Colliding(updatingGOs);
             }
         }
 
