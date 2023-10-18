@@ -20,6 +20,7 @@ namespace Solo.Entities
         protected GamePadState _gamePadState;
         protected int _pointer;
         protected bool _isMouseInMoving;
+        protected Rectangle _rect;
         
         public GUI()
         {
@@ -30,6 +31,7 @@ namespace Solo.Entities
             _gamePadState = new GamePadState();
             _pointer = 0;
             _isMouseInMoving = false;
+            _rect = new Rectangle(0, 0, 2, 2); 
             InputInit();
         }
         public void AddPage(string name, IPage page)
@@ -106,57 +108,43 @@ namespace Solo.Entities
             {
                 _pages[_currentPage].Update(gameTime);
                 MouseState currentMState = Mouse.GetState();
-                KeyboardState currentKState = Keyboard.GetState();
-                GamePadState currentGState = GamePad.GetState(Index);
+                
                 IPage currentPage = _pages[_currentPage]; 
-                int length = currentPage.Controls.Count;
-                Rectangle rect = new Rectangle(currentPage.Controls[_pointer].DrawRect.X, currentPage.Controls[_pointer].DrawRect.Y, 2, 2);
-                if (_mouseState != currentMState)
+                int length = currentPage.Controls.Count; 
+                if (_mouseState.Position != currentMState.Position)
                 {
-                    _isMouseInMoving = true;
-                }                
-                if (_keyboardState != currentKState || _gamePadState != currentGState )
-                { 
-                    
-                    _isMouseInMoving = false;           
-                }               
-                if (_isMouseInMoving)
+                    _rect = new Rectangle(_mouseState.X, _mouseState.Y, 1, 1);
+                } 
+                if (Input.IsPressed("Up"))
                 {
-                    _mouseState = Mouse.GetState();
-                    rect = new Rectangle(currentMState.X, currentMState.Y, 1, 1);
-                    SConsole.Configs.Add("under-gui-lock", true);
-                    GUIevent?.Invoke(rect, currentMState.LeftButton == ButtonState.Pressed,
-                                    currentMState.RightButton == ButtonState.Pressed,
-                                    currentMState.MiddleButton == ButtonState.Pressed);
-                    SConsole.Configs.Add("under-gui-lock", false);
-                }                
-                else
-                { 
-                    
-                    if (Input.IsPressed("Up"))
-                    {
-                        _pointer--;
-                        if (_pointer < 0)
-                            _pointer = 0;
-                    }
-                    if (Input.IsPressed("Down"))
-                    {
-                        _pointer++;
-                        if (_pointer >= length)
-                            _pointer = length - 1;
-                    }
-                    GUIevent?.Invoke(rect, false,
+                    _pointer--;
+                    if (_pointer < 0)
+                        _pointer = 0;
+                    _rect = new Rectangle(currentPage.Controls[_pointer].DrawRect.X, currentPage.Controls[_pointer].DrawRect.Y, 2, 2);  
+                }
+                if (Input.IsPressed("Down"))
+                {
+                    _pointer++;
+                    if (_pointer >= length)
+                        _pointer = length - 1;
+                    _rect = new Rectangle(currentPage.Controls[_pointer].DrawRect.X, currentPage.Controls[_pointer].DrawRect.Y, 2, 2);  
+                }
+
+                GUIevent?.Invoke(_rect, false,
                                     false,
-                                    false);            
-                }                
+                                    false);
+
                 if (Input.IsPressed("A"))
                 {
-                    GUIevent?.Invoke(rect, true,false,false);
+                    GUIevent?.Invoke(_rect, true,false,false);
                 }
                 if (Input.IsPressed("B"))
                 {
-                    GUIevent?.Invoke(rect, false,true,false);
-                }                 
+                    GUIevent?.Invoke(_rect, false,true,false);
+                }
+                _mouseState = Mouse.GetState(); 
+                _keyboardState = new KeyboardState();
+                _gamePadState = new GamePadState();                
             }
         }
 
@@ -185,8 +173,10 @@ namespace Solo.Entities
             Input.Add("Down",new Key(Buttons.DPadDown));
             Input.Add("A",new Key(Keys.Enter));
             Input.Add("A",new Key(Buttons.A));
+            Input.Add("A", new Key(MouseButtons.Left));
             Input.Add("B",new Key(Keys.LeftAlt));
             Input.Add("B",new Key(Buttons.B));
+            Input.Add("B", new Key(MouseButtons.Right));
         }
     }
 }
