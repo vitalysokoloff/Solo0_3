@@ -76,7 +76,7 @@ namespace Solo.Entities
                 GUIevent = null;
                 if (_currentPage == null)
                 {  
-                    if (SConsole.Configs.GetBool("debug"))    
+                    if (SConsole.Configs.GetBool("debug"))     
                         SConsole.WriteLine("Current GUI page is null"); 
                 }
                 else
