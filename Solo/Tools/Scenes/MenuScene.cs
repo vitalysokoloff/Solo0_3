@@ -18,7 +18,7 @@ namespace Solo
             Heap game = _settings.Config.GetHeap("game");
             int width = game.GetInt("original-width");
             int height = game.GetInt("original-height");
-            string name = game.GetString("name");
+            string name = game.GetString("name");            
             SpriteFont font = SConsole.Font;
             Vector2 nameSize = font.MeasureString(name);
             Vector2 settingsTitleSize = font.MeasureString("  Настройки  ");
@@ -47,7 +47,9 @@ namespace Solo
                 _gui.SetPage("settings");
             };
             main.Add(setting);
-            Button exit = new Button(new Rectangle(width / 2 - 50, height / 2 + 14 + (int)nameSize.Y * 2, 100, (int)nameSize.Y), _style, "Выход");            
+            Button manual = new Button(new Rectangle(width / 2 - 50, height / 2 + 14 + (int)nameSize.Y * 2, 100, (int)nameSize.Y), _style, "Управление");            
+            main.Add(manual);
+            Button exit = new Button(new Rectangle(width / 2 - 50, height / 2 + 16 + (int)nameSize.Y * 3, 100, (int)nameSize.Y), _style, "Выход");            
             main.Add(exit);
             exit.AButtonAction = () =>
             {

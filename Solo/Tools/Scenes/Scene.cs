@@ -1,11 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Solo.Collections;
 using Solo.Entities;
+using Solo.Input;
 using Solo.Physics;
 
 namespace Solo
@@ -50,7 +51,16 @@ namespace Solo
             TexturesDirectory = GSettings.GetString("texture-directory") + "\\";
             MapsDirectory = RootDirectory + "\\" + GSettings.GetString("maps-directory") + "\\";
             AudioDirectory = GSettings.GetString("audio-directory") + "\\";
+            Heap game = _settings.Config.GetHeap("game");
+            int width = game.GetInt("original-width");
+            int height = game.GetInt("original-height");
             _spriteBatch = new SpriteBatch(graphicsDevice);
+
+            Page menu = new Page();
+            SpriteFont font = SConsole.Font;
+            Vector2 textSize = font.MeasureString("text");
+            Label title = new Label(new Rectangle(width / 2 - 25, height / 2 - 12, 50, (int)textSize.Y), new GUIStyle(_graphics, font), "Пауза");
+            menu.Add(title);          
         }
 
         public virtual void Update(GameTime gameTime)
