@@ -126,6 +126,11 @@ namespace Solo
 
         }
 
+        public virtual ChangingScene(int number)
+        {
+            
+        }
+
     } 
 
     public delegate void ChangeScene(int number);
