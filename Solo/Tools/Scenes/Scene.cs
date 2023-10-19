@@ -126,9 +126,9 @@ namespace Solo
 
         }
 
-        public virtual ChangingScene(int number)
+        public virtual void ChangingScene(int number)
         {
-            
+
         }
 
     } 
