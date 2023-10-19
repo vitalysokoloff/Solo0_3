@@ -18,7 +18,8 @@ namespace Solo
         protected int _factor;
         protected KeysInput _input;
 
-        public SceneWithPause(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics) : base (settings, camera,  content, graphicsDevice, graphics)
+        public SceneWithPause(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics) : 
+            base (settings, camera,  content, graphicsDevice, graphics)
         {            
             _pause = false;
             _factor = 1;
@@ -38,7 +39,19 @@ namespace Solo
             Page main = new Page();            
             Label title = new Label(new Rectangle((int)(width / 2 - textSize.X / 2), (int)(height / 2 - textSize.Y), (int)textSize.X, (int)textSize.Y), _style, "  Пауза  ");
             main.Add(title);  
-            _gui.AddPage("pause", main);          
+            _gui.AddPage("pause", main);  
+            Button play = new Button(new Rectangle(width / 2 - 50, height / 2 + 10, 100, (int)textSize.Y), _style, "Продолжить");            
+            play.AButtonAction = () =>
+            {
+                Pausing();
+            };
+            main.Add(play);
+            Button back = new Button(new Rectangle(width / 2 - 50, height / 2 + 12 + (int)textSize.Y, 100, (int)textSize.Y), _style, "Главное меню");            
+            back.AButtonAction = () =>
+            {
+                ChangeScene?.Invoke(-1);
+            };
+            main.Add(back);        
         }
 
         public override void Update(GameTime gameTime)
