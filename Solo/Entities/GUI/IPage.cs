@@ -8,6 +8,7 @@ namespace Solo.Entities
         public List<IControl> Controls {get;}
         public IGUI Parent {get; set;}   
         public void Add(IControl control); // Добавляет элемент гуи
+        public IControl Get(int n); // Возвращает указанный контрол
         public void Delete(int n); // Удаляет элемент гуи
         public void Clear(); // Очищает страницу от всех гуи
         public void Activate(); // Подписывает все контролы страницы на событие

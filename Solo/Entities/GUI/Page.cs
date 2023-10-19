@@ -25,6 +25,10 @@ namespace Solo.Entities
         {
             Controls.Add(control);
         }
+        public IControl Get(int n)
+        {
+            return Controls[n];
+        }
         public void Delete(int n)
         {
             Controls.RemoveAt(n);
