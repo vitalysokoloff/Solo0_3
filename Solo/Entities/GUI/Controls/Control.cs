@@ -9,17 +9,17 @@ namespace Solo.Entities
         /// По умолчанию левая кнопка мыши. Но можно переопределить ГУИ и передавать
         /// кнопки из объявленного кейсинпут. 
         /// </summary>
-        public ControlAction AButtonAction;
+        public ControlAction AButtonAction {get; set;}
         /// <summary>
         /// По умолчанию правая кнопка мыши. Но можно переопределить ГУИ и передавать
         /// кнопки из объявленного кейсинукт. 
         /// </summary>
-        public ControlAction BButtonAction;
+        public ControlAction BButtonAction {get; set;}
         /// <summary>
         /// По умолчанию центральная (колесо) кнопка мыши. Но можно переопределить ГУИ и передавать
         /// кнопки из объявленного кейсинпут. 
         /// </summary>
-        public ControlAction CButtonAction;
+        public ControlAction CButtonAction {get; set;}
         public GUIStyle Style {get; set;}
         public Texture2D Icon {get; set;}
         public Rectangle IconSourceRect {get; set;}
