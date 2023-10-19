@@ -5,6 +5,9 @@ namespace Solo.Entities
 {
     public interface IControl : IEntity
     {
+        public ControlAction AButtonAction {get; set;}
+        public ControlAction BButtonAction {get; set;}
+        public ControlAction CButtonAction {get; set;}
         public GUIStyle Style {get; set;}
         public Texture2D Icon {get; set;}
         public Rectangle IconSourceRect {get; set;}
