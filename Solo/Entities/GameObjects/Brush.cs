@@ -52,7 +52,7 @@ namespace Solo.Entities
         public string Name {get; set;}
         public Vector2 Direction {get; set;}
         public ICollider Collider {get; set;}
-        SMaterial Material {get; set;}
+        public SMaterial Material {get; set;}
 
         protected float _angle;
         protected Vector2 _position;
