@@ -83,6 +83,10 @@ namespace Solo
 
                 _colliderManager.Colliding(updatingGOs);
             }
+            else
+            {
+                WhileLoadUpdate(gameTime);
+            }
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -119,6 +123,10 @@ namespace Solo
                         go.GUI(gameTime, _spriteBatch);
                 _spriteBatch.End();
             }
+            else
+            {
+                WhileLoadDraw(gameTime, _spriteBatch);
+            }
         }
 
         public virtual void OnLoad(int stage)
@@ -127,6 +135,16 @@ namespace Solo
         }
 
         public virtual void ChangingScene(int number)
+        {
+
+        }
+
+        public virtual void WhileLoadDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+
+        }
+
+        public virtual void WhileLoadUpdate(GameTime gameTime)
         {
 
         }
