@@ -24,6 +24,13 @@ namespace Solo.Entities
         }
         public int FramesQty { get; set;}
         public int FrameNumber { get; set;}
+        public Rectangle DrawRectangle
+        {
+            get
+            {
+                return _drawRectangle;
+            }
+        }
         
         public Timer AnimationTimer { get; set;}
         public Color SpriteColor;        

@@ -48,6 +48,17 @@ namespace Solo.Entities
         public bool IsAlive {get; set;}
         public bool IsExist {get; set;}
         public float Layer {get; set;}
+        public string Category 
+        { 
+            get
+            {
+                return _category;
+            }
+            set
+            {
+
+            }
+        }
         public string Type {get; set;}
         public string Name {get; set;}
         public Vector2 Direction {get; set;}
@@ -60,6 +71,7 @@ namespace Solo.Entities
         protected Vector2 _pivot;
         protected Point _size;
         protected Point [,] _positions;
+        protected string _category;
 
         public Brush(SMaterial material)
         {
@@ -77,7 +89,7 @@ namespace Solo.Entities
         {
             Init(material, rect, angle);
         }
-        public ICollider CheckCollision(IGameObject go){return null;}
+        public void CheckCollision(IGameObject go){}
         public void OnCollision(GameObjectInfo GOInfo){}
         public void OnTrigger(GameObjectInfo GOInfo){}
         public void Move(Vector2 delta){}
@@ -128,6 +140,10 @@ namespace Solo.Entities
             SetPositions();
             IsAlive = true;
             IsExist = true;
+            _category = "brush";
+            Type = "unknown";
+            Name = "unknown";
+            Direction = Vector2.Zero;
         }
 
         protected void SetPositions()
