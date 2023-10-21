@@ -24,18 +24,7 @@ namespace Solo.Entities
                 MoveEvent?.Invoke(_position);
             }
         }
-        public float Angle 
-        {
-            get
-            {
-                return _angle;
-            }
-            set
-            {
-                _angle = value;
-                RotateEvent?.Invoke(_angle);
-            }
-        }
+        public float Angle  {get; set;}
         public float Layer {get; set;}
         public string Category 
         { 
