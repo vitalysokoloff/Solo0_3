@@ -67,6 +67,22 @@ namespace Solo.Entities
         protected Vector2 _position;
         protected Sprite _sprite;
 
+        public virtual void Init(string name, Vector2 position, Sprite sprite, Collider collider, float layer)
+        {
+            Postion = position;
+            _sprite = sprite;
+            Layer = layer;
+            _sprite.Layer = Layer;
+            Collider = collider;
+            _category = "prop";
+            Type = "unknown";
+            Name = name;
+            _angle = 0;
+            IsAlive = true;
+            IsExist = true;
+            Direction = Vector2.Zero;
+        }
+
         public void CheckCollision(IGameObject go)
         {
             if (go.IsExist)
