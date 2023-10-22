@@ -152,9 +152,12 @@ namespace Solo
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
-            _gui.Draw(gameTime, _spriteBatch);
-            _spriteBatch.End();
+            if (_isContentLoaded)
+            {
+                _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+                _gui.Draw(gameTime, _spriteBatch);
+                _spriteBatch.End();
+            }
         }
     }
 }

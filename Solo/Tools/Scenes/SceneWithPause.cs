@@ -96,6 +96,10 @@ namespace Solo
                     _gui.Draw(gameTime, _spriteBatch);
                 _spriteBatch.End();
             }
+            else
+            {
+                WhileLoadDraw(gameTime, _spriteBatch);
+            }
         }
 
         protected void Pausing()

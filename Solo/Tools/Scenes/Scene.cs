@@ -55,7 +55,7 @@ namespace Solo
             Heap GSettings = settings.Config.GetHeap("game");
             RootDirectory = GSettings.GetString("root-directory");
             Content.RootDirectory = RootDirectory;
-            TexturesDirectory = GSettings.GetString("texture-directory") + "\\";
+            TexturesDirectory = GSettings.GetString("textures-directory") + "\\";
             MapsDirectory = RootDirectory + "\\" + GSettings.GetString("maps-directory") + "\\";
             AudioDirectory = GSettings.GetString("audio-directory") + "\\";
             Heap game = _settings.Config.GetHeap("game");

@@ -11,8 +11,6 @@ namespace Solo
     public class MapLoader
     {
         public event LoadStageEvent StageEvent;
-        public GOMaker MakeGameObjects;
-
         protected Scene _scene;
         protected Heap _map;
         protected string _path;
@@ -74,8 +72,12 @@ namespace Solo
         {
             _scene.GOs.Add(go.Name, go);
         }
+
+        public virtual void MakeGameObjects()
+        {
+
+        }
     }
 
     public delegate void LoadStageEvent(int stage);
-    public delegate void GOMaker();
 }
