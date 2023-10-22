@@ -67,7 +67,17 @@ namespace Solo.Entities
         protected Vector2 _position;
         protected Sprite _sprite;
 
-        public virtual void Init(string name, Vector2 position, Sprite sprite, Collider collider, float layer)
+        public Prop(Sprite sprite, Collider collider, float layer)
+        {
+            Init(Vector2.Zero, sprite, collider, layer);
+        }
+
+        public Prop(Vector2 position, Sprite sprite, Collider collider, float layer)
+        {
+            Init(position, sprite, collider, layer);
+        }
+
+        public virtual void Init(Vector2 position, Sprite sprite, Collider collider, float layer)
         {
             Postion = position;
             _sprite = sprite;
@@ -76,7 +86,7 @@ namespace Solo.Entities
             Collider = collider;
             _category = "prop";
             Type = "unknown";
-            Name = name;
+            Name = "unknown";
             _angle = 0;
             IsAlive = true;
             IsExist = true;
@@ -108,7 +118,7 @@ namespace Solo.Entities
                 } else if (go.Category == "trigger")
                 {
                     if (go.DrawRect.Intersects(DrawRect))
-                    OnCollision(new GameObjectInfo(
+                    OnTrigger(new GameObjectInfo(
                             go.Name,
                             go.Type,
                             go.Category)
