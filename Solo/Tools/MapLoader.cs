@@ -11,21 +11,24 @@ namespace Solo
     public class MapLoader
     {
         public event LoadStageEvent StageEvent;
+        public GOMaker MakeGameObjects;
 
         protected Scene _scene;
         protected Heap _map;
+        protected string _path;
 
-        public MapLoader(Scene scene)
+        public MapLoader(Scene scene, string path)
         {
             _scene = scene;
+            _path = path;
         }
 
-        public void Load(string path)
+        public void Load()
         {
             // Видимо нужно это делать в отдельном потоке
             // Чтени хип файла стаге 0
             StageEvent?.Invoke(0);
-            _map = Heap.Open(path);            
+            _map = Heap.Open(_path);            
             
             // Загрузка тестур стаге 1
             StageEvent?.Invoke(1);
@@ -65,12 +68,7 @@ namespace Solo
             MakeGameObjects();
             StageEvent?.Invoke(5);
             // Всё готово стаге 5
-        }
-
-        protected virtual void MakeGameObjects()
-        {
-
-        }
+        }       
 
         protected void AddGO(IGameObject go)
         {
@@ -78,5 +76,6 @@ namespace Solo
         }
     }
 
-     public delegate void LoadStageEvent(int stage);
+    public delegate void LoadStageEvent(int stage);
+    public delegate void GOMaker();
 }
