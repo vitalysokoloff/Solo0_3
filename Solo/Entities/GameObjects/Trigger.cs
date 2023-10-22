@@ -44,13 +44,31 @@ namespace Solo.Entities
         public Vector2 Direction {get; set;}
         public ICollider Collider {get; set;}
         public Rectangle DrawRect {get; set;}
+        public float Opacity {get; set;}
+        public Color Color {get; set;}
 
         protected string _category;
         protected Vector2 _position;
+        protected Texture2D _texture; 
+        protected Rectangle _sourceRectangle;    
 
-        public virtual void Init()
+        public Trigger(Vector2 position, Point size)
         {
-            
+            _sourceRectangle = new Rectangle(0, 0, 1, 1);
+            Angle =
+            Layer = 1f; 
+            Type = "unknown";
+            Name = "unknown";
+            IsAlive = true;
+            IsExist = true;
+            Direction = Vector2.Zero;
+            Postion = position;
+            Collider = new Collider(new SRectangle(0, 0, 1, 1), Vector2.Zero, (GraphicsDeviceManager)SConsole.Stuff.Get("graphics"));
+            DrawRect = new Rectangle(new Point((int)position.X, (int)position.Y), size);
+            Opacity = 0.5f;
+            Color = Color.Yellow;
+            _category = "trigger";
+            _texture = Tools.MakeSolidColorTexture((GraphicsDeviceManager)SConsole.Stuff.Get("graphics"), new Point(1, 1), Color.White);
         }
 
         public void CheckCollision(IGameObject go)
@@ -86,7 +104,7 @@ namespace Solo.Entities
         public virtual void Update(GameTime gameTime){}
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-           
+           spriteBatch.Draw(_texture, DrawRect, _sourceRectangle, Color * Opacity, 0, Vector2.Zero, SpriteEffects.None, Layer);
         }  
     }
 }
