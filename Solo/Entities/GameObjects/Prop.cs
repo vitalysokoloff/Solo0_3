@@ -78,12 +78,15 @@ namespace Solo.Entities
         }
 
         public virtual void Init(Vector2 position, Sprite sprite, Collider collider, float layer)
-        {
-            Postion = position;
+        {       
+            Layer = layer;     
             _sprite = sprite;
-            Layer = layer;
+            if (_sprite != null)
+            _sprite.Parent = this;            
             _sprite.Layer = Layer;
             Collider = collider;
+            if (Collider != null)
+                Collider.Parent = this;
             _category = "prop";
             Type = "unknown";
             Name = "unknown";
@@ -91,6 +94,7 @@ namespace Solo.Entities
             IsAlive = true;
             IsExist = true;
             Direction = Vector2.Zero;
+            Postion = position;
         }
 
         public void CheckCollision(IGameObject go)
@@ -135,7 +139,11 @@ namespace Solo.Entities
         {
             Collider.Draw(gameTime, spriteBatch);
         } 
-        public virtual void Update(GameTime gameTime){}
+        public virtual void Update(GameTime gameTime)
+        {
+            if(_sprite != null)
+                _sprite.Update(gameTime);
+        }
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             _sprite.Draw(gameTime, spriteBatch);

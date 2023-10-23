@@ -1,0 +1,42 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Solo;
+using Solo.Entities;
+
+namespace TestGame {
+    public class SGame1 : SGame
+    {
+        public SGame1() : base(){ }
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+            _camera = new Camera(_graphics);
+            _settings.Reset(_graphics, _camera);
+            _camera.Position = new Vector2(300, 300);
+            _currentScene = new Scene1(_settings, _camera, Content, GraphicsDevice, _graphics);
+            _currentScene.ChangeScene += ChangingScenes;
+        }
+
+        protected override void LoadContent()
+        {
+            base.LoadContent();         
+        }
+
+        protected override void Update(GameTime gameTime)
+        {  
+            base.Update(gameTime);
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+        }
+
+        protected void ChangingScenes(int value)
+        {
+            if(value == -1)
+                Exit();
+        }    
+    }
+}

@@ -15,7 +15,7 @@ namespace Solo
         public MenuScene(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics) : 
             base(settings, camera, content, graphicsDevice, graphics)
         {
-            Heap game = _settings.Config.GetHeap("game");
+            Heap game = Settings.Config.GetHeap("game");
             int width = game.GetInt("original-width");
             int height = game.GetInt("original-height");
             string name = game.GetString("name");            
@@ -29,7 +29,7 @@ namespace Solo
                 new Point(1600, 900),
                 new Point(1920, 1080)
             };
-            Point curResolution = _settings.GetResolution(_graphics);
+            Point curResolution = Settings.GetResolution(_graphics);
             _resolutionPointer = curResolution == _resolutions[0]? 0 : curResolution == _resolutions[1]? 1 : 2;
 
             GUIStyle _style = new GUIStyle(_graphics, font);
@@ -59,36 +59,36 @@ namespace Solo
             Page settingsMenu = new Page();
             Label title2 = new Label(new Rectangle((int)(width / 2 - settingsTitleSize.X / 2), (int)(height / 2 - nameSize.Y), (int)settingsTitleSize.X, (int)nameSize.Y), _style, "Настройки");
             settingsMenu.Add(title2);           
-            Label sound = new Label(new Rectangle(width / 2 - 75, height / 2 + 10, 100, (int)nameSize.Y), _style, "Звук: " + (int)(_settings.SoundVolume * 100)); 
+            Label sound = new Label(new Rectangle(width / 2 - 75, height / 2 + 10, 100, (int)nameSize.Y), _style, "Звук: " + (int)(Settings.SoundVolume * 100)); 
             settingsMenu.Add(sound);
             Button soundMinus = new Button(new Rectangle(width / 2 + 25, height / 2 + 10, 25, (int)nameSize.Y), _style, "-");            
             soundMinus.AButtonAction = () =>
             {
-                _settings.SetSoundVolume(_settings.SoundVolume - 0.1f);
-                sound.SetText("Звук: " + (int)(_settings.SoundVolume * 100));
+                Settings.SetSoundVolume(Settings.SoundVolume - 0.1f);
+                sound.SetText("Звук: " + (int)(Settings.SoundVolume * 100));
             };
             settingsMenu.Add(soundMinus);
             Button soundPlus = new Button(new Rectangle(width / 2 + 50, height / 2 + 10, 25, (int)nameSize.Y), _style, "+");  
             soundPlus.AButtonAction = () =>
             {
-                _settings.SetSoundVolume(_settings.SoundVolume + 0.1f);
-                sound.SetText("Звук: " + (int)(_settings.SoundVolume * 100));
+                Settings.SetSoundVolume(Settings.SoundVolume + 0.1f);
+                sound.SetText("Звук: " + (int)(Settings.SoundVolume * 100));
             };          
             settingsMenu.Add(soundPlus);
-            Label music = new Label(new Rectangle(width / 2 - 75, height / 2 + 12 + (int)nameSize.Y, 100, (int)nameSize.Y), _style, "Музыка: " + (int)(_settings.MusicVolume * 100)); 
+            Label music = new Label(new Rectangle(width / 2 - 75, height / 2 + 12 + (int)nameSize.Y, 100, (int)nameSize.Y), _style, "Музыка: " + (int)(Settings.MusicVolume * 100)); 
             settingsMenu.Add(music);
             Button musicMinus = new Button(new Rectangle(width / 2 + 25, height / 2 + 12 + (int)nameSize.Y, 25, (int)nameSize.Y), _style, "-");            
             musicMinus.AButtonAction = () =>
             {
-                _settings.SetMusicVolume(_settings.MusicVolume - 0.1f);
-                music.SetText("Музыка: " + (int)(_settings.MusicVolume * 100));
+                Settings.SetMusicVolume(Settings.MusicVolume - 0.1f);
+                music.SetText("Музыка: " + (int)(Settings.MusicVolume * 100));
             };
             settingsMenu.Add(musicMinus);
             Button musicPlus = new Button(new Rectangle(width / 2 + 50, height / 2 + 12 + (int)nameSize.Y, 25, (int)nameSize.Y), _style, "+");  
             musicPlus.AButtonAction = () =>
             {
-                _settings.SetMusicVolume(_settings.MusicVolume + 0.1f);
-                music.SetText("Музыка: " + (int)(_settings.MusicVolume * 100));
+                Settings.SetMusicVolume(Settings.MusicVolume + 0.1f);
+                music.SetText("Музыка: " + (int)(Settings.MusicVolume * 100));
             };          
             settingsMenu.Add(musicPlus);
 
@@ -99,10 +99,10 @@ namespace Solo
             {
                 _resolutionPointer--;
                 _resolutionPointer = _resolutionPointer < 0? 0 : _resolutionPointer;
-                _settings.SetResolution(_graphics, _camera, _resolutions[_resolutionPointer]);
+                Settings.SetResolution(_graphics, _camera, _resolutions[_resolutionPointer]);
                 res.SetText(_resolutions[_resolutionPointer].ToString()); 
                 Thread.Sleep(1000); // Костыль потому что разрешение экрана не успевает обновиться  
-                _gui.Shift(_settings.GUIOffset);
+                _gui.Shift(Settings.GUIOffset);
             };
             settingsMenu.Add(lowRes);            
             Button upRes = new Button(new Rectangle(width / 2 + 50, height / 2 + 17  + (int)nameSize.Y * 2, 25, (int)nameSize.Y), _style, "[>]");            
@@ -110,28 +110,28 @@ namespace Solo
             {
                 _resolutionPointer++;
                 _resolutionPointer = _resolutionPointer > _resolutions.Length - 1? _resolutions.Length - 1 : _resolutionPointer;
-                _settings.SetResolution(_graphics, _camera, _resolutions[_resolutionPointer]);
+                Settings.SetResolution(_graphics, _camera, _resolutions[_resolutionPointer]);
                 res.SetText(_resolutions[_resolutionPointer].ToString());
                 Thread.Sleep(1000); // Костыль потому что разрешение экрана не успевает обновиться             
-                _gui.Shift(_settings.GUIOffset);               
+                _gui.Shift(Settings.GUIOffset);               
             };
             settingsMenu.Add(upRes);
-            SwitchButton full = new SwitchButton(new Rectangle(width / 2 - 75, height / 2 + 19  + (int)nameSize.Y * 3, 150, (int)nameSize.Y), _style, "На весь экран", _settings.IsFullScreen); 
+            SwitchButton full = new SwitchButton(new Rectangle(width / 2 - 75, height / 2 + 19  + (int)nameSize.Y * 3, 150, (int)nameSize.Y), _style, "На весь экран", Settings.IsFullScreen); 
             full.AButtonAction = () =>
             {
-                _settings.SetFullScreen(graphics, camera, !_settings.IsFullScreen);
+                Settings.SetFullScreen(graphics, camera, !Settings.IsFullScreen);
             };
             settingsMenu.Add(full);
-            SwitchButton opening = new SwitchButton(new Rectangle(width / 2 - 75, height / 2 + 24  + (int)nameSize.Y * 4, 150, (int)nameSize.Y), _style, "Начальная заставка", _settings.IsOpenning); 
+            SwitchButton opening = new SwitchButton(new Rectangle(width / 2 - 75, height / 2 + 24  + (int)nameSize.Y * 4, 150, (int)nameSize.Y), _style, "Начальная заставка", Settings.IsOpenning); 
             opening.AButtonAction = () =>
             {
-                _settings.SetOpening(!_settings.IsOpenning);
+                Settings.SetOpening(!Settings.IsOpenning);
             };
             settingsMenu.Add(opening );
             Button save = new Button(new Rectangle(width / 2 - 75, height / 2 + 29  + (int)nameSize.Y * 5, 150, (int)nameSize.Y), _style, "Назад");            
             save.AButtonAction = () =>
             {
-               _settings.Save(graphics);
+               Settings.Save(graphics);
                _gui.SetPage("main");           
             };
             settingsMenu.Add(save);
@@ -139,7 +139,7 @@ namespace Solo
             _gui.AddPage("main", main); 
             _gui.AddPage("settings", settingsMenu);
             _gui.SetPage("main"); 
-            _gui.Shift(_settings.OriginalGUIOffset);        
+            _gui.Shift(Settings.OriginalGUIOffset);        
 
         }
 

@@ -1,0 +1,141 @@
+using System.Threading;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Solo;
+using Solo.Collections;
+using Solo.Entities;
+
+namespace TestGame {
+    public class Scene1 : Scene
+    {
+        protected MapLoader _mapLoader;
+        protected string _stage;
+        public Scene1(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics) : 
+            base (settings, camera, content, graphicsDevice, graphics)
+        { 
+            string path = MapsDirectory + "openning.heap";
+            _mapLoader = new OpenningLoader(this, path);
+            _mapLoader.StageEvent += OnLoad;
+            Thread load = new Thread(new ThreadStart(_mapLoader.Load));
+            load.Start();
+            _stage = "загрузка...";
+        }
+
+        public override void OnLoad(int number)
+        {
+            switch (number)
+            {
+                default:
+                    _stage = "загрузка...";
+                    break;
+                case 5:
+                    _stage = "коллайдеры";                    
+                    _isContentLoaded = true;
+                    break;
+            }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (_stage == "коллайдеры")
+            {
+                foreach (string k in GOs.Keys)
+                    {
+                        GOs[k].Collider.SetTexture(_graphics);
+                    }
+            }
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+        }
+
+        public override void WhileLoadDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+            _spriteBatch.DrawString(SConsole.Font, _stage, new Vector2(10, 10), Color.White);
+            _spriteBatch.End();
+        }
+
+        public override void ChangingScene(int number)
+        {
+            ChangeScene?.Invoke(number);
+        }
+    }
+
+    public class OpenningLoader : MapLoader
+    {
+        public OpenningLoader(Scene scene, string path) : base (scene, path) {}
+
+        public override void MakeGameObjects()
+        {   
+            _scene.Camera.Position = _map.GetVector2("camera-position"); 
+            Heap logo = _map.GetHeap("gos").GetHeap("logo");
+            if (logo.GetString("category") == "prop")
+            {
+                SMaterial material = _scene.Materials[logo.GetString("material")];
+                Vector2 position = new Vector2(logo.GetInt("x"), logo.GetInt("y"));
+                Point size = new Point(material.SourceRectangle.Width, material.SourceRectangle.Height);
+                float layer = logo.GetInt("layer");
+                Sprite sprite = new Sprite(material, Vector2.Zero, size);
+                SoundEffectInstance sound = material.Sound.CreateInstance();
+                sound.Volume = _scene.Settings.MusicVolume; 
+                Logo go = new Logo(sprite, new Collider(new SRectangle(0, 0, 200, 200), Vector2.Zero), layer, sound) {
+                        Name = logo.GetString("name"),
+                        Postion = position
+                    };
+                go.Event += _scene.ChangingScene;              
+                AddGO(go);
+                
+            }
+        }
+    }
+
+    public class Logo : Prop
+    {
+        public LogoEvent Event;
+
+        protected SoundEffectInstance _sound;
+        protected bool _gocha;
+        protected Solo.Timer _totalTimer;
+        public Logo(Sprite sprite, Collider collider, float layer, SoundEffectInstance sound) : base (sprite, collider, layer) 
+        {
+            _gocha = false;
+            _sound = sound;
+            sound.Play();
+            _sprite.FramesQty = 8;
+            _sprite.AnimationTimer = new Solo.Timer(2000);
+            _sprite.AnimationStart();
+            _totalTimer = new Solo.Timer(7000);
+            _totalTimer.Start();
+        }
+
+        public override void Update(GameTime gameTime)
+        {  
+            base.Update(gameTime);
+
+            if (_sprite.FrameNumber == 1 && !_gocha)
+            {
+                _gocha = false;
+                _sprite.AnimationTimer.Period = 140;
+                _sprite.FirstNumber = 1;
+            }            
+            
+            if (_sprite.AnimationTimer.Count == 19)
+            {
+                _sprite.AnimationStop();
+            }
+
+            if (_totalTimer.Beap(gameTime))
+            {
+                Event?.Invoke(-1);
+            }
+        }
+    }
+
+    public delegate void LogoEvent(int value);
+}

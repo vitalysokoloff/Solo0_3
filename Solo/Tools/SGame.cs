@@ -28,7 +28,7 @@ namespace Solo
             IsMouseVisible =  gameConfig.GetBool("mouse-visibility");
             _settings = new Settings(config); 
             _settings.Init(_graphics, _camera);
-            _bgColor = Color.Gray;
+            _bgColor = new Color(34, 34, 34);
             SConsole.Stuff.Add("graphics", _graphics);      
         }
 

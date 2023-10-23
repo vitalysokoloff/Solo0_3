@@ -326,7 +326,7 @@ namespace Solo.Collections
             string stringPattern = "^.+\\s*:\\s*\".+\"\\s*$";
             string heapPattern = @"^.+\s*{\s*$";
             string endPattern = @"^\s*}\s*$";
-            string boolPattern = @"^.+\s*:\s*\+|true|True|on|On|-|false|False|off|Off\s*$";
+            string boolPattern = @"^.+\s*:\s*True|False\s*$";
             string pointPattern = @"^.+\s*:\s*\d+\.\d+\s*$";
             string vectorPattern = @"^.+\s*:\s*((\d+,\d+)|(\d+))f\.((\d+,\d+)|(\d+))f\s*$";
 

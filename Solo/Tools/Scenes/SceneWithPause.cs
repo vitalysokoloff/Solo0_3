@@ -26,7 +26,7 @@ namespace Solo
             _input = new KeysInput();
             _input.Add("pause", new Key(Keys.Escape));
             _input.Add("pause", new Key(Buttons.Back));
-            Heap game = _settings.Config.GetHeap("game");
+            Heap game = Settings.Config.GetHeap("game");
             int width = game.GetInt("original-width");
             int height = game.GetInt("original-height");         
             SpriteFont font = SConsole.Font;
@@ -84,7 +84,7 @@ namespace Solo
                     foreach(IGameObject go in drawingGOs)
                     {
                         go.Draw(gameTime, _spriteBatch);
-                        if (_settings.DebugMode)
+                        if (Settings.DebugMode)
                             go.Debug(gameTime, _spriteBatch);
                     }
                 _spriteBatch.End();
@@ -105,7 +105,7 @@ namespace Solo
         protected void Pausing()
         {
             _pause = !_pause;
-            _gui.Shift(new Point(_settings.OriginalGUIOffset.X * _factor, _settings.OriginalGUIOffset.Y * _factor));
+            _gui.Shift(new Point(Settings.OriginalGUIOffset.X * _factor, Settings.OriginalGUIOffset.Y * _factor));
             _factor *= -1;
             if (_pause)
                 _gui.SetPage("pause");

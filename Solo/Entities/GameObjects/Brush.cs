@@ -132,7 +132,7 @@ namespace Solo.Entities
             int y = _rect.Height / material.Texture.Height;
             Postion = new Vector2(_rect.Center.X, _rect.Center.Y);
             _positions = new Point[x, y];
-            Collider = new Collider(new SRectangle(_rect.X, _rect.Y, _rect.Width, _rect.Height), Vector2.Zero, (GraphicsDeviceManager)SConsole.Stuff.Get("graphics"))           
+            Collider = new Collider(new SRectangle(_rect.X, _rect.Y, _rect.Width, _rect.Height), Vector2.Zero)           
             {
                 Parent = this
             };

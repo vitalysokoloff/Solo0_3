@@ -1,0 +1,28 @@
+name: "openning"
+describe: "openning"
+camera-position: 640f.360f
+camera-focus: "logo"
+textures {
+  logo: "mono_solo_texture"
+}
+sounds {
+ openning: "openning"
+}
+materials {
+  logo-mat {
+    texture: "logo"
+    location: 0.0
+    size: 200.200
+    sound: "openning"
+  }
+}
+gos {
+  logo {
+    category: "prop"
+    name: "logo"
+    material: "logo-mat"
+    x: 640
+    y: 360
+    layer: 1f 
+  }
+}

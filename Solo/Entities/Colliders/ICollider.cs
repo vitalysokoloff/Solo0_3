@@ -8,6 +8,7 @@ namespace Solo.Entities
         public IGameObject Parent {get; set;}
         public void On();
         public void Off();
+         public void SetTexture(GraphicsDeviceManager graphics);
         public bool GetState();
         public void OnMove(Vector2 position);
         public void OnRotate(float angle);
