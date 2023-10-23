@@ -63,7 +63,7 @@ namespace Solo.Entities
             IsExist = true;
             Direction = Vector2.Zero;
             Postion = position;
-            Collider = new Collider(new SRectangle(0, 0, 1, 1), Vector2.Zero, (GraphicsDeviceManager)SConsole.Stuff.Get("graphics"));
+            Collider = new Collider(new SRectangle(0, 0, 1, 1), Vector2.Zero);
             DrawRect = new Rectangle(new Point((int)position.X, (int)position.Y), size);
             Opacity = 0.5f;
             Color = Color.Yellow;

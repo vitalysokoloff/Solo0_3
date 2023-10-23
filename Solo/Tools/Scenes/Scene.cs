@@ -20,6 +20,20 @@ namespace Solo
                 return _colliderManager;
             }
         }
+        public GraphicsDeviceManager GraphicsDeviceManager
+        {
+            get
+            {
+                return _graphics;
+            }
+        }
+        public Camera Camera
+        {
+            get
+            {
+                return _camera;
+            }
+        }
         protected bool _isContentLoaded {get; set;}  
         public ChangeScene ChangeScene;
         public ContentManager Content; 
@@ -32,7 +46,7 @@ namespace Solo
         public string RootDirectory;
         public string AudioDirectory;
 
-        protected Settings _settings;
+        public Settings Settings;
         protected Camera _camera;         
         protected GraphicsDevice _graphicsDevice;        
         protected SpriteBatch _spriteBatch;  
@@ -41,7 +55,7 @@ namespace Solo
 
         public Scene(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics)
         {
-            _settings = settings;
+            Settings = settings;
             _camera = camera;
             Content = content;
             _graphicsDevice = graphicsDevice;
@@ -58,7 +72,7 @@ namespace Solo
             TexturesDirectory = GSettings.GetString("textures-directory") + "\\";
             MapsDirectory = RootDirectory + "\\" + GSettings.GetString("maps-directory") + "\\";
             AudioDirectory = GSettings.GetString("audio-directory") + "\\";
-            Heap game = _settings.Config.GetHeap("game");
+            Heap game = Settings.Config.GetHeap("game");
             int width = game.GetInt("original-width");
             int height = game.GetInt("original-height");
             _spriteBatch = new SpriteBatch(graphicsDevice);  
@@ -74,7 +88,7 @@ namespace Solo
                     if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect) && GOs[k].IsExist)
                         updatingGOs.Add(GOs[k]);
                 }
-                _settings.SetLog("U-qty", updatingGOs.Count.ToString());
+                Settings.SetLog("U-qty", updatingGOs.Count.ToString());
 
                 foreach(IGameObject go in updatingGOs)
                 {
@@ -105,14 +119,14 @@ namespace Solo
                     if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect) && GOs[k].IsExist)
                         drawingGOs.Add(GOs[k]);
                 }
-                _settings.SetLog("D-qty", drawingGOs.Count.ToString());
+                Settings.SetLog("D-qty", drawingGOs.Count.ToString());
 
                 //1) draw.gos
                 _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, transformMatrix: _camera.Transform);
                     foreach(IGameObject go in drawingGOs)
                     {
                         go.Draw(gameTime, _spriteBatch);
-                        if (_settings.DebugMode)
+                        if (Settings.DebugMode)
                             go.Debug(gameTime, _spriteBatch);
                     }
                 _spriteBatch.End();

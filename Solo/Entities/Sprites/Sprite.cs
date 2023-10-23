@@ -24,6 +24,7 @@ namespace Solo.Entities
         }
         public int FramesQty { get; set;}
         public int FrameNumber { get; set;}
+        public int FirstNumber { get; set;}
         public Rectangle DrawRectangle
         {
             get
@@ -58,7 +59,8 @@ namespace Solo.Entities
             FramesQty = 1;
             FrameNumber = 0;
             AnimationTimer = Timer.GetDefault();
-            Layer = 1f;            
+            Layer = 1f; 
+            FirstNumber = 0;           
             On();
         }
 
@@ -75,7 +77,8 @@ namespace Solo.Entities
             FramesQty = 1;
             FrameNumber = 0;
             AnimationTimer = Timer.GetDefault();
-            Layer = 1f;            
+            Layer = 1f;  
+            FirstNumber = 0;            
             On();
         }
 
@@ -93,6 +96,7 @@ namespace Solo.Entities
             FrameNumber = frameNumber;
             AnimationTimer = animationTimer;
             Layer = 1f;
+            FirstNumber = 0;  
             On();
 
             if (startAnimationInitially)
@@ -113,6 +117,7 @@ namespace Solo.Entities
             FrameNumber = frameNumber;
             AnimationTimer = animationTimer;
             Layer = 1f;
+            FirstNumber = 0;  
             On();
 
             if (startAnimationInitially)
@@ -197,16 +202,16 @@ namespace Solo.Entities
             if (FrameNumber < FramesQty)
                 FrameNumber++;
             if (FrameNumber >= FramesQty)
-                FrameNumber = 0;
+                FrameNumber = FirstNumber;
 
             _sourceRectangle.X = FrameNumber * _size.X;
         }
 
         protected void FrameMoveLeft()
         {
-            if (FrameNumber >= 0)
+            if (FrameNumber >= FirstNumber)
                 FrameNumber++;
-            if (FrameNumber < 0)
+            if (FrameNumber < FirstNumber)
                 FrameNumber = FramesQty;
 
             _sourceRectangle.X = FrameNumber * _size.X;

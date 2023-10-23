@@ -41,20 +41,18 @@ namespace Solo.Entities
         protected bool _state;
         protected Shape _shape;
         
-        public Collider(Shape shape, Vector2 position, GraphicsDeviceManager graphics)
+        public Collider(Shape shape, Vector2 position)
         {
             _shape = shape;
             Position = position;
-            _shape.SetTexture(graphics);
             On();
         }
 
-        public Collider(Shape shape, Color color, Vector2 position, GraphicsDeviceManager graphics)
+        public Collider(Shape shape, Color color, Vector2 position)
         {
             _shape = shape;
             Position = position;
             _shape.SetColor(color);
-            _shape.SetTexture(graphics);
             On();
         }
 
@@ -76,6 +74,11 @@ namespace Solo.Entities
         public void Off()
         {
             _state = false;
+        }
+
+        public void SetTexture(GraphicsDeviceManager graphics)
+        {
+            _shape.SetTexture(graphics);
         }
 
         public bool GetState()
@@ -103,25 +106,25 @@ namespace Solo.Entities
                 _shape.Draw(gameTime, spriteBatch);
         }
 
-        public static Collider Box(GraphicsDeviceManager graphics)
+        public static Collider Box()
         {
-            return new Collider(new SRectangle(0, 0, 50, 50), Vector2.Zero, graphics);
+            return new Collider(new SRectangle(0, 0, 50, 50), Vector2.Zero);
         }
-        public static Collider Box(Vector2 position, GraphicsDeviceManager graphics)
+        public static Collider Box(Vector2 position)
         {
-            return new Collider(new SRectangle(0, 0, 50, 50), position, graphics);
+            return new Collider(new SRectangle(0, 0, 50, 50), position);
         }
-        public static Collider Box(int edgeSize, GraphicsDeviceManager graphics)
+        public static Collider Box(int edgeSize)
         {
-            return new Collider(new SRectangle(0, 0, edgeSize, edgeSize), Vector2.Zero, graphics);
+            return new Collider(new SRectangle(0, 0, edgeSize, edgeSize), Vector2.Zero);
         }
-        public static Collider Box(int edgeSize, Vector2 position, GraphicsDeviceManager graphics)
+        public static Collider Box(int edgeSize, Vector2 position)
         {
-            return new Collider(new SRectangle(0, 0, edgeSize, edgeSize), position, graphics);
+            return new Collider(new SRectangle(0, 0, edgeSize, edgeSize), position);
         }
-        public static Collider Box(int edgeSize, Color color, Vector2 position, GraphicsDeviceManager graphics)
+        public static Collider Box(int edgeSize, Color color, Vector2 position)
         {
-            return new Collider(new SRectangle(0, 0, edgeSize, edgeSize), color, position, graphics);
+            return new Collider(new SRectangle(0, 0, edgeSize, edgeSize), color, position);
         }
     }
 }

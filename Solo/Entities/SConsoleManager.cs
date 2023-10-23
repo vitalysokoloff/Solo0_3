@@ -26,7 +26,7 @@ namespace Solo.Entities
             GameSettings = settings;
 
 
-            Texture = Tools.MakeSolidColorTexture(_graphics, new Point(1, 1), new Color(34, 34, 34));
+            Texture = Tools.MakeSolidColorTexture(_graphics, new Point(1, 1), new Color(24, 24, 24));
             SourceRectangle = new Rectangle(0, 0, 1, 1);
             DrawRectangle = new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight / 2);
             _input = new KeysInput();
