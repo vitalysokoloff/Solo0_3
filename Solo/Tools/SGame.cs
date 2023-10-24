@@ -56,9 +56,12 @@ namespace Solo
             if (_currentScene != null)
                 _currentScene.Draw(gameTime);
             
-            _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
-            _console.Draw(gameTime, _spriteBatch);  
-            _spriteBatch.End();
+            if (_settings.IsConsole)
+            {
+                _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+                _console.Draw(gameTime, _spriteBatch);  
+                _spriteBatch.End();
+            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -66,7 +69,8 @@ namespace Solo
             base.Update(gameTime);
             if (_currentScene != null)
                 _currentScene.Update(gameTime);
-            _console.Update(gameTime);
+            if (_settings.IsConsole)
+                _console.Update(gameTime);
             _camera.Update(gameTime);         
         }
     }
