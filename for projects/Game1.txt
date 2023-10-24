@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Solo;
 using Solo.Entities;
@@ -14,8 +15,15 @@ namespace TestGame {
             _camera = new Camera(_graphics);
             _settings.Reset(_graphics, _camera);
             _camera.Position = new Vector2(300, 300);
-            _currentScene = new Scene1(_settings, _camera, Content, GraphicsDevice, _graphics);
-            _currentScene.ChangeScene += ChangingScenes;
+            if(_settings.IsOpenning)
+            {
+                _currentScene = new Scene1(_settings, _camera, Content, GraphicsDevice, _graphics);
+                _currentScene.ChangeScene += ChangingScenes;
+            }
+            else
+            {
+                ChangingScenes(1);
+            }
         }
 
         protected override void LoadContent()
@@ -35,8 +43,23 @@ namespace TestGame {
 
         protected void ChangingScenes(int value)
         {
-            if(value == -1)
-                Exit();
+            switch (value)
+            {
+                case -1:
+                    Exit();
+                    break;
+                case 0:
+                    break;
+                case 1:
+                    _camera = new Camera(_graphics);
+                    _camera.Position = new Vector2(640, 360);
+                    _currentScene = new MenuScene1(_settings, _camera, Content, GraphicsDevice, _graphics);
+                    GC.Collect();
+                    _currentScene.ChangeScene += ChangingScenes;
+                    break;
+                default:
+                    break;
+            }
         }    
     }
 }

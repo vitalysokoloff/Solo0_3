@@ -14,7 +14,7 @@ namespace TestGame {
         protected string _stage;
         public Scene1(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics) : 
             base (settings, camera, content, graphicsDevice, graphics)
-        { 
+        {             
             string path = MapsDirectory + "openning.heap";
             _mapLoader = new OpenningLoader(this, path);
             _mapLoader.StageEvent += OnLoad;
@@ -24,7 +24,7 @@ namespace TestGame {
         }
 
         public override void OnLoad(int number)
-        {
+        {            
             switch (number)
             {
                 default:
@@ -38,7 +38,7 @@ namespace TestGame {
         }
 
         public override void Update(GameTime gameTime)
-        {
+        {            
             base.Update(gameTime);
             if (_stage == "коллайдеры")
             {
@@ -132,7 +132,7 @@ namespace TestGame {
 
             if (_totalTimer.Beap(gameTime))
             {
-                Event?.Invoke(-1);
+                Event?.Invoke(1);
             }
         }
     }

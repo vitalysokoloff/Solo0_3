@@ -3,11 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Solo.Collections;
 using Solo.Entities;
-using Solo.Input;
-using Solo.Physics;
 
 namespace Solo
 {
