@@ -127,8 +127,14 @@ namespace Solo
             {
                 Settings.SetOpening(!Settings.IsOpenning);
             };
-            settingsMenu.Add(opening );
-            Button save = new Button(new Rectangle(width / 2 - 75, height / 2 + 29  + (int)nameSize.Y * 5, 150, (int)nameSize.Y), _style, "Назад");            
+            settingsMenu.Add(opening);
+            SwitchButton devconsole = new SwitchButton(new Rectangle(width / 2 - 75, height / 2 + 29  + (int)nameSize.Y * 5, 150, (int)nameSize.Y), _style, "Консоль разработчика", Settings.IsConsole); 
+            devconsole.AButtonAction = () =>
+            {
+                Settings.SetConsole(!Settings.IsConsole);
+            };
+            settingsMenu.Add(devconsole);
+            Button save = new Button(new Rectangle(width / 2 - 75, height / 2 + 34  + (int)nameSize.Y * 6, 150, (int)nameSize.Y), _style, "Назад");            
             save.AButtonAction = () =>
             {
                Settings.Save(graphics);

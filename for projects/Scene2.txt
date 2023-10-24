@@ -1,0 +1,28 @@
+using System.Threading;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Solo.Collections;
+using Solo.Entities;
+
+namespace Solo
+{
+    public class MenuScene1 : MenuScene
+    {
+        public MenuScene1(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics) : 
+            base(settings, camera, content, graphicsDevice, graphics)
+        {                
+            _isContentLoaded = true;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+        }
+    }
+}
