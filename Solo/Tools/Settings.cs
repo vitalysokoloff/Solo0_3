@@ -81,6 +81,14 @@ namespace Solo
             }
         }
 
+        public bool IsConsole
+        {
+            get
+            {
+                return Config.GetHeap("game").GetBool("dev-console");
+            }
+        }
+
         public Settings(Heap config)
         {
             Config = config;
@@ -163,6 +171,12 @@ namespace Solo
         public virtual void SetLog(string name, string value)
         {
             SConsole.Configs.GetHeap("log").Add(name, value);
+        }
+
+        public virtual void SetConsole(bool value)
+        {
+            Config.GetHeap("game").Add("dev-console", value); 
+            SConsole.WriteLine(value);           
         }
 
         public virtual void GetMusicVolume()

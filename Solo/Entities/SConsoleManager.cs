@@ -149,6 +149,8 @@ namespace Solo.Entities
             string debugOff = @"^-debug\soff$";
             string godOn = @"^-god\son$";
             string godOff = @"^-god\soff$";
+            string ConsoleOn = @"^-console\son$";
+            string ConsoleOff = @"^-console\soff$";
 
             if (Regex.IsMatch(str, setResolution))
             {
@@ -225,6 +227,16 @@ namespace Solo.Entities
             if (Regex.IsMatch(str, godOff))
             {
                 GameSettings.GodMode = false;
+                return;
+            }
+            if (Regex.IsMatch(str, ConsoleOn))
+            {
+                GameSettings.SetConsole(true);
+                return;
+            }
+            if (Regex.IsMatch(str, ConsoleOff))
+            {
+                GameSettings.SetConsole(false);
                 return;
             }
         }

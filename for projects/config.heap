@@ -20,6 +20,7 @@ game {
 	opening-logos: True
 	debug-mode: True
 	god-mode: False
+	dev-console: True
 }
 audio {
 	music: 0,70000005f
