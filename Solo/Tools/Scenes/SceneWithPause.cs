@@ -49,9 +49,9 @@ namespace Solo
             Button back = new Button(new Rectangle(width / 2 - 50, height / 2 + 12 + (int)textSize.Y, 100, (int)textSize.Y), _style, "Главное меню");            
             back.AButtonAction = () =>
             {
-                ChangeScene?.Invoke(-1);
+                ChangeScene?.Invoke(1);
             };
-            main.Add(back);        
+            main.Add(back); 
         }
 
         public override void Update(GameTime gameTime)
@@ -64,8 +64,11 @@ namespace Solo
             {
                 _gui.Update(gameTime);
             }
-            if (_input.IsPressed("pause"))
+            if (_isContentLoaded)
+            {
+                if (_input.IsPressed("pause"))
                 Pausing();
+            }
         }
 
         public override void Draw(GameTime gameTime)

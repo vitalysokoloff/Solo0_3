@@ -99,12 +99,12 @@ namespace Solo.Entities
         public virtual void GUI(GameTime gameTime, SpriteBatch spriteBatch){}
         public virtual void Debug(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Collider.Draw(gameTime, spriteBatch);
+            spriteBatch.Draw(_texture, DrawRect, _sourceRectangle, Color * Opacity, 0, Vector2.Zero, SpriteEffects.None, Layer);
         } 
         public virtual void Update(GameTime gameTime){}
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-           spriteBatch.Draw(_texture, DrawRect, _sourceRectangle, Color * Opacity, 0, Vector2.Zero, SpriteEffects.None, Layer);
+           
         }  
     }
 }
