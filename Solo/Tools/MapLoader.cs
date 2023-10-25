@@ -53,9 +53,12 @@ namespace Solo
                 SMaterial material = new SMaterial()
                 {
                     Texture = _scene.Textures[materialInfo.GetString("texture")], // проверка на нулл?
-                    SourceRectangle = new Rectangle(materialInfo.GetPoint("location"), materialInfo.GetPoint("size")), 
-                    Sound = _scene.Sounds[materialInfo.GetString("sound")] // проверка на нулл?
+                    SourceRectangle = new Rectangle(materialInfo.GetPoint("location"), materialInfo.GetPoint("size"))
                 };
+                if (materialInfo.GetString("sound") != "")
+                {
+                    material.Sound = _scene.Sounds[materialInfo.GetString("sound")];
+                }
                 _scene.Materials.Add(k, material);
             }
             
