@@ -32,6 +32,8 @@ namespace Solo
                     Write(input);
                 }
             }
+            if (_text.Length > 6000)
+                Clear();
         }
         public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
