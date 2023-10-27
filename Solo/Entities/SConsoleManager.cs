@@ -52,7 +52,6 @@ namespace Solo.Entities
                 if (!SConsole.GetState())
                 {
                     SConsole.On();
-                    SConsole.WriteLine("[F1] - to help");
                     SConsole.Configs.Add("gui-lock", true);
                 }
                 else
@@ -73,6 +72,7 @@ namespace Solo.Entities
                     SConsole.WriteLine("[Back ] - remove last char");
                     SConsole.WriteLine("[Tab  ] - insert last input line");
                     SConsole.WriteLine("[Up   ] - insert last input line");
+                    SConsole.WriteLine("write [-help] to check commands list");
                     SConsole.WriteLine("==========================");
                 }
                 if (_input.IsPressed("clear"))
@@ -133,7 +133,7 @@ namespace Solo.Entities
             SConsole.Draw(gameTime, spriteBatch);
         }
 
-        protected void ParseString(string str)
+        protected virtual void ParseString(string str)
         {
             string setResolution = @"^-resolution\s[0-9]+\s[0-9]+$";
             string showResolution = @"^-resolution$";
@@ -254,9 +254,10 @@ namespace Solo.Entities
         public virtual void Help()
         {
             SConsole.WriteLine("You should override this method!!!");
-            SConsole.WriteLine("-resolution | -resolutiob on/off | -fullscreen on/off | -music | -music x.x");
-            SConsole.WriteLine("-sound | -sound x.x | -opening on/off | -debug on/off | -god on/off");
-            SConsole.WriteLine("-reboot | -help | -log | -reset-settings | -save-settings");
+            SConsole.WriteLine("-----default commands list!!!-----");
+            SConsole.WriteLine("-resolution   |   -resolutiob on/off |   -fullscreen on/off   |   -music            |   -music x.x  ");
+            SConsole.WriteLine("-sound        |   -sound x.x         |   -opening on/off      |   -debug on/off     | -god on/off   ");
+            SConsole.WriteLine("-reboot       |   -help              |   -log                 |   -reset-settings   | -save-settings");
         }       
     }
 }
