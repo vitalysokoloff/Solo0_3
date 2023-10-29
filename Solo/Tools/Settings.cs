@@ -1,4 +1,6 @@
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Solo.Collections;
 using Solo.Entities;
 
@@ -86,6 +88,21 @@ namespace Solo
             get
             {
                 return Config.GetHeap("game").GetBool("dev-console");
+            }
+        }
+
+        public bool MasterSoundState
+        {
+            get
+            {
+                if (SoundEffect.MasterVolume == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
         }
 
@@ -187,6 +204,19 @@ namespace Solo
         public virtual void GetSoundVolume()
         {
             SConsole.WriteLine(Config.GetHeap("audio").GetFloat("sound"));
+        }
+
+        public virtual void AllSoundsOFF(bool value)
+        {
+            if (value == true)
+            {
+                SoundEffect.MasterVolume = 0;
+            }
+            else
+            {
+                SoundEffect.MasterVolume = 1f;
+            }
+            SConsole.WriteLine("Master sound: " + value);
         }
 
         public virtual void GetLog()

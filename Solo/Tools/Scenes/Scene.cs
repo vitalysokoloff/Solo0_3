@@ -38,6 +38,7 @@ namespace Solo
         public Dictionary<string, Texture2D> Textures;
         public Dictionary<string, SMaterial> Materials;
         public Dictionary<string, SoundEffect> Sounds;
+        public Dictionary<string, SoundEffect> Musics;
         public string MapsDirectory;
         public string TexturesDirectory;
         public string RootDirectory;
@@ -63,6 +64,7 @@ namespace Solo
             Textures = new Dictionary<string, Texture2D>();
             Materials = new Dictionary<string, SMaterial>();
             Sounds = new Dictionary<string, SoundEffect>();
+            Musics = new Dictionary<string, SoundEffect>();
             Heap GSettings = settings.Config.GetHeap("game");
             RootDirectory = GSettings.GetString("root-directory");
             Content.RootDirectory = RootDirectory;
