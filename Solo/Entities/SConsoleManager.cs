@@ -133,7 +133,7 @@ namespace Solo.Entities
             SConsole.Draw(gameTime, spriteBatch);
         }
 
-        protected virtual void ParseString(string str)
+        public virtual void ParseString(string str)
         {
             string setResolution = @"^-resolution\s[0-9]+\s[0-9]+$";
             string showResolution = @"^-resolution$";
