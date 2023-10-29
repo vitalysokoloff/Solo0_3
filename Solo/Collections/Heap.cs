@@ -194,7 +194,7 @@ namespace Solo.Collections
             }
             else
             {
-                return new Heap();
+                return null;
             }
         }
 
@@ -224,7 +224,7 @@ namespace Solo.Collections
             if (!File.Exists(fileName))
             {
                 File.Create(fileName);
-                return  heap;
+                return heap;
             }
 
             using (StreamReader sr = new StreamReader(fileName))

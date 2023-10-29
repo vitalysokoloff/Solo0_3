@@ -216,7 +216,8 @@ namespace Solo
             {
                 SoundEffect.MasterVolume = 1f;
             }
-            SConsole.WriteLine("Master sound: " + value);
+            string state = value? "off" : "on";
+            SConsole.WriteLine("Master sound: " + state);
         }
 
         public virtual void GetLog()
