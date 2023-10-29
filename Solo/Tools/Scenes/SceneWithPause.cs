@@ -46,7 +46,22 @@ namespace Solo
                 Pausing();
             };
             main.Add(play);
-            Button back = new Button(new Rectangle(width / 2 - 50, height / 2 + 12 + (int)textSize.Y, 100, (int)textSize.Y), _style, "Главное меню");            
+            Button sound = new Button(new Rectangle(width / 2 - 50, height / 2 + 12 + (int)textSize.Y, 100, (int)textSize.Y), _style, "Выключить звук");            
+            sound.AButtonAction = () =>
+            {
+                if (Settings.MasterSoundState)
+                {
+                    sound.SetText("Включить звук");
+                    Settings.AllSoundsOFF(true);
+                }
+                else
+                {
+                    sound.SetText("Выключить звук");
+                    Settings.AllSoundsOFF(false);
+                }
+            };
+            main.Add(sound); 
+            Button back = new Button(new Rectangle(width / 2 - 50, height / 2 + 14 + (int)textSize.Y * 2, 100, (int)textSize.Y), _style, "Выход");            
             back.AButtonAction = () =>
             {
                 ChangeScene?.Invoke(1);

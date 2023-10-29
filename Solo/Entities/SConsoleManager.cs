@@ -151,6 +151,8 @@ namespace Solo.Entities
             string godOff = @"^-god\soff$";
             string ConsoleOn = @"^-console\son$";
             string ConsoleOff = @"^-console\soff$";
+            string SoundOn = @"^\+msound$";
+            string SoundOff = @"^-msound$";
 
             if (Regex.IsMatch(str, setResolution))
             {
@@ -239,6 +241,16 @@ namespace Solo.Entities
                 GameSettings.SetConsole(false);
                 return;
             }
+            if (Regex.IsMatch(str, SoundOn))
+            {
+                GameSettings.AllSoundsOFF(false);
+                return;
+            }
+            if (Regex.IsMatch(str, SoundOff))
+            {
+                GameSettings.AllSoundsOFF(true);
+                return;
+            }
         }
 
         public virtual void Reboot()
@@ -258,6 +270,7 @@ namespace Solo.Entities
             SConsole.WriteLine("-resolution   |   -resolutiob on/off |   -fullscreen on/off   |   -music            |   -music x.x  ");
             SConsole.WriteLine("-sound        |   -sound x.x         |   -opening on/off      |   -debug on/off     | -god on/off   ");
             SConsole.WriteLine("-reboot       |   -help              |   -log                 |   -reset-settings   | -save-settings");
+            SConsole.WriteLine("-sound        |   +sound              ");
         }       
     }
 }
