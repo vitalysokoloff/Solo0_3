@@ -4,7 +4,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
-using System.Collections.ObjectModel;
 
 namespace Solo.Collections
 {
@@ -218,7 +217,7 @@ namespace Solo.Collections
 
         public static Heap Open(string path)
         {
-            Heap heap = new Heap();; 
+            Heap heap = new Heap();
             string fileName = path;
 
             if (!File.Exists(fileName))
@@ -229,7 +228,7 @@ namespace Solo.Collections
 
             using (StreamReader sr = new StreamReader(fileName))
             {             
-                heap = ReadFromDisk(sr);            
+                heap = ReadFromDisk(sr);          
             }
 
             return heap;

@@ -1,8 +1,8 @@
+using System.Text.RegularExpressions;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-using System.Text.RegularExpressions;
-using System;
 using Solo.Input;
 
 namespace Solo.Entities
