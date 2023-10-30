@@ -74,6 +74,11 @@ namespace Solo
             _scene.GOs.Add(go.Name, go);
         }
 
+        protected void AddGO(string name,IGameObject go)
+        {
+            _scene.GOs.Add(name, go);
+        }
+
         public virtual void MakeGameObjects()
         {
 
