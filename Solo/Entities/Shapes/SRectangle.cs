@@ -23,6 +23,22 @@ namespace Solo.Entities
             SetBaseVerties();
        }
 
+        public SRectangle(Rectangle rect) : base(rect)
+        {
+            int x = rect.X;
+            int y = rect.Y;
+            int w = rect.Width;
+            int z = rect.Height;
+            _baseVerties = new Vector2[4];
+            _verties = new Vector2[4];
+            _size = new Vector2(w, z);
+            _pivot = new Vector2(w / 2, z / 2);
+            Position = new Vector2(x, y);
+            _drawRectangle = new Rectangle((int)(Position.X), (int)(Position.Y), w + 1, z + 1);
+            _sourceRectangle = new Rectangle(0, 0, w + 1, z + 1);
+            SetBaseVerties();
+        }
+
        protected override void SetBaseVerties()
         {
             _baseVerties[0] = Vector2.Zero - _pivot;

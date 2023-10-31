@@ -79,6 +79,12 @@ namespace Solo.Entities
             _angle = 0f;
         }
 
+        public Shape(Rectangle rect)
+        {
+            _color = Color.White;
+            _angle = 0f;
+        }
+
         public virtual void Update(GameTime gameTime)
         {}
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
