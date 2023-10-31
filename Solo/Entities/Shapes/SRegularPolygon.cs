@@ -29,6 +29,24 @@ namespace Solo.Entities
             SetBaseVerties();
         }
 
+        public SRegularPolygon(Rectangle rect) : base(rect)
+        {
+            int x = rect.X;
+            int y = rect.Y;
+            int w = rect.Width;
+            int z = rect.Height;
+            _length = z;
+            _radius = w;
+            _baseVerties = new Vector2[_length];
+            _verties = new Vector2[_length];
+            _size = new Vector2(_radius * 2, _radius * 2);
+            _pivot = new Vector2(_radius, _radius);
+            _position = new Vector2(x, y);
+            _drawRectangle = new Rectangle((int)X, (int)Y, (int)_size.X, (int)_size.Y);
+            _sourceRectangle = new Rectangle(0, 0, (int)_size.X, (int)_size.Y);
+            SetBaseVerties();
+        }
+
         protected override void SetBaseVerties()
         {
             // Используется радиус описанной окружности
