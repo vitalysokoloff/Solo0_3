@@ -35,6 +35,14 @@ namespace Solo.Entities
                 DrawRectangle = new Rectangle(newPosition, size);
             }
         }
+
+        public Vector2 LefUp
+        {
+            get
+            {
+                return new Vector2(_position.X - _pivot.X, _position.Y - _pivot.Y);
+            }
+        }
         public float X
         {
             get

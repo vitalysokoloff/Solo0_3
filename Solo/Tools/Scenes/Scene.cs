@@ -31,6 +31,14 @@ namespace Solo
                 return _camera;
             }
         }
+        public List<IGameObject> ActingGOs
+        {
+            get
+            {
+                return _updatingGOs;
+            }
+        }
+
         protected bool _isContentLoaded {get; set;}  
         public ChangeScene ChangeScene;
         public ContentManager Content; 
@@ -50,6 +58,7 @@ namespace Solo
         protected SpriteBatch _spriteBatch;  
         protected GraphicsDeviceManager _graphics;
         protected ColliderManager _colliderManager;
+        protected List<IGameObject> _updatingGOs;
 
         public Scene(Settings settings, Camera camera, ContentManager content, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics)
         {
@@ -81,20 +90,20 @@ namespace Solo
         {
             if (_isContentLoaded)
             {
-                List<IGameObject> updatingGOs = new List<IGameObject>();
+                _updatingGOs = new List<IGameObject>();
                 foreach (string k in GOs.Keys)
                 {
                     if (_camera.DrawRectangle.Intersects(GOs[k].DrawRect) && GOs[k].IsExist)
-                        updatingGOs.Add(GOs[k]);
+                        _updatingGOs.Add(GOs[k]);
                 }
-                Settings.SetLog("U-qty", updatingGOs.Count.ToString());
+                Settings.SetLog("U-qty", _updatingGOs.Count.ToString());
 
-                foreach(IGameObject go in updatingGOs)
+                foreach(IGameObject go in _updatingGOs)
                 {
                     go.Update(gameTime);
                 }
 
-                _colliderManager.Colliding(updatingGOs);
+                _colliderManager.Colliding(_updatingGOs);
             }
             else
             {
