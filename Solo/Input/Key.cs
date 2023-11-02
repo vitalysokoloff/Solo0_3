@@ -91,9 +91,9 @@ namespace Solo.Input
             if (mouseState.LeftButton == ButtonState.Pressed)
                 return MouseButtons.Left;
             if (mouseState.RightButton == ButtonState.Pressed)
-                return MouseButtons.Left;
+                return MouseButtons.Right;
             if (mouseState.MiddleButton == ButtonState.Pressed)
-                return MouseButtons.Left;
+                return MouseButtons.Middle;
             return MouseButtons.None;
         }
     }
